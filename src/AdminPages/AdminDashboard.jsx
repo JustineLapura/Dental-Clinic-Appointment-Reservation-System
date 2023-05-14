@@ -3,7 +3,24 @@ import { Table, Button, Form, Row, Col, Modal } from 'react-bootstrap';
 import AppointmentContext from ".././AppointmentContext"
 
 const AdminDashboard = () => {
-  const {appointments, setAppointments, currentAppointmentId, setCurrentAppointmentId} = useContext(AppointmentContext)
+  const {
+          appointments, 
+          setAppointments, 
+          currentAppointmentId, 
+          setCurrentAppointmentId,
+          showReschedModal,
+          setShowReschedModal,
+          handleCloseModal,
+          date,
+          setDate,
+          time,
+          setTime,
+          service,
+          setService,
+          errorMessage,
+          handleEditAppointment,
+          handleReschedule
+        } = useContext(AppointmentContext)
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [dateRange, setDateRange] = useState({ startDate: '', endDate: '' });
   const [name, setName] = useState('');
@@ -27,6 +44,7 @@ const AdminDashboard = () => {
     const appointment = appointments.find((appointment) => appointment.id === id);
     setSelectedAppointment(appointment);
     setShowModal(true);
+    setCurrentAppointmentId(id)
   };
 
   const handleModalClose = () => {
@@ -56,6 +74,11 @@ const AdminDashboard = () => {
     setFilteredAppointments(filtered);
   };
 
+  const handleAdminReschedule = () => {
+    handleModalClose()
+    setShowReschedModal(true)
+  }
+
   const statusBackground = (appointment) => {
     let background
     if (appointment.status.toLowerCase() === "confirmed") {
@@ -74,7 +97,7 @@ const AdminDashboard = () => {
     if(selected && selected.status.toLowerCase() === "pending") {
       btnElements = 
       <>
-        <Button variant="primary">
+        <Button variant="primary" onClick={handleAdminReschedule}>
           Reschedule
         </Button>
         <Button variant="success" onClick={() => handleConfirmAppointment(selected.id)}>
@@ -84,7 +107,7 @@ const AdminDashboard = () => {
     } else if (selected && selected.status.toLowerCase() === "confirmed"){
       btnElements =
       <>
-        <Button variant="primary">
+        <Button variant="primary" onClick={handleAdminReschedule}>
           Reschedule
         </Button>
         <Button variant="secondary" onClick={handleModalClose}>
@@ -201,6 +224,44 @@ Filter
         {appointmentModalBtns(selectedAppointment)}  
     </Modal.Footer>
   </Modal>
+
+  {/* open Reschedule modal */}
+  <Modal show={showReschedModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Reschedule Appointment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="date">
+              <Form.Label>Date</Form.Label>
+              <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="time">
+              <Form.Label>Time</Form.Label>
+              <Form.Control type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="service">
+              <Form.Label>Service</Form.Label>
+              <Form.Control as="select" value={service} onChange={(e) => setService(e.target.value)}>
+                <option value="">Select a service</option>
+                <option value="Check-up">Check-up</option>
+                <option value="Cleaning">Cleaning</option>
+                <option value="Filling">Filling</option>
+                <option value="Other">Other</option>
+              </Form.Control>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        {errorMessage && <h6 className="text-danger mx-auto mb-2">{errorMessage}</h6>}
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={() => handleEditAppointment(currentAppointmentId)}>
+            Reschedule Appointment
+          </Button>
+        </Modal.Footer>
+      </Modal>
 </>
 );
 };

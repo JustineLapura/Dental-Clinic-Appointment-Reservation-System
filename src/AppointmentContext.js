@@ -1,8 +1,8 @@
-import React, {createContext, useState, useEffect} from "react";
+import React, {createContext, useState, useEffect, useRoute} from "react";
 import { nanoid } from "nanoid";
 
 export const AppointmentContext = createContext()
-
+const { pathname } = window.location;
 export const AppointmentProvider = ({ children }) => {
   const firstName = localStorage.getItem("firstName")
   const lastName = localStorage.getItem("lastName")
@@ -22,6 +22,7 @@ export const AppointmentProvider = ({ children }) => {
   });
   const [currentAppointmentId, setCurrentAppointmentId] = useState("")
   const [errorMessage, setErrorMessage] = useState(null)
+
 
   useEffect(() => {
     localStorage.setItem('appointments', JSON.stringify(appointments));
@@ -76,7 +77,7 @@ export const AppointmentProvider = ({ children }) => {
     if(date && time && service) {
       setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
         return prevAppointment.id === currentAppointmentId
-          ? {...prevAppointment, date, time, service, status: 'Pending'}
+          ? {...prevAppointment, date, time, service, status: pathname === "/admin" ?  "Confirmed" : "Pending" }
           : prevAppointment
       }))
       handleCloseModal()
