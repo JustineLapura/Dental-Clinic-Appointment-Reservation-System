@@ -92,7 +92,6 @@ function Appontment() {
               </Form>
             </Col>
             <Col xs={12} md={4} lg={3} className='justify-content-end ps-5'>
-              <div className='text-center mt-4'><h5>Services Offered:</h5></div>
               <div style={{ height: '300px', overflow: 'scroll' }} className='mt-4'>
                 <Table bordered>
                   <thead>
@@ -121,16 +120,16 @@ function Appontment() {
           <Modal.Title>Appointment:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p className="fw-bold text-success text-center">Booked Successfully!</p>
+          <h5 className="fw-bold text-success text-center my-5">Booked Successfully!</h5>
+          <div className='d-flex justify-content-end gap-2'>
+            <Button variant="secondary" onClick={gotoMyAppointments}>
+              Go to my Appointments
+            </Button>
+            <Button variant="primary" onClick={handleCloseModal}>
+              Done
+            </Button>
+          </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={gotoMyAppointments}>
-            Go to my Appointments
-          </Button>
-          <Button variant="primary" onClick={handleCloseModal}>
-            Done
-          </Button>
-        </Modal.Footer>
       </Modal>
     </main>
 
