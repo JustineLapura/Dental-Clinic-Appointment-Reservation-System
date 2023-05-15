@@ -21,7 +21,7 @@ const AdminHeader = () => {
           </div>
         </Col>
         <Col className="text-right">
-          <h1>Admin Dashboard</h1>
+          <h1>Dental Clinic Admin</h1>
         </Col>
       </Row>
     </Container>

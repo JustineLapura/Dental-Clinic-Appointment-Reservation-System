@@ -30,6 +30,11 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li className="list-group-item">
+            <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="time-schedule" className="nav-link">
+              <BsCalendar size={20} /> Time Schedule <FiChevronRight size={16} className="float-right" />
+            </NavLink>
+          </li>
+          <li className="list-group-item">
             <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="service" className="nav-link">
               <BsFillPeopleFill size={20} /> Service <FiChevronRight size={16} className="float-right" />
             </NavLink>

@@ -6,6 +6,7 @@ import { authRequired } from '../authRequired';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import ServicesContext from ".././ServicesContext"
 import AppointmentContext from '../AppointmentContext';
+import TimeScheduleContext from '../TimeScheduleContext';
 
 export async function loader() {
   return await authRequired()
@@ -16,6 +17,7 @@ function Appontment() {
   const firstName = localStorage.getItem("firstName")
   const navigate = useNavigate()
   const darkMode = useOutletContext()
+  const { availability } = useContext(TimeScheduleContext)
   const { services } = useContext(ServicesContext)
   const {
     date,
@@ -42,9 +44,27 @@ function Appontment() {
   return (
     <main className={`pb-5 ${darkMode ? "bg-dark text-light" : null}`}>
       <section className="appointment-section">
-        <Container>
-          <Row>
-            <Col sm={12} md={6} className='text-center'>
+        <Container fluid>
+          <Row className='d-flex justify-content-between align-items-center'>
+            <Col xs={12} md={4} lg={3} className='mt-5 pe-5'>
+              <Table bordered hover>
+                <thead>
+                  <tr>
+                    <th>Day</th>
+                    <th>Schedule</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.keys(availability).map((day) => (
+                    <tr key={day}>
+                      <td>{day}</td>
+                      <td>{availability[day]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Col>
+            <Col xs={12} md={4} lg={6} className='text-center px-5'>
               <h5 className='my-3'>Hi, {firstName}!..</h5>
               <h3 className='my-3 text-primary'>Book your appointment now.</h3>
               <Form>
@@ -66,13 +86,13 @@ function Appontment() {
                   </Form.Control>
                 </Form.Group>
                 {errorMessage && <h6 className="text-danger mx-auto mt-2">{errorMessage}</h6>}
-                <div sm={12} className='py-3'>
+                <div xs={12} className='py-3'>
                   <Button className='fw-bold' variant="primary" type="submit" onClick={handleBookAppointment}>Submit Appointment</Button>
                 </div>
               </Form>
             </Col>
-            <Col sm={12} md={6} className='justify-content-end h-100'>
-              <div className='text-center mt-4'><h5>Services Offers:</h5></div>
+            <Col xs={12} md={4} lg={3} className='justify-content-end ps-5'>
+              <div className='text-center mt-4'><h5>Services Offered:</h5></div>
               <div style={{ height: '300px', overflow: 'scroll' }} className='mt-4'>
                 <Table bordered>
                   <thead>
@@ -94,6 +114,7 @@ function Appontment() {
             </Col>
           </Row>
         </Container>
+
       </section>
       <Modal show={showSuccessModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>

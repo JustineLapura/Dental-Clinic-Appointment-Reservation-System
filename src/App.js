@@ -23,6 +23,8 @@ import Note from './AdminPages/Note';
 import AdminScheduleForToday from './AdminPages/AdminScheduleForToday';
 import { ServiceProvider } from './ServicesContext';
 import { AppointmentProvider } from './AppointmentContext';
+import AdminTimeSchedule from './AdminPages/AdminTimeSchedule';
+import { TimeScheduleProvider } from './TimeScheduleContext';
 localStorage.removeItem("isLoggedin");
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -42,13 +44,14 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="/registration" element={<Registration />} action={registrationAction} />
     </Route>
     <Route path="/admin" element={<SampleLayout />}>
-      <Route index element={<AdminDashboard />}/>
-      <Route path="schedule-today" element={<AdminScheduleForToday />}/>
-      <Route path="schedule" element={<AdminSchedule />}/>
-      <Route path="service" element={<AdminService />}/>
-      <Route path="user-accounts" element={<AdminUserAccounts />}/>
-      <Route path="members" element={<AdminMembers />}/>
-      <Route path="note" element={<Note />}/>
+      <Route index element={<AdminDashboard />} />
+      <Route path="schedule-today" element={<AdminScheduleForToday />} />
+      <Route path="schedule" element={<AdminSchedule />} />
+      <Route path="time-schedule" element={<AdminTimeSchedule />} />
+      <Route path="service" element={<AdminService />} />
+      <Route path="user-accounts" element={<AdminUserAccounts />} />
+      <Route path="members" element={<AdminMembers />} />
+      <Route path="note" element={<Note />} />
     </Route>
   </Route>
 ))
@@ -57,9 +60,11 @@ function App() {
   return (
     <div className="App">
       <AppointmentProvider>
-        <ServiceProvider>
-          <RouterProvider router={router} />
-        </ServiceProvider>
+        <TimeScheduleProvider>
+          <ServiceProvider>
+            <RouterProvider router={router} />
+          </ServiceProvider>
+        </TimeScheduleProvider>
       </AppointmentProvider>
     </div>
   );

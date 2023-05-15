@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Table, Button, Form, Row, Col, Modal } from 'react-bootstrap';
 import AppointmentContext from ".././AppointmentContext"
+import ServicesContext from '../ServicesContext';
 
 const AdminDashboard = () => {
+  const {services} = useContext(ServicesContext)
   const {
           appointments, 
           setAppointments, 
@@ -242,10 +244,9 @@ Filter
               <Form.Label>Service</Form.Label>
               <Form.Control as="select" value={service} onChange={(e) => setService(e.target.value)}>
                 <option value="">Select a service</option>
-                <option value="Check-up">Check-up</option>
-                <option value="Cleaning">Cleaning</option>
-                <option value="Filling">Filling</option>
-                <option value="Other">Other</option>
+                {services.map(service => {
+                  return <option key={service.id} value={service.name}>{service.name}</option>
+                })}
               </Form.Control>
             </Form.Group>
           </Form>
@@ -256,7 +257,7 @@ Filter
             Close
           </Button>
           <Button variant="primary" onClick={() => handleEditAppointment(currentAppointmentId)}>
-            Reschedule Appointment
+            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
