@@ -127,9 +127,7 @@ const AdminDashboard = () => {
   return (
     <>
       <Row className='d-flex align-items-center py-3 px-2 g-3'>
-        <h1>Admin Dashboard {selectedAppointment && selectedAppointment.status}</h1>
         <Col md={3}>
-
           <div className="filters">
             <h5>Filters:</h5>
             <Form.Group controlId="formBasicDate">

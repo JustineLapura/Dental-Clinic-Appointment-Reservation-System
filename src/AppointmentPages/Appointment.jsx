@@ -6,6 +6,7 @@ import { authRequired } from '../authRequired';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import ServicesContext from ".././ServicesContext"
 import AppointmentContext from '../AppointmentContext';
+
 export async function loader() {
   return await authRequired()
 
@@ -59,10 +60,9 @@ function Appontment() {
                   <Form.Label>Service</Form.Label>
                   <Form.Control as="select" value={service} onChange={(e) => setService(e.target.value)}>
                     <option value="">Select a service</option>
-                    <option value="Check-up">Check-up</option>
-                    <option value="Cleaning">Cleaning</option>
-                    <option value="Filling">Filling</option>
-                    <option value="Other">Other</option>
+                    {services.map(service => {
+                      return <option key={service.id} value={service.name}>{service.name}</option>
+                    })}
                   </Form.Control>
                 </Form.Group>
                 {errorMessage && <h6 className="text-danger mx-auto mt-2">{errorMessage}</h6>}

@@ -20,8 +20,8 @@ const AdminHeader = () => {
             {currentTime}
           </div>
         </Col>
-        <Col xs={{ span: 6, offset: 3 }} className="text-right">
-          <Image src="https://static.vecteezy.com/system/resources/previews/000/561/579/large_2x/logo-for-a-dental-clinic-vector-illustration.jpg" height={50} />
+        <Col className="text-right">
+          <h1>Admin Dashboard</h1>
         </Col>
       </Row>
     </Container>
