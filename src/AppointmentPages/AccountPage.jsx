@@ -51,7 +51,7 @@ const AccountPage = () => {
 
   return (
     <div className={`h-100 p-2 ${darkMode ? "bg-dark text-light" : null}`}>
-      <h1 className="py-1">My Appointments ({firstName} {lastName})</h1>
+      <h1 className="py-1">My Appointments</h1>
       <Row>
         <Col className="my-3">
           <Button className="fw-bold" onClick={() => {
