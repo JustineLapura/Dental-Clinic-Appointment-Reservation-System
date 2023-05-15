@@ -5,6 +5,8 @@ import AppointmentContext from "../AppointmentContext";
 import ServicesContext from "../ServicesContext";
 
 const AccountPage = () => {
+  const firstName = localStorage.getItem("firstName").toLowerCase()
+  const lastName = localStorage.getItem("lastName").toLowerCase()
   const {services} = useContext(ServicesContext)
   const {
     showModal,
@@ -43,10 +45,13 @@ const AccountPage = () => {
     return background
   }
 
+  const displayedUserAppointments = appointments.filter(appointment => appointment.name.toLowerCase() === `${firstName} ${lastName}`)
+  console.log(displayedUserAppointments)
+  console.log(`${firstName} ${lastName}`)
 
   return (
     <div className={`h-100 p-2 ${darkMode ? "bg-dark text-light" : null}`}>
-      <h1 className="py-1">My Appointments</h1>
+      <h1 className="py-1">My Appointments ({firstName} {lastName})</h1>
       <Row>
         <Col className="my-3">
           <Button className="fw-bold" onClick={() => {
@@ -65,7 +70,7 @@ const AccountPage = () => {
           </tr>
         </thead>
         <tbody>
-          {appointments.map((appointment, index) => (
+          {displayedUserAppointments.map((appointment) => (
             <tr key={appointment.id}>
               <td>{appointment.date}</td>
               <td>{appointment.time}</td>
