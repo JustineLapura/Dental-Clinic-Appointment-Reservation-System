@@ -21,26 +21,7 @@ export const ServiceProvider = ({ children }) => {
   const [services, setServices] = useState(() => {
     // Get services from localStorage or use default values
     const storedServices = localStorage.getItem("services");
-    return storedServices ? JSON.parse(storedServices) : [
-      {
-        id: nanoid(),
-        name: "Teeth Cleaning",
-        description: "Cleaning of teeth to remove tartar and plaque buildup",
-        price: 100
-      },
-      {
-        id: nanoid(),
-        name: "Fillings",
-        description: "Restoration of decayed or damaged teeth with fillings",
-        price: 200
-      },
-      {
-        id: nanoid(),
-        name: "Teeth Whitening",
-        description: "Whitening of teeth to remove stains and discoloration",
-        price: 150
-      }
-    ];
+    return storedServices ? JSON.parse(storedServices) : [];
   });
   
   // Save services to localStorage whenever it changes

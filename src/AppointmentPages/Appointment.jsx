@@ -73,22 +73,24 @@ function Appontment() {
             </Col>
             <Col sm={12} md={6} className='justify-content-end h-100'>
               <div className='text-center mt-4'><h5>Services Offers:</h5></div>
-              <Table bordered className="mt-4">
-                <thead>
-                  <tr>
-                    <th>Service</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {services.map((service) => (
-                    <tr key={service.id}>
-                      <td>{service.name}</td>
-                      <td>${service.price.toFixed(2)}</td>
+              <div style={{ height: '300px', overflow: 'scroll' }} className='mt-4'>
+                <Table bordered>
+                  <thead>
+                    <tr>
+                      <th>Service</th>
+                      <th>Price</th>
                     </tr>
-                  ))}
-                </tbody>
-              </Table>
+                  </thead>
+                  <tbody>
+                    {services.map((service) => (
+                      <tr key={service.id}>
+                        <td>{service.name}</td>
+                        <td>P{service.price.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </div>
             </Col>
           </Row>
         </Container>

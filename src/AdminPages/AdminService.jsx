@@ -37,52 +37,55 @@ const AdminService = () => {
 
   return (
     <Container fluid>
-      <Row className="justify-content-center mt-4 h-100">
+      <Row className="justify-content-center h-100">
         <Col xs={12} md={10} lg={8}>
-          <h2 className="text-center mb-4">Services</h2>
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-between my-3">
+            <h2 className="text-center">Services</h2>
             <Button variant="success" onClick={() => setShowAddModal(true)}>
               Add Service
             </Button>
           </div>
-          <Table striped bordered hover className="mt-4">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {services.map((service, index) => (
-                <tr key={service.id}>
-                  <td>{index + 1}</td>
-                  <td>{service.name}</td>
-                  <td>{service.description}</td>
-                  <td>${service.price.toFixed(2)}</td>
-                  <td className="text-center">
-                    <Button
-                      variant="primary"
-                      onClick={() => handleEditServiceModalOpen(service.id)}
-                    >
-                      Edit
-                    </Button>{" "}
-                    <Button
-                      className="mt-1 mx-1"
-                      variant="danger"
-                      onClick={() => handleDeleteService(service.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
+          <div style={{ height: "350px", overflow: "scroll" }} className="my-2">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {services.map((service, index) => (
+                  <tr key={service.id}>
+                    <td>{index + 1}</td>
+                    <td>{service.name}</td>
+                    <td>{service.description}</td>
+                    <td>${service.price.toFixed(2)}</td>
+                    <td className="text-center">
+                      <Button
+                        variant="primary"
+                        onClick={() => handleEditServiceModalOpen(service.id)}
+                      >
+                        Edit
+                      </Button>{" "}
+                      <Button
+                        className="mt-1 mx-1"
+                        variant="danger"
+                        onClick={() => handleDeleteService(service.id)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         </Col>
       </Row>
+
 
       {/* Modal for adding a new service */}
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
