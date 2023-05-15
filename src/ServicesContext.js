@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { nanoid } from "nanoid";
 
 const ServicesContext = createContext();
 
@@ -22,19 +23,19 @@ export const ServiceProvider = ({ children }) => {
     const storedServices = localStorage.getItem("services");
     return storedServices ? JSON.parse(storedServices) : [
       {
-        id: 1,
+        id: nanoid(),
         name: "Teeth Cleaning",
         description: "Cleaning of teeth to remove tartar and plaque buildup",
         price: 100
       },
       {
-        id: 2,
+        id: nanoid(),
         name: "Fillings",
         description: "Restoration of decayed or damaged teeth with fillings",
         price: 200
       },
       {
-        id: 3,
+        id: nanoid(),
         name: "Teeth Whitening",
         description: "Whitening of teeth to remove stains and discoloration",
         price: 150
@@ -52,7 +53,7 @@ export const ServiceProvider = ({ children }) => {
     // Perform validation and add service to database
     // Then, close modal and clear form
     const newService = {
-      id: Math.max(...services.map((s) => s.id)) + 1,
+      id: nanoid(),
       name: serviceName,
       description: description,
       price: parseInt(price)

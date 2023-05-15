@@ -56,9 +56,9 @@ const AdminService = () => {
               </tr>
             </thead>
             <tbody>
-              {services.map((service) => (
+              {services.map((service, index) => (
                 <tr key={service.id}>
-                  <td>{service.id}</td>
+                  <td>{index + 1}</td>
                   <td>{service.name}</td>
                   <td>{service.description}</td>
                   <td>${service.price.toFixed(2)}</td>
@@ -70,6 +70,7 @@ const AdminService = () => {
                       Edit
                     </Button>{" "}
                     <Button
+                      className="mt-1 mx-1"
                       variant="danger"
                       onClick={() => handleDeleteService(service.id)}
                     >
