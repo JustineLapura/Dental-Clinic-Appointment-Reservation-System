@@ -3,7 +3,7 @@ import AppointmentContext from '../AppointmentContext';
 import { useContext } from 'react';
 
 const AdminSchedule = () => {
-  const {appointments} = useContext(AppointmentContext)
+  const { appointments } = useContext(AppointmentContext)
 
   const statusBackground = (appointment) => {
     let background
@@ -26,32 +26,32 @@ const AdminSchedule = () => {
         <Col md={10}>
           <h1 className="text-center mb-4">Admin Schedule</h1>
           <Table striped bordered hover>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Patient Name</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {appointments.filter(appointment => appointment.status.toLowerCase() === "confirmed")
-      .map(
-        (appointment, index) => (
-          <tr key={appointment.id}>
-            <td>{index + 1}</td>
-            <td>{appointment.name}</td>
-            <td>{appointment.date}</td>
-            <td>{appointment.time}</td>
-            <td className={statusBackground(appointment)}>{appointment.status}</td>
-            <td><Button variant='primary'>Done</Button></td>
-          </tr>
-        )
-      )}
-    </tbody>
-  </Table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Patient Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {appointments.filter(appointment => appointment.status.toLowerCase() === "confirmed")
+                .map(
+                  (appointment, index) => (
+                    <tr key={appointment.id}>
+                      <td>{index + 1}</td>
+                      <td>{appointment.name}</td>
+                      <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                      <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
+                      <td className={statusBackground(appointment)}>{appointment.status}</td>
+                      <td><Button variant='primary'>Done</Button></td>
+                    </tr>
+                  )
+                )}
+            </tbody>
+          </Table>
         </Col>
       </Row>
     </Container>

@@ -15,7 +15,6 @@ const AdminDashboard = () => {
     handleCloseModal,
     date,
     time,
-    setTime,
     service,
     setService,
     errorMessage,
@@ -110,7 +109,7 @@ const AdminDashboard = () => {
             Confirm
           </Button>
         </>
-    } else if (selected && selected.status.toLowerCase() === "confirmed") {
+    } else if (selected && (selected.status.toLowerCase() === "confirmed" || selected.status.toLowerCase() === "rescheduled")) {
       btnElements =
         <>
           <Button variant="primary" onClick={handleAdminReschedule}>
@@ -175,7 +174,7 @@ const AdminDashboard = () => {
             </Button>
           </div>
         </Col>
-        <Col md={9}>
+        <Col md={9} style={{ height: "450px", overflow: "scroll" }}>
 
           <Table striped bordered hover>
             <thead>
@@ -194,8 +193,8 @@ const AdminDashboard = () => {
                   <tr key={appointment.id}>
                     <td>{index + 1}</td>
                     <td>{appointment.name}</td>
-                    <td>{appointment.date}</td>
-                    <td>{appointment.time}</td>
+                    <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                    <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                     <td className={statusBackground(appointment)}>{appointment.status}</td>
                     <td>
                       <Button variant="info" onClick={() => handleViewAppointment(appointment.id)}>

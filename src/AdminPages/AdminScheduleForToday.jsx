@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Container, Row, Col, Table } from 'react-bootstrap';
+import AppointmentContext from '../AppointmentContext';
 
 const AdminScheduleForToday = () => {
-  const [appointments, setAppointments] = useState([
-    { id: 1, name: 'John Doe', time: '9:00 AM', service: 'Cleaning' },
-    { id: 2, name: 'Jane Smith', time: '10:00 AM', service: 'Filling' },
-    { id: 3, name: 'Bob Johnson', time: '11:00 AM', service: 'Extraction' },
-  ]);
-
-  const handleRemoveAppointment = (id) => {
-    setAppointments((prevAppointments) => prevAppointments.filter((appointment) => appointment.id !== id));
-  };
+  const { appointments } = useContext(AppointmentContext);
 
   return (
     <Container>
@@ -26,25 +19,23 @@ const AdminScheduleForToday = () => {
               <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Date</th>
                 <th>Time</th>
-                <th>Service</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {appointments.map((appointment) => (
-                <tr key={appointment.id}>
-                  <td>{appointment.id}</td>
-                  <td>{appointment.name}</td>
-                  <td>{appointment.time}</td>
-                  <td>{appointment.service}</td>
-                  <td>
-                    <Button variant="danger" onClick={() => handleRemoveAppointment(appointment.id)}>
-                      Remove
-                    </Button>
-                  </td>
-                </tr>
-              ))}
+            {appointments.filter(appointment => {
+                const currentDate = new Date().toISOString().split('T')[0];
+                return appointment.date === currentDate;
+              })
+                .map((appointment, index) => (
+                  <tr key={appointment.id}>
+                    <td>{index + 1}</td>
+                    <td>{appointment.name}</td>
+                    <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                    <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </Col>
