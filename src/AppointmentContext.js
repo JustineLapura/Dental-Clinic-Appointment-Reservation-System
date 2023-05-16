@@ -77,7 +77,7 @@ export const AppointmentProvider = ({ children }) => {
     if(date && time && service) {
       setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
         return prevAppointment.id === currentAppointmentId
-          ? {...prevAppointment, date, time, service, status: pathname === "/admin" ?  "Confirmed" : "Pending" }
+          ? {...prevAppointment, date, time, service, status: pathname === "/admin" ?  "Rescheduled" : "Pending" }
           : prevAppointment
       }))
       handleCloseModal()
@@ -87,6 +87,7 @@ export const AppointmentProvider = ({ children }) => {
       setErrorMessage("Please fill the form!")
     }
   }
+  
 
     return(
         <AppointmentContext.Provider value={

@@ -7,7 +7,7 @@ import ServicesContext from "../ServicesContext";
 const AccountPage = () => {
   const firstName = localStorage.getItem("firstName").toLowerCase()
   const lastName = localStorage.getItem("lastName").toLowerCase()
-  const {services} = useContext(ServicesContext)
+  const { services } = useContext(ServicesContext)
   const {
     showModal,
     setShowModal,
@@ -19,6 +19,7 @@ const AccountPage = () => {
     service,
     setService,
     appointments,
+    setAppointments,
     currentAppointmentId,
     handleCloseModal,
     handleBookAppointment,
@@ -32,12 +33,24 @@ const AccountPage = () => {
 
   const darkMode = useOutletContext();
 
+  const handleConfirmAppointment = (id) => {
+    const updatedAppointments = appointments.map((appointment) => {
+      if (appointment.id === id) {
+        return { ...appointment, status: 'Confirmed' };
+      }
+      return appointment;
+    });
+    setAppointments(updatedAppointments);
+  };
+
   const statusBackground = (obj) => {
     let background
     if (obj.status.toLowerCase() === "confirmed") {
       background = "text-success"
     } else if (obj.status.toLowerCase() === "cancelled") {
       background = "text-danger"
+    } else if (obj.status.toLowerCase() === "rescheduled") {
+      background = "fw-bold text-primary"
     } else {
       background = "text-secondary"
     }
@@ -45,9 +58,28 @@ const AccountPage = () => {
     return background
   }
 
+  const appointmentBtns = (id, status) => {
+    if (status.toLowerCase() === "rescheduled") {
+      return (
+        <>
+          <Button className="m-1" variant="danger" onClick={() => handleCancelAppointment(id)}>Cancel</Button>
+          <Button className="m-1" variant="primary" onClick={() => handleReschedule(id)}>Reschedule</Button>
+          <Button className="m-1" variant="success" onClick={() => handleConfirmAppointment(id)}>Confirm</Button>
+        </>
+      )
+    } else if (status.toLowerCase() === "pending" || status.toLowerCase() === "confirmed" ) {
+      return (
+        <>
+          <Button className="m-1" variant="danger" onClick={() => handleCancelAppointment(id)}>Cancel</Button>
+          <Button className="m-1" variant="primary" onClick={() => handleReschedule(id)}>Reschedule</Button>
+        </>
+      )
+    } else {
+      return <Button className="m-1" variant="secondary" onClick={() => handleDeleteAppointment(id)}>Remove</Button>
+    }
+  }
+
   const displayedUserAppointments = appointments.filter(appointment => appointment.name.toLowerCase() === `${firstName} ${lastName}`)
-  console.log(displayedUserAppointments)
-  console.log(`${firstName} ${lastName}`)
 
   return (
     <div className={`h-100 p-2 ${darkMode ? "bg-dark text-light" : null}`}>
@@ -77,12 +109,7 @@ const AccountPage = () => {
               <td>{appointment.service}</td>
               <td className={`fw-bold ${statusBackground(appointment)}`}>{appointment.status}</td>
               <td>
-                {appointment.status.toLowerCase() !== "cancelled"
-                  ? <>
-                    <Button className="m-1" variant="danger" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</Button>
-                    <Button className="m-1" variant="primary" onClick={() => handleReschedule(appointment.id)}>Reschedule</Button>
-                  </>
-                  : <Button className="m-1" variant="secondary" onClick={() => handleDeleteAppointment(appointment.id)}>Remove</Button>}
+                {appointmentBtns(appointment.id, appointment.status)}
               </td>
             </tr>
           ))}

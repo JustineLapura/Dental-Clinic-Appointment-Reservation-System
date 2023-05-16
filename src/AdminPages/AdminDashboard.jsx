@@ -20,27 +20,14 @@ const AdminDashboard = () => {
           service,
           setService,
           errorMessage,
-          handleEditAppointment,
-          handleReschedule
+          handleEditAppointment
         } = useContext(AppointmentContext)
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [dateRange, setDateRange] = useState({ startDate: '', endDate: '' });
   const [name, setName] = useState('');
   const [status, setStatus] = useState('All');
-
-  const [showModal, setShowModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
-
-  const handleConfirmAppointment = (id) => {
-    const updatedAppointments = appointments.map((appointment) => {
-      if (appointment.id === id) {
-        return { ...appointment, status: 'Confirmed' };
-      }
-      return appointment;
-    });
-    setAppointments(updatedAppointments);
-    handleModalClose()
-  };
+  const [showModal, setShowModal] = useState(false);
 
   const handleViewAppointment = (id) => {
     const appointment = appointments.find((appointment) => appointment.id === id);
@@ -49,10 +36,6 @@ const AdminDashboard = () => {
     setCurrentAppointmentId(id)
   };
 
-  const handleModalClose = () => {
-    setShowModal(false);
-    setSelectedAppointment(null);
-  };
 
   const handleFilter = () => {
     let filtered = appointments;
@@ -81,12 +64,30 @@ const AdminDashboard = () => {
     setShowReschedModal(true)
   }
 
+  const handleConfirmAppointment = (id) => {
+    const updatedAppointments = appointments.map((appointment) => {
+      if (appointment.id === id) {
+        return { ...appointment, status: 'Confirmed' };
+      }
+      return appointment;
+    });
+    setAppointments(updatedAppointments);
+    handleModalClose()
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    setSelectedAppointment(null);
+  };
+
   const statusBackground = (appointment) => {
     let background
     if (appointment.status.toLowerCase() === "confirmed") {
       background = "fw-bold text-success"
     } else if (appointment.status.toLowerCase() === "cancelled") {
       background = "fw-bold text-danger"
+    } else if (appointment.status.toLowerCase() === "rescheduled") {
+      background = "fw-bold text-primary"
     } else {
       background = "fw-bold text-secondary"
     }
