@@ -23,6 +23,7 @@ export const AppointmentProvider = ({ children }) => {
   const [currentAppointmentId, setCurrentAppointmentId] = useState("")
   const [errorMessage, setErrorMessage] = useState(null)
   const [isInvalidDate, setIsInvalidDate] = useState(false)
+  const [isInvalidTime, setIsInvalidTime] = useState(false);
 
 
   useEffect(() => {
@@ -38,12 +39,14 @@ export const AppointmentProvider = ({ children }) => {
     setErrorMessage(null)
     setShowSuccessModal(false)
     setCurrentAppointmentId("")
+    setIsInvalidDate(false)
+    setIsInvalidTime(false)
   };
 
   const handleBookAppointment = (e) => {
     e.preventDefault()
     const newAppointment = { id: nanoid(), name: `${firstName} ${lastName}`, date, time, status: 'Pending' , service };
-    if( date !== "" && time !== "" && service !== "" && !isInvalidDate) {
+    if( date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
       setAppointments([newAppointment, ...appointments]);
       handleCloseModal();
       setErrorMessage(null)
@@ -72,10 +75,12 @@ export const AppointmentProvider = ({ children }) => {
     setShowReschedModal(true)
     setCurrentAppointmentId(id)
     setErrorMessage(null)
+    setIsInvalidDate(false)
+    setIsInvalidTime(false)
   }
 
   const handleEditAppointment = (id) => {
-    if(date && time && service) {
+    if(date && time && service && !isInvalidDate) {
       setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
         return prevAppointment.id === currentAppointmentId
           ? {...prevAppointment, date, time, service, status: pathname === "/admin" ?  "Rescheduled" : "Pending" }
@@ -110,6 +115,22 @@ export const AppointmentProvider = ({ children }) => {
     }
   };
 
+  const handleTimeChange = (e) => {
+    const selectedTime = e.target.value;
+    const isValidTime = validateTime(selectedTime);
+
+    setTime(selectedTime);
+    setIsInvalidTime(!isValidTime);
+  };
+
+  const validateTime = (timeString) => {
+    const selectedTime = new Date(`2000-01-01T${timeString}`);
+    const startTime = new Date(`2000-01-01T09:00`);
+    const endTime = new Date(`2000-01-01T17:00`);
+
+    return selectedTime >= startTime && selectedTime <= endTime;
+  };
+
     return(
         <AppointmentContext.Provider value={
             {
@@ -137,7 +158,11 @@ export const AppointmentProvider = ({ children }) => {
                 setShowSuccessModal,
                 handleDeleteAppointment,
                 handleDateChange,
-                isInvalidDate
+                isInvalidDate,
+                handleTimeChange,
+                isInvalidTime,
+                setIsInvalidDate,
+                setIsInvalidTime
                 }
             }>
             {children}

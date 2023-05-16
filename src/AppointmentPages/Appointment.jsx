@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Container, Row, Col, Form, Button, Table, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Table, Modal, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Appointment.css"
 import { authRequired } from '../authRequired';
@@ -22,7 +22,6 @@ function Appontment() {
   const {
     date,
     time,
-    setTime,
     service,
     setService,
     handleBookAppointment,
@@ -30,7 +29,9 @@ function Appontment() {
     handleCloseModal,
     showSuccessModal,
     handleDateChange,
-    isInvalidDate
+    isInvalidDate,
+    handleTimeChange,
+    isInvalidTime
   } = useContext(AppointmentContext)
 
   const gotoMyAppointments = () => {
@@ -69,11 +70,19 @@ function Appontment() {
                 <Form.Group controlId="date">
                   <Form.Label>Date</Form.Label>
                   <Form.Control type="date" value={date} onChange={handleDateChange} />
-                  {isInvalidDate && <p className='text-danger text-center'>Invalid date selected!</p>}
+                  {isInvalidDate &&
+                    <Alert variant="danger">
+                      Please select a valid date excluding Sundays.
+                    </Alert>}
                 </Form.Group>
                 <Form.Group controlId="time">
                   <Form.Label>Time</Form.Label>
-                  <Form.Control type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+                  <Form.Control type="time" value={time} onChange={handleTimeChange} />
+                  {isInvalidTime && (
+                    <Alert variant="danger">
+                      Please select a time between 9:00 AM and 5:00 PM.
+                    </Alert>
+                  )}
                 </Form.Group>
                 <Form.Group controlId="service">
                   <Form.Label>Service</Form.Label>

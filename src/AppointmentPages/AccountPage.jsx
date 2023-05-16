@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Row, Col, Button, Table, Modal, Form } from "react-bootstrap";
+import { Row, Col, Button, Table, Modal, Form, Alert } from "react-bootstrap";
 import { useOutletContext } from 'react-router-dom';
 import AppointmentContext from "../AppointmentContext";
 import ServicesContext from "../ServicesContext";
@@ -29,7 +29,11 @@ const AccountPage = () => {
     showSuccessModal,
     handleDeleteAppointment,
     handleDateChange,
-    isInvalidDate
+    isInvalidDate,
+    handleChangeTime,
+    isInvalidTime,
+    setIsInvalidDate,
+    setIsInvalidTime
   } = useContext(AppointmentContext)
 
   const darkMode = useOutletContext();
@@ -68,7 +72,7 @@ const AccountPage = () => {
           <Button className="m-1" variant="success" onClick={() => handleConfirmAppointment(id)}>Confirm</Button>
         </>
       )
-    } else if (status.toLowerCase() === "pending" || status.toLowerCase() === "confirmed" ) {
+    } else if (status.toLowerCase() === "pending" || status.toLowerCase() === "confirmed") {
       return (
         <>
           <Button className="m-1" variant="danger" onClick={() => handleCancelAppointment(id)}>Cancel</Button>
@@ -89,6 +93,8 @@ const AccountPage = () => {
         <Col className="my-3">
           <Button className="fw-bold" onClick={() => {
             setShowModal(true)
+            setIsInvalidDate(false)
+            setIsInvalidTime(false)
           }}>New Appointment</Button>
         </Col>
       </Row>
@@ -125,7 +131,10 @@ const AccountPage = () => {
             <Form.Group controlId="date">
               <Form.Label>Date</Form.Label>
               <Form.Control type="date" value={date} onChange={handleDateChange} required />
-              {isInvalidDate && <p className='text-danger text-center'>Invalid date selected!</p>}
+              {isInvalidDate &&
+                <Alert variant="danger">
+                  Please select a valid date excluding Sundays.
+                </Alert>}
             </Form.Group>
             <Form.Group controlId="time">
               <Form.Label>Time</Form.Label>
@@ -162,7 +171,10 @@ const AccountPage = () => {
             <Form.Group controlId="date">
               <Form.Label>Date</Form.Label>
               <Form.Control type="date" value={date} onChange={handleDateChange} />
-              {isInvalidDate && <p className='text-danger text-center'>Invalid date selected!</p>}
+              {isInvalidDate &&
+                <Alert variant="danger">
+                  Please select a valid date excluding Sundays.
+                </Alert>}
             </Form.Group>
             <Form.Group controlId="time">
               <Form.Label>Time</Form.Label>
