@@ -32,31 +32,51 @@ const DentalRecords = () => {
   return (
     <>
       <Container fluid ref={componentRef} style={{ width: '100%'}}>
-        <Row className="justify-content-center my-5">
-          <Col xs={12} md={10} lg={8}>
-            <h1 className="mb-4">Dental Records</h1>
-            <Table bordered hover responsive>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Service</th>
-                  <th>Dentist</th>
-                  <th>Cost</th>
-                </tr>
-              </thead>
-              <tbody>
-                {records.map((record, index) => (
-                  <tr key={index}>
-                    <td>{record.date}</td>
-                    <td>{record.service}</td>
-                    <td>{record.dentist}</td>
-                    <td>{record.cost}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
+      <Row>
+        <Col>
+          <h2>Invoice</h2>
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col>
+          <Table striped bordered responsive>
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Charge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dental Cleaning</td>
+                <td>Regular dental cleaning</td>
+                <td>May 16, 2023</td>
+                <td>$100.00</td>
+              </tr>
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col>
+          <h4>Total Amount Due:</h4>
+          <p>$300.00</p>
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col>
+          <h4>Payment Method:</h4>
+          <p>Credit Card</p>
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col>
+          <h4>Payment Details:</h4>
+          <p>Payment received on May 17, 2023.</p>
+        </Col>
+      </Row>
       </Container>
       <Button className='mb-4' variant="success" onClick={handlePrint}>Print Record</Button>
     </>

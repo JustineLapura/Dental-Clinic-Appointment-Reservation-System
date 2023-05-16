@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { FaCheck } from "react-icons/fa";
+import ServicesContext from '../ServicesContext';
 
 function Home() {
+    const { services } = useContext(ServicesContext)
     const isLoggedin = localStorage.getItem("isLoggedin")
     const darkMode = useOutletContext()
     const navigate = useNavigate()
-    
+
+
     function logout() {
         localStorage.removeItem("isLoggedin")
         navigate("/login")
@@ -38,57 +41,26 @@ function Home() {
                         </Col>
                     </Row>
                 </Container>
-                <div className='px-5 my-5 mx-0 container-fluid'>
-                    <h2 className='my-5'>Our Services</h2>
-                    <Row className="text-dark">
-                        <Col md={4}>
-                            <Card className='m-2'>
-                                <Card.Img variant="top" src="https://greenwoodsdental.com/wp-content/uploads/2020/02/what-to-do-after-my-laser-dentistry-teeth-cleaning.jpg" alt="Dental Cleaning" />
-                                <Card.Body>
-                                    <h3 className="text-primary">General Dentistry</h3>
-                                    <ul className="list-unstyled">
-                                        <li><FaCheck className="text-success me-2" />Regular Checkups and Cleanings</li>
-                                        <li><FaCheck className="text-success me-2" />Fillings and Crowns</li>
-                                        <li><FaCheck className="text-success me-2" />Root Canal Therapy</li>
-                                        <li><FaCheck className="text-success me-2" />Tooth Extractions</li>
-                                        <li><FaCheck className="text-success me-2" />Dental Implants</li>
-                                    </ul>
-                                    <Button variant="primary fw-bold">Learn More</Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col md={4}>
-                            <Card className='m-2'>
-                                <Card.Img variant="top" src="https://smileeverydaydentistry.com/bc/wp-content/uploads/shutterstock_319728569.jpg" alt="Teeth Whitening" />
-                                <Card.Body>
-                                    <h3 className="text-primary">Cosmetic Dentistry</h3>
-                                    <ul className="list-unstyled">
-                                        <li><FaCheck className="text-success me-2" />Teeth Whitening</li>
-                                        <li><FaCheck className="text-success me-2" />Porcelain Veneers</li>
-                                        <li><FaCheck className="text-success me-2" />Invisalign Clear Braces</li>
-                                        <li><FaCheck className="text-success me-2" />Dental Bonding</li>
-                                        <li><FaCheck className="text-success me-2" />Gum Contouring</li>
-                                    </ul>
-                                    <Button variant="primary fw-bold">Learn More</Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col md={4}>
-                            <Card className='m-2'>
-                                <Card.Img variant="top" src="https://tse4.mm.bing.net/th?id=OIP.W_EOXCl5a333SXIPY_C_BAHaE8&pid=Api&P=0" alt="Tooth Filling" />
-                                <Card.Body>
-                                    <h3 className="text-primary">Emergency Dentistry</h3>
-                                    <ul className="list-unstyled">
-                                        <li><FaCheck className="text-success me-2" />Toothache Relief</li>
-                                        <li><FaCheck className="text-success me-2" />Chipped or Broken Teeth</li>
-                                        <li><FaCheck className="text-success me-2" />Lost or Knocked-out Teeth</li>
-                                        <li><FaCheck className="text-success me-2" />Repair of Broken Dentures</li>
-                                    </ul>
-                                    <Button variant="primary fw-bold">Learn More</Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
+                <div className='my-5 container-fluid'>
+                    <h1 className="text-center mb-5">Our Dental Services</h1>
+                    <div className="d-flex overflow-auto">
+                        <Row className="flex-nowrap text-dark p-5">
+                            {services.map(service => {
+                                return (
+                                    <Col key={service.id} lg={4} md={6} className="mb-4 w-25">
+                                        <Card className="h-100">
+                                            <Card.Body>
+                                                <h3 className="text-primary">{service.name}</h3>
+                                                <h6 className="my-4">{service.description}</h6>
+                                                <p className="">Price: <span className="fw-normal">P{service.price}</span></p>
+                                                <Button variant="primary">Learn More</Button>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                )
+                            })}
+                        </Row>
+                    </div>
                 </div>
             </main>
             <Container>
