@@ -21,7 +21,9 @@ const AdminDashboard = () => {
     errorMessage,
     handleEditAppointment,
     handleDateChange,
-    isInvalidDate
+    isInvalidDate,
+    handleTimeChange,
+    isInvalidTime
   } = useContext(AppointmentContext)
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [dateRange, setDateRange] = useState({ startDate: '', endDate: '' });
@@ -244,7 +246,12 @@ const AdminDashboard = () => {
             </Form.Group>
             <Form.Group controlId="time">
               <Form.Label>Time</Form.Label>
-              <Form.Control type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+              <Form.Control type="time" value={time} onChange={handleTimeChange} />
+              {isInvalidTime && (
+                <Alert variant="danger">
+                  Please select a time between 9:00 AM and 5:00 PM.
+                </Alert>
+              )}
             </Form.Group>
             <Form.Group controlId="service">
               <Form.Label>Service</Form.Label>
