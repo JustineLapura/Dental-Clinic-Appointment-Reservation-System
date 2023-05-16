@@ -14,13 +14,14 @@ const AdminDashboard = () => {
           setShowReschedModal,
           handleCloseModal,
           date,
-          setDate,
           time,
           setTime,
           service,
           setService,
           errorMessage,
-          handleEditAppointment
+          handleEditAppointment,
+          handleDateChange,
+          isInvalidDate
         } = useContext(AppointmentContext)
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [dateRange, setDateRange] = useState({ startDate: '', endDate: '' });
@@ -235,7 +236,8 @@ Filter
           <Form>
             <Form.Group controlId="date">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+              <Form.Control type="date" value={date} onChange={handleDateChange} />
+              {isInvalidDate && <p className='text-danger text-center'>Invalid date selected!</p>}
             </Form.Group>
             <Form.Group controlId="time">
               <Form.Label>Time</Form.Label>

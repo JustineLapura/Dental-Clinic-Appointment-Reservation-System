@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect, useRoute} from "react";
+import React, {createContext, useState, useEffect} from "react";
 import { nanoid } from "nanoid";
 
 export const AppointmentContext = createContext()
@@ -22,6 +22,7 @@ export const AppointmentProvider = ({ children }) => {
   });
   const [currentAppointmentId, setCurrentAppointmentId] = useState("")
   const [errorMessage, setErrorMessage] = useState(null)
+  const [isInvalidDate, setIsInvalidDate] = useState(false)
 
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export const AppointmentProvider = ({ children }) => {
   const handleBookAppointment = (e) => {
     e.preventDefault()
     const newAppointment = { id: nanoid(), name: `${firstName} ${lastName}`, date, time, status: 'Pending' , service };
-    if( date !== "" && time !== "" && service !== "") {
+    if( date !== "" && time !== "" && service !== "" && !isInvalidDate) {
       setAppointments([newAppointment, ...appointments]);
       handleCloseModal();
       setErrorMessage(null)
@@ -88,6 +89,26 @@ export const AppointmentProvider = ({ children }) => {
     }
   }
   
+  const isSunday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 0; // 0 corresponds to Sunday
+  };
+
+  const validateDate = (date) => {
+    const currentDate = new Date().toISOString().split('T')[0];
+    return date < currentDate || isSunday(date);
+  };
+
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    if (validateDate(selectedDate)) {
+      // Handle invalid date
+      setIsInvalidDate(true)
+    } else {
+      setDate(selectedDate);
+      setIsInvalidDate(false)
+    }
+  };
 
     return(
         <AppointmentContext.Provider value={
@@ -114,7 +135,9 @@ export const AppointmentProvider = ({ children }) => {
                 errorMessage,
                 showSuccessModal,
                 setShowSuccessModal,
-                handleDeleteAppointment
+                handleDeleteAppointment,
+                handleDateChange,
+                isInvalidDate
                 }
             }>
             {children}

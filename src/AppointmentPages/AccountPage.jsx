@@ -13,7 +13,6 @@ const AccountPage = () => {
     setShowModal,
     showReschedModal,
     date,
-    setDate,
     time,
     setTime,
     service,
@@ -28,7 +27,9 @@ const AccountPage = () => {
     handleEditAppointment,
     errorMessage,
     showSuccessModal,
-    handleDeleteAppointment
+    handleDeleteAppointment,
+    handleDateChange,
+    isInvalidDate
   } = useContext(AppointmentContext)
 
   const darkMode = useOutletContext();
@@ -123,7 +124,8 @@ const AccountPage = () => {
           <Form>
             <Form.Group controlId="date">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+              <Form.Control type="date" value={date} onChange={handleDateChange} required />
+              {isInvalidDate && <p className='text-danger text-center'>Invalid date selected!</p>}
             </Form.Group>
             <Form.Group controlId="time">
               <Form.Label>Time</Form.Label>
@@ -159,7 +161,8 @@ const AccountPage = () => {
           <Form>
             <Form.Group controlId="date">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+              <Form.Control type="date" value={date} onChange={handleDateChange} />
+              {isInvalidDate && <p className='text-danger text-center'>Invalid date selected!</p>}
             </Form.Group>
             <Form.Group controlId="time">
               <Form.Label>Time</Form.Label>

@@ -1,18 +1,19 @@
-import React, {createContext, useState} from "react"
+import React, { createContext, useState, useEffect } from "react"
 
 export const TimeScheduleContext = createContext()
 
-export const TimeScheduleProvider = ({children}) => {
-    // Define the initial state of the availability schedule
-  const [availability, setAvailability] = useState({
-    Monday: '9:00 AM - 5:00 PM',
-    Tuesday: '9:00 AM - 5:00 PM',
-    Wednesday: '9:00 AM - 5:00 PM',
-    Thursday: '9:00 AM - 5:00 PM',
-    Friday: '9:00 AM - 5:00 PM',
-    Saturday: 'Closed',
-    Sunday: 'Closed'
+export const TimeScheduleProvider = ({ children }) => {
+  // Define the initial state of the availability schedule
+  const [availability, setAvailability] = useState(() => {
+    // Get services from localStorage or use default values
+    const storedSchedule = localStorage.getItem('availability');
+    return storedSchedule ? JSON.parse(storedSchedule) :
+      {}
   });
+
+  useEffect(() => {
+    localStorage.setItem("availability", JSON.stringify(availability));
+  }, [availability]);
 
   // Define the state variables for the edit modal
   const [showEditModal, setShowEditModal] = useState(false);
@@ -35,19 +36,21 @@ export const TimeScheduleProvider = ({children}) => {
     setShowEditModal(false);
   };
 
+  
+
   return (
     <TimeScheduleContext.Provider value={{
-        availability,
-        setAvailability,
-        showEditModal,setShowEditModal,
-        dayToEdit,
-        setDayToEdit,
-        newSchedule,
-        setNewSchedule,
-        handleEditModalOpen,
-        handleUpdateSchedule
+      availability,
+      setAvailability,
+      showEditModal, setShowEditModal,
+      dayToEdit,
+      setDayToEdit,
+      newSchedule,
+      setNewSchedule,
+      handleEditModalOpen,
+      handleUpdateSchedule
     }}>
-        {children}
+      {children}
     </TimeScheduleContext.Provider>
   )
 }

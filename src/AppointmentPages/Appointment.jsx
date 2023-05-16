@@ -21,7 +21,6 @@ function Appontment() {
   const { services } = useContext(ServicesContext)
   const {
     date,
-    setDate,
     time,
     setTime,
     service,
@@ -30,9 +29,8 @@ function Appontment() {
     errorMessage,
     handleCloseModal,
     showSuccessModal,
-    setShowSuccessModal,
-    handleReschedule,
-    handleEditAppointment,
+    handleDateChange,
+    isInvalidDate
   } = useContext(AppointmentContext)
 
   const gotoMyAppointments = () => {
@@ -70,7 +68,8 @@ function Appontment() {
               <Form>
                 <Form.Group controlId="date">
                   <Form.Label>Date</Form.Label>
-                  <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                  <Form.Control type="date" value={date} onChange={handleDateChange} />
+                  {isInvalidDate && <p className='text-danger text-center'>Invalid date selected!</p>}
                 </Form.Group>
                 <Form.Group controlId="time">
                   <Form.Label>Time</Form.Label>
