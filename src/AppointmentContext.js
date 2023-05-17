@@ -79,10 +79,16 @@ export const AppointmentProvider = ({ children }) => {
   }
 
   const handleEditAppointment = (id) => {
-    if (date && time && service && !isInvalidDate) {
+    if (date && time && (!service || pathname !== "/admin") && !isInvalidDate && !isInvalidTime ) {
       setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
         return prevAppointment.id === currentAppointmentId
-          ? { ...prevAppointment, date, time, service, status: pathname === "/admin" ? "Rescheduled" : "Pending" }
+          ? {
+            ...prevAppointment,
+            date,
+            time,
+            ...(pathname !== "/admin" && { service }),
+            status: pathname === "/admin" ? "Rescheduled" : "Pending"
+          }
           : prevAppointment
       }))
       handleCloseModal()

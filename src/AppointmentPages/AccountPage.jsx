@@ -86,6 +86,7 @@ const AccountPage = () => {
 
   const displayedUserAppointments = appointments.filter(appointment => appointment.name.toLowerCase() === `${firstName} ${lastName}`)
   const appointmentToReschedule = appointments.filter(appointment => appointment.id === currentAppointmentId)
+  
   return (
     <div className={`h-100 p-2 ${darkMode ? "bg-dark text-light" : null}`}>
       <h1 className="py-1">My Appointments</h1>

@@ -5,6 +5,21 @@ import AppointmentContext from '../AppointmentContext';
 const AdminScheduleForToday = () => {
   const { appointments } = useContext(AppointmentContext);
 
+  const statusBackground = (appointment) => {
+    let background
+    if (appointment.status.toLowerCase() === "confirmed") {
+      background = "fw-bold text-success"
+    } else if (appointment.status.toLowerCase() === "cancelled") {
+      background = "fw-bold text-danger"
+    } else if (appointment.status.toLowerCase() === "rescheduled") {
+      background = "fw-bold text-primary"
+    } else {
+      background = "fw-bold text-secondary"
+    }
+
+    return background
+  }
+
   return (
     <Container>
       <Row>
@@ -21,6 +36,8 @@ const AdminScheduleForToday = () => {
                 <th>Name</th>
                 <th>Date</th>
                 <th>Time</th>
+                <th>Service</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -34,6 +51,8 @@ const AdminScheduleForToday = () => {
                     <td>{appointment.name}</td>
                     <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
                     <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
+                    <td>{appointment.service}</td>
+                    <td className={statusBackground(appointment)}>{appointment.status}</td>
                   </tr>
                 ))}
             </tbody>
