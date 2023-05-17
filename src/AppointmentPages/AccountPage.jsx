@@ -3,6 +3,9 @@ import { Row, Col, Button, Table, Modal, Form, Alert } from "react-bootstrap";
 import { useOutletContext } from 'react-router-dom';
 import AppointmentContext from "../AppointmentContext";
 import ServicesContext from "../ServicesContext";
+import SuccessModal from "../components/SuccessModal";
+import ShowBookAppointmentModal from "../components/ShowBookAppointmentModal";
+import RescheduleModal from "../components/RescheduleModal";
 
 const AccountPage = () => {
   const firstName = localStorage.getItem("firstName").toLowerCase()
@@ -32,8 +35,7 @@ const AccountPage = () => {
     handleTimeChange,
     isInvalidTime,
     setIsInvalidDate,
-    setIsInvalidTime,
-    handleServiceChange
+    setIsInvalidTime
   } = useContext(AppointmentContext)
 
   const darkMode = useOutletContext();
@@ -86,7 +88,7 @@ const AccountPage = () => {
 
   const displayedUserAppointments = appointments.filter(appointment => appointment.name.toLowerCase() === `${firstName} ${lastName}`)
   const appointmentToReschedule = appointments.filter(appointment => appointment.id === currentAppointmentId)
-  
+
   return (
     <div className={`h-100 p-2 ${darkMode ? "bg-dark text-light" : null}`}>
       <h1 className="py-1">My Appointments</h1>
@@ -124,117 +126,44 @@ const AccountPage = () => {
         </tbody>
       </Table>
 
-
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Book Appointment</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="date">
-              <Form.Label>Date</Form.Label>
-              <Form.Control type="date" value={date} onChange={handleDateChange} required />
-              {isInvalidDate &&
-                <Alert variant="danger">
-                  Please select a valid date excluding Sundays.
-                </Alert>}
-            </Form.Group>
-            <Form.Group controlId="time">
-              <Form.Label>Time</Form.Label>
-              <Form.Control type="time" value={time} onChange={handleTimeChange} required />
-              {isInvalidTime && (
-                <Alert variant="danger">
-                  Please select a time between 9:00 AM and 5:00 PM.
-                </Alert>
-              )}
-            </Form.Group>
-            <Form.Group controlId="service">
-              <Form.Label>Service</Form.Label>
-              <Form.Control as="select" value={service} onChange={handleServiceChange} required>
-                <option value="">Select a service</option>
-                {services.map(service => {
-                  return <option key={service.id} value={service.name}>{service.name}</option>
-                })}
-              </Form.Control>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        {errorMessage && <h6 className="text-danger mx-auto mb-2">{errorMessage}</h6>}
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleBookAppointment}>
-            Book Appointment
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <ShowBookAppointmentModal 
+        showModal={showModal} 
+        handleCloseModal={handleCloseModal}
+        handleDateChange={handleDateChange} 
+        handleTimeChange={handleTimeChange} 
+        isInvalidDate={isInvalidDate}
+        isInvalidTime={isInvalidTime}
+        date={date}
+        time={time}
+        service={service}
+        services={services}
+        errorMessage={errorMessage}
+        handleBookAppointment={handleBookAppointment}
+        />
 
       {appointmentToReschedule.map(appointment => {
         return (
-          <Modal show={showReschedModal} onHide={handleCloseModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>Appointment Details</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p><strong>Date:</strong> {new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
-              <p><strong>Time:</strong> {new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
-              <p><strong>Service:</strong> {appointment.service}</p>
-              <Form>
-                <Form.Group controlId="date">
-                  <Form.Label>Date</Form.Label>
-                  <Form.Control type="date" value={date} onChange={handleDateChange} />
-                  {isInvalidDate &&
-                    <Alert variant="danger">
-                      Please select a valid date excluding Sundays.
-                    </Alert>}
-                </Form.Group>
-                <Form.Group controlId="time">
-                  <Form.Label>Time</Form.Label>
-                  <Form.Control type="time" value={time} onChange={handleTimeChange} />
-                  {isInvalidTime && (
-                    <Alert variant="danger">
-                      Please select a time between 9:00 AM and 5:00 PM.
-                    </Alert>
-                  )}
-                </Form.Group>
-                <Form.Group controlId="service">
-                  <Form.Label>Service</Form.Label>
-                  <Form.Control as="select" value={service} onChange={(e) => setService(e.target.value)}>
-                    <option value="">Select a service</option>
-                    {services.map(service => {
-                      return <option key={service.id} value={service.name}>{service.name}</option>
-                    })}
-                  </Form.Control>
-                </Form.Group>
-              </Form>
-            </Modal.Body>
-            {errorMessage && <h6 className="text-danger mx-auto mb-2">{errorMessage}</h6>}
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseModal}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={() => handleEditAppointment(currentAppointmentId)}>
-                Reschedule Appointment
-              </Button>
-            </Modal.Footer>
-          </Modal>
+          <RescheduleModal 
+            showReschedModal={showReschedModal}
+            handleCloseModal={handleCloseModal}
+            appointment={appointment}
+            date={date}
+            time={time}
+            service={service}
+            handleDateChange={handleDateChange}
+            handleTimeChange={handleTimeChange}
+            isInvalidDate={isInvalidDate}
+            isInvalidTime={isInvalidTime}
+            services={services}
+            errorMessage={errorMessage}
+            handleEditAppointment={handleEditAppointment}
+            setService={setService}
+            currentAppointmentId={currentAppointmentId}
+          />
         )
       })}
       {/* Show Booked Success Modal */}
-      <Modal show={showSuccessModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Appointment:</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p className="fw-bold text-success text-center">Booked Successfully!</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleCloseModal}>
-            Done
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <SuccessModal showSuccessModal={showSuccessModal} handleCloseModal={handleCloseModal} />
     </div>
   );
 };

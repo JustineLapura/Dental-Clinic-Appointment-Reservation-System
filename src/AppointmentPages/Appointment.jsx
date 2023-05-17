@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Container, Row, Col, Form, Button, Table, Modal, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Table, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Appointment.css"
 import { authRequired } from '../authRequired';
@@ -7,6 +7,7 @@ import { useOutletContext, useNavigate } from 'react-router-dom';
 import ServicesContext from ".././ServicesContext"
 import AppointmentContext from '../AppointmentContext';
 import TimeScheduleContext from '../TimeScheduleContext';
+import SuccessModal from '../components/SuccessModal';
 
 export async function loader() {
   return await authRequired()
@@ -123,22 +124,7 @@ function Appontment() {
         </Container>
 
       </section>
-      <Modal show={showSuccessModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Appointment:</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h5 className="fw-bold text-success text-center my-5">Booked Successfully!</h5>
-          <div className='d-flex justify-content-end gap-2'>
-            <Button variant="secondary" onClick={gotoMyAppointments}>
-              Go to my Appointments
-            </Button>
-            <Button variant="primary" onClick={handleCloseModal}>
-              Done
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
+      <SuccessModal showSuccessModal={showSuccessModal} handleCloseModal={handleCloseModal} gotoMyAppointments={gotoMyAppointments}/>
     </main>
 
   );

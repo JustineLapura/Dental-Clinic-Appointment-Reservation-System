@@ -28,7 +28,7 @@ const AdminScheduleForToday = () => {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col style={{ height: "400px", overflow: "scroll" }}>
           <Table striped bordered hover>
             <thead>
               <tr>
