@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Button, Form as BootstrapForm } from 'react-bootstrap';
 import { useNavigate, Form, useActionData, redirect } from "react-router-dom";
+import 'animate.css';
 
 export async function action({ request }) {
     const emailValidate = localStorage.getItem("email")
@@ -44,7 +45,7 @@ export default function LoginForm() {
                     Login
                 </Button>
             </Form>
-            <Button variant="success" type="submit" className="mt-0 fw-bold" onClick={() => navigate("/registration")}>
+            <Button variant="success" type="submit" className="mt-0 fw-bold animate__animated animate__headShake animate__delay-2s animate__infinite animate__slower" onClick={() => navigate("/registration")}>
                 Create new account
             </Button>
         </Container>

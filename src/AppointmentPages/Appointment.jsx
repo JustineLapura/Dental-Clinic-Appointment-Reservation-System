@@ -8,6 +8,7 @@ import ServicesContext from ".././ServicesContext"
 import AppointmentContext from '../AppointmentContext';
 import TimeScheduleContext from '../TimeScheduleContext';
 import SuccessModal from '../components/SuccessModal';
+import "animate.css";
 
 export async function loader() {
   return await authRequired()
@@ -65,8 +66,8 @@ function Appontment() {
               </Table>
             </Col>
             <Col xs={12} md={4} lg={6} className='text-center px-5'>
-              <h5 className='my-3'>Hi, {firstName}!..</h5>
-              <h3 className='my-3 text-primary'>Book your appointment now.</h3>
+              <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {firstName}!..</h5>
+              <h3 className='my-3 text-primary animate__animated animate__pulse animate__delay-2s animate__infinite animate__slow'>Book your appointment now.</h3>
               <Form>
                 <Form.Group controlId="date">
                   <Form.Label>Date</Form.Label>

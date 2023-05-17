@@ -91,9 +91,9 @@ const AccountPage = () => {
 
   return (
     <div className={`h-100 p-2 ${darkMode ? "bg-dark text-light" : null}`}>
-      <h1 className="py-1">My Appointments</h1>
+      <h3>My Appointments</h3>
       <Row>
-        <Col className="my-3">
+        <Col className="my-2">
           <Button className="fw-bold" onClick={() => {
             setShowModal(true)
             setIsInvalidDate(false)
@@ -101,36 +101,38 @@ const AccountPage = () => {
           }}>New Appointment</Button>
         </Col>
       </Row>
-      <Table striped bordered hover responsive>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Service</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {displayedUserAppointments.map((appointment) => (
-            <tr key={appointment.id}>
-              <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
-              <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
-              <td>{appointment.service}</td>
-              <td className={`fw-bold ${statusBackground(appointment)}`}>{appointment.status}</td>
-              <td>
-                {appointmentBtns(appointment.id, appointment.status)}
-              </td>
+      <div style={{ height: "360px", overflow: "scroll" }}>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Service</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {displayedUserAppointments.map((appointment) => (
+              <tr key={appointment.id}>
+                <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
+                <td>{appointment.service}</td>
+                <td className={`fw-bold ${statusBackground(appointment)}`}>{appointment.status}</td>
+                <td>
+                  {appointmentBtns(appointment.id, appointment.status)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
 
-      <ShowBookAppointmentModal 
-        showModal={showModal} 
+      <ShowBookAppointmentModal
+        showModal={showModal}
         handleCloseModal={handleCloseModal}
-        handleDateChange={handleDateChange} 
-        handleTimeChange={handleTimeChange} 
+        handleDateChange={handleDateChange}
+        handleTimeChange={handleTimeChange}
         isInvalidDate={isInvalidDate}
         isInvalidTime={isInvalidTime}
         date={date}
@@ -139,11 +141,11 @@ const AccountPage = () => {
         services={services}
         errorMessage={errorMessage}
         handleBookAppointment={handleBookAppointment}
-        />
+      />
 
       {appointmentToReschedule.map(appointment => {
         return (
-          <RescheduleModal 
+          <RescheduleModal
             showReschedModal={showReschedModal}
             handleCloseModal={handleCloseModal}
             appointment={appointment}
