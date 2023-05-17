@@ -25,7 +25,6 @@ export const AppointmentProvider = ({ children }) => {
   const [isInvalidDate, setIsInvalidDate] = useState(false)
   const [isInvalidTime, setIsInvalidTime] = useState(false);
 
-
   useEffect(() => {
     localStorage.setItem('appointments', JSON.stringify(appointments));
   }, [appointments]);

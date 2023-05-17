@@ -173,13 +173,16 @@ const AccountPage = () => {
         return (
           <Modal show={showReschedModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
-              <Modal.Title>Reschedule Appointment</Modal.Title>
+              <Modal.Title>Appointment Details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+              <p><strong>Date:</strong> {new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+              <p><strong>Time:</strong> {new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
+              <p><strong>Service:</strong> {appointment.service}</p>
               <Form>
                 <Form.Group controlId="date">
                   <Form.Label>Date</Form.Label>
-                  <Form.Control type="date" value={appointment.date} onChange={handleDateChange} />
+                  <Form.Control type="date" value={date} onChange={handleDateChange} />
                   {isInvalidDate &&
                     <Alert variant="danger">
                       Please select a valid date excluding Sundays.
@@ -187,7 +190,7 @@ const AccountPage = () => {
                 </Form.Group>
                 <Form.Group controlId="time">
                   <Form.Label>Time</Form.Label>
-                  <Form.Control type="time" value={appointment.time} onChange={handleTimeChange} />
+                  <Form.Control type="time" value={time} onChange={handleTimeChange} />
                   {isInvalidTime && (
                     <Alert variant="danger">
                       Please select a time between 9:00 AM and 5:00 PM.
@@ -196,7 +199,7 @@ const AccountPage = () => {
                 </Form.Group>
                 <Form.Group controlId="service">
                   <Form.Label>Service</Form.Label>
-                  <Form.Control as="select" value={appointment.service} onChange={(e) => setService(e.target.value)}>
+                  <Form.Control as="select" value={service} onChange={(e) => setService(e.target.value)}>
                     <option value="">Select a service</option>
                     {services.map(service => {
                       return <option key={service.id} value={service.name}>{service.name}</option>
