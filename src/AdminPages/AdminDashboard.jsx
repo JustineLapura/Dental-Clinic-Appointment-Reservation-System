@@ -217,8 +217,8 @@ const AdminDashboard = () => {
           {selectedAppointment && (
             <div>
               <p><strong>Patient Name:</strong> {selectedAppointment.name}</p>
-              <p><strong>Date:</strong> {selectedAppointment.date}</p>
-              <p><strong>Time:</strong> {selectedAppointment.time}</p>
+              <p><strong>Date:</strong> {new Date(selectedAppointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+              <p><strong>Time:</strong> {new Date(`2000-01-01T${selectedAppointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
               <p><strong>Status:</strong> {selectedAppointment.status}</p>
             </div>
           )}

@@ -23,7 +23,6 @@ function Appontment() {
     date,
     time,
     service,
-    setService,
     handleBookAppointment,
     errorMessage,
     handleCloseModal,
@@ -31,7 +30,8 @@ function Appontment() {
     handleDateChange,
     isInvalidDate,
     handleTimeChange,
-    isInvalidTime
+    isInvalidTime,
+    handleServiceChange
   } = useContext(AppointmentContext)
 
   const gotoMyAppointments = () => {
@@ -86,7 +86,7 @@ function Appontment() {
                 </Form.Group>
                 <Form.Group controlId="service">
                   <Form.Label>Service</Form.Label>
-                  <Form.Control as="select" value={service} onChange={(e) => setService(e.target.value)}>
+                  <Form.Control as="select" value={service} onChange={handleServiceChange}>
                     <option value="">Select a service</option>
                     {services.map(service => {
                       return <option key={service.id} value={service.name}>{service.name}</option>

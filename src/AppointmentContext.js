@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect} from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 
 export const AppointmentContext = createContext()
@@ -9,9 +9,9 @@ export const AppointmentProvider = ({ children }) => {
   const [showModal, setShowModal] = useState(false)
   const [showReschedModal, setShowReschedModal] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [service, setService] = useState("");
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [service, setService] = useState('');
   const [appointments, setAppointments] = useState(() => {
     const storedAppointments = localStorage.getItem('appointments');
     return storedAppointments ? JSON.parse(storedAppointments) : [
@@ -45,8 +45,8 @@ export const AppointmentProvider = ({ children }) => {
 
   const handleBookAppointment = (e) => {
     e.preventDefault()
-    const newAppointment = { id: nanoid(), name: `${firstName} ${lastName}`, date, time, status: 'Pending' , service };
-    if( date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
+    const newAppointment = { id: nanoid(), name: `${firstName} ${lastName}`, date, time, status: 'Pending', service };
+    if (date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
       setAppointments([newAppointment, ...appointments]);
       handleCloseModal();
       setErrorMessage(null)
@@ -59,7 +59,7 @@ export const AppointmentProvider = ({ children }) => {
 
   const handleDeleteAppointment = (id) => {
     setAppointments(oldAppointments => oldAppointments.filter(appointment => appointment.id !== id))
-}
+  }
 
   const handleCancelAppointment = (id) => {
     const updatedAppointments = appointments.map((appointment) => {
@@ -80,10 +80,10 @@ export const AppointmentProvider = ({ children }) => {
   }
 
   const handleEditAppointment = (id) => {
-    if(date && time && service && !isInvalidDate) {
+    if (date && time && service && !isInvalidDate) {
       setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
         return prevAppointment.id === currentAppointmentId
-          ? {...prevAppointment, date, time, service, status: pathname === "/admin" ?  "Rescheduled" : "Pending" }
+          ? { ...prevAppointment, date, time, service, status: pathname === "/admin" ? "Rescheduled" : "Pending" }
           : prevAppointment
       }))
       handleCloseModal()
@@ -93,7 +93,7 @@ export const AppointmentProvider = ({ children }) => {
       setErrorMessage("Please fill the form!")
     }
   }
-  
+
   const isSunday = (date) => {
     const day = new Date(date).getDay();
     return day === 0; // 0 corresponds to Sunday
@@ -131,43 +131,49 @@ export const AppointmentProvider = ({ children }) => {
     return selectedTime >= startTime && selectedTime <= endTime;
   };
 
-    return(
-        <AppointmentContext.Provider value={
-            {
-                showModal,
-                setShowModal,
-                showReschedModal,
-                setShowReschedModal,
-                date,
-                setDate,
-                time,
-                setTime,
-                service,
-                setService,
-                appointments,
-                setAppointments,
-                currentAppointmentId,
-                setCurrentAppointmentId,
-                handleCloseModal,
-                handleBookAppointment,
-                handleCancelAppointment,
-                handleReschedule,
-                handleEditAppointment,
-                errorMessage,
-                showSuccessModal,
-                setShowSuccessModal,
-                handleDeleteAppointment,
-                handleDateChange,
-                isInvalidDate,
-                handleTimeChange,
-                isInvalidTime,
-                setIsInvalidDate,
-                setIsInvalidTime
-                }
-            }>
-            {children}
-        </AppointmentContext.Provider>
-    )
+  const handleServiceChange = (e) => {
+    const selectedService = e.target.value;
+    setService(selectedService);
+  }
+
+  return (
+    <AppointmentContext.Provider value={
+      {
+        showModal,
+        setShowModal,
+        showReschedModal,
+        setShowReschedModal,
+        date,
+        setDate,
+        time,
+        setTime,
+        service,
+        setService,
+        appointments,
+        setAppointments,
+        currentAppointmentId,
+        setCurrentAppointmentId,
+        handleCloseModal,
+        handleBookAppointment,
+        handleCancelAppointment,
+        handleReschedule,
+        handleEditAppointment,
+        errorMessage,
+        showSuccessModal,
+        setShowSuccessModal,
+        handleDeleteAppointment,
+        handleDateChange,
+        isInvalidDate,
+        handleTimeChange,
+        isInvalidTime,
+        setIsInvalidDate,
+        setIsInvalidTime,
+        handleServiceChange
+      }
+    }>
+      {children}
+    </AppointmentContext.Provider>
+  )
 }
 
 export default AppointmentContext
