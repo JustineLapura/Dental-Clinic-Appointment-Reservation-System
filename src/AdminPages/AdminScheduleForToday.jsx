@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { Container, Row, Col, Table } from 'react-bootstrap';
+import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import AppointmentContext from '../AppointmentContext';
 
 const AdminScheduleForToday = () => {
-  const { appointments } = useContext(AppointmentContext);
+  const { appointments, setAppointments } = useContext(AppointmentContext);
 
   const statusBackground = (appointment) => {
     let background
@@ -18,6 +18,17 @@ const AdminScheduleForToday = () => {
     }
 
     return background
+  }
+
+  const handleCompleted = (id) => {
+    setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
+      return prevAppointment.id === id
+        ? {
+          ...prevAppointment,
+          isCompleted: !prevAppointment.isCompleted
+        }
+        : prevAppointment
+    }))
   }
 
   return (
@@ -42,7 +53,7 @@ const AdminScheduleForToday = () => {
               </tr>
             </thead>
             <tbody>
-            {appointments.filter(appointment => {
+              {appointments.filter(appointment => {
                 const currentDate = new Date().toISOString().split('T')[0];
                 return appointment.date === currentDate;
               })
@@ -54,7 +65,10 @@ const AdminScheduleForToday = () => {
                     <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                     <td>{appointment.service}</td>
                     <td className={statusBackground(appointment)}>{appointment.status}</td>
-                    <td><Button variant='primary'>Done</Button></td>
+                    {appointment.status.toLowerCase() === "confirmed" && <td>{appointment.isCompleted ?
+                      <>
+                        <h6 className="text-primary">Completed</h6>
+                      </> : <Button variant='primary' onClick={() => handleCompleted(appointment.id)}>Done</Button>}</td>}
                   </tr>
                 ))}
             </tbody>

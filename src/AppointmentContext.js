@@ -44,7 +44,7 @@ export const AppointmentProvider = ({ children }) => {
 
   const handleBookAppointment = (e) => {
     e.preventDefault()
-    const newAppointment = { id: nanoid(), name: `${firstName} ${lastName}`, date, time, status: 'Pending', service };
+    const newAppointment = { id: nanoid(), name: `${firstName} ${lastName}`, date, time, status: 'Pending', service, isCompleted: false };
     if (date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
       setAppointments([newAppointment, ...appointments]);
       handleCloseModal();
@@ -98,6 +98,7 @@ export const AppointmentProvider = ({ children }) => {
       setErrorMessage("Please fill the form!")
     }
   }
+
 
   const isSunday = (date) => {
     const day = new Date(date).getDay();
