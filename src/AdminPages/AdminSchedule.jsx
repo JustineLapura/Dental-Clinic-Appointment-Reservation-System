@@ -36,7 +36,7 @@ const AdminSchedule = () => {
               </tr>
             </thead>
             <tbody>
-              {appointments.filter(appointment => appointment.status.toLowerCase() === "confirmed")
+              {appointments.filter(appointment => !appointment.isCompleted)
                 .map(
                   (appointment, index) => (
                     <tr key={appointment.id}>

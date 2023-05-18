@@ -14,7 +14,6 @@ function DentalRecordsLayout() {
         <Container>
             <Nav className="ml-auto">
               <NavLink style={({ isActive }) => isActive ? activeStyle : null} className="nav-link" to="." end>Appointment Management</NavLink>
-              <NavLink style={({ isActive }) => isActive ? activeStyle : null} className="nav-link" to="billing-invoicing">Billing / Invoicing</NavLink>
             </Nav>
         </Container>
       </Navbar>

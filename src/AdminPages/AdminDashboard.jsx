@@ -194,11 +194,11 @@ const AdminDashboard = () => {
                     <td>{appointment.name}</td>
                     <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
                     <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
-                    <td className={statusBackground(appointment)}>{appointment.status} ({appointment.isCompleted ? "done" : "undone"})</td>
+                    <td className={statusBackground(appointment)}>{appointment.status}</td>
                     <td>
-                      <Button variant="info" onClick={() => handleViewAppointment(appointment.id)}>
+                      {appointment.isCompleted ? <h6 className='text-primary'>Completed</h6> : <Button variant="info" onClick={() => handleViewAppointment(appointment.id)}>
                         View
-                      </Button>
+                      </Button>}
                     </td>
                   </tr>
                 )

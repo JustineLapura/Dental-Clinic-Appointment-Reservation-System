@@ -1,19 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import AppointmentContext from '../AppointmentContext';
+import ServicesContext from '../ServicesContext';
+import { useReactToPrint } from 'react-to-print';
 
 const AppointmentManagement = () => {
     const { appointments } = useContext(AppointmentContext)
+    const { service } = useContext(ServicesContext)
+
+    const componentRef = useRef()
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: 'dental-records',
+    })
 
     const completedAppointments = appointments.filter(appointment => appointment.isCompleted)
     return (
         <>
-            <Container className="printable">
-                <Row>
-                    <Col>
-                        <h3>Appointment Management</h3>
-                    </Col>
-                </Row>
+            <Container className="printable" ref={componentRef} style={{ width: '100%'}}>
                 <Row>
                     <Col>
                         <Table striped bordered>
@@ -23,6 +27,7 @@ const AppointmentManagement = () => {
                                     <th>Date</th>
                                     <th>Time</th>
                                     <th>Service</th>
+                                    <th>Price</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,6 +37,7 @@ const AppointmentManagement = () => {
                                         <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
                                         <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                                         <td>{appointment.service}</td>
+                                        <td>P{Math.ceil(Math.random() * 1000)}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -39,13 +45,7 @@ const AppointmentManagement = () => {
                     </Col>
                 </Row>
             </Container>
-            <Row>
-                <Col>
-                    <Button variant="primary" onClick={() => window.print()}>
-                        Print
-                    </Button>
-                </Col>
-            </Row>
+            <Button className='mb-4' variant="success" onClick={handlePrint}>Print Record</Button>
         </>
     );
 };
