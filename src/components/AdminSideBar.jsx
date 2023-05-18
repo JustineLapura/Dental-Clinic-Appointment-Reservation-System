@@ -40,6 +40,11 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li className="list-group-item">
+            <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="records" className="nav-link">
+              <BsFillPeopleFill size={20} /> Records <FiChevronRight size={16} className="float-right" />
+            </NavLink>
+          </li>
+          <li className="list-group-item">
             <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="user-accounts" className="nav-link">
               <BsFillPersonFill size={20} /> User Accounts <FiChevronRight size={16} className="float-right" />
             </NavLink>
