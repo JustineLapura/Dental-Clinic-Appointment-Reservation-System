@@ -38,6 +38,7 @@ const AdminScheduleForToday = () => {
                 <th>Time</th>
                 <th>Service</th>
                 <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -53,6 +54,7 @@ const AdminScheduleForToday = () => {
                     <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                     <td>{appointment.service}</td>
                     <td className={statusBackground(appointment)}>{appointment.status}</td>
+                    <td><Button variant='primary'>Done</Button></td>
                   </tr>
                 ))}
             </tbody>
