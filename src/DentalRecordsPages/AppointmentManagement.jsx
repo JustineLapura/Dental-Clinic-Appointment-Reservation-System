@@ -4,6 +4,8 @@ import AppointmentContext from '../AppointmentContext';
 
 const AppointmentManagement = () => {
     const { appointments } = useContext(AppointmentContext)
+
+    const completedAppointments = appointments.filter(appointment => appointment.isCompleted)
     return (
         <>
             <Container className="printable">
@@ -17,16 +19,18 @@ const AppointmentManagement = () => {
                         <Table striped bordered>
                             <thead>
                                 <tr>
+                                    <th>Name</th>
                                     <th>Date</th>
                                     <th>Time</th>
                                     <th>Service</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {appointments.map((appointment, index) => (
+                                {completedAppointments.map((appointment, index) => (
                                     <tr key={appointment.id}>
+                                        <td>{appointment.name}</td>
                                         <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
-                <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
+                                        <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                                         <td>{appointment.service}</td>
                                     </tr>
                                 ))}

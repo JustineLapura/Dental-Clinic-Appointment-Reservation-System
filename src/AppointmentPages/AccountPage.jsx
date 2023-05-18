@@ -66,8 +66,10 @@ const AccountPage = () => {
     return background
   }
 
-  const appointmentBtns = (id, status) => {
-    if (status.toLowerCase() === "rescheduled") {
+  const appointmentBtns = (id, status, isCompleted) => {
+    if(isCompleted){
+      return <h6 className="text-primary">Completed</h6>
+    } else if (status.toLowerCase() === "rescheduled") {
       return (
         <>
           <Button className="m-1" variant="danger" onClick={() => handleCancelAppointment(id)}>Cancel</Button>
@@ -121,7 +123,7 @@ const AccountPage = () => {
                 <td>{appointment.service}</td>
                 <td className={`fw-bold ${statusBackground(appointment)}`}>{appointment.status}</td>
                 <td>
-                  {appointmentBtns(appointment.id, appointment.status)}
+                  {appointmentBtns(appointment.id, appointment.status, appointment.isCompleted)}
                 </td>
               </tr>
             ))}
