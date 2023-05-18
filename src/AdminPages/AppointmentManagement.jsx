@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import AppointmentContext from '../AppointmentContext';
 import ServicesContext from '../ServicesContext';
 import { useReactToPrint } from 'react-to-print';
@@ -19,6 +20,7 @@ const AppointmentManagement = () => {
         <>
             <Container className="printable" ref={componentRef} style={{ width: '100%'}}>
                 <Row>
+                    <h2 className='my-3'>Dental Records</h2>
                     <Col>
                         <Table striped bordered>
                             <thead>
@@ -28,6 +30,7 @@ const AppointmentManagement = () => {
                                     <th>Time</th>
                                     <th>Service</th>
                                     <th>Price</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,6 +41,7 @@ const AppointmentManagement = () => {
                                         <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                                         <td>{appointment.service}</td>
                                         <td>P{Math.ceil(Math.random() * 1000)}</td>
+                                        <td><Link to={`/admin/records/${appointment.id}`}><Button>View</Button></Link></td>
                                     </tr>
                                 ))}
                             </tbody>

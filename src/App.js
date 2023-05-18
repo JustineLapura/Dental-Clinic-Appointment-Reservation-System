@@ -27,8 +27,9 @@ import AdminTimeSchedule from './AdminPages/AdminTimeSchedule';
 import { TimeScheduleProvider } from './TimeScheduleContext';
 import { UsersProvider } from './UsersContext';
 import DentalRecordsLayout from './components/DentalRecordsLayout';
-import AppointmentManagement from './DentalRecordsPages/AppointmentManagement';
+import AppointmentManagement from './AdminPages/AppointmentManagement';
 import BillingInvoicing from './DentalRecordsPages/BillingInvoicing';
+import DentalRecordDetails from './AdminPages/DentalRecordDetails';
 localStorage.removeItem("isLoggedin");
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -53,10 +54,8 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="schedule" element={<AdminSchedule />} />
       <Route path="time-schedule" element={<AdminTimeSchedule />} />
       <Route path="service" element={<AdminService />} />
-      <Route path="records" element={<DentalRecordsLayout />}>
-        <Route index element={<AppointmentManagement/>}/>
-        <Route path="billing-invoicing" element={<BillingInvoicing />} />
-      </Route>
+      <Route path="records" element={<AppointmentManagement />} />
+      <Route path='records/:id' element={<DentalRecordDetails />}/>
       <Route path="user-accounts" element={<AdminUserAccounts />} />
       <Route path="members" element={<AdminMembers />} />
       <Route path="note" element={<Note />} />
