@@ -1,6 +1,7 @@
 import React from 'react'
 import { Modal, Form, Button, Alert } from "react-bootstrap"
 import { useLocation } from 'react-router-dom'
+import clickMe from ".././images/giphy.gif"
 
 function RescheduleModal(
     {
@@ -33,24 +34,26 @@ function RescheduleModal(
               <p><strong>Time:</strong> {new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
               <p><strong>Service:</strong> {appointment.service}</p>
               <Form>
-                <Form.Group controlId="date">
-                  <Form.Label>Date</Form.Label>
-                  <Form.Control type="date" value={date} onChange={handleDateChange} />
-                  {isInvalidDate &&
-                    <Alert variant="danger">
-                      Please select a valid date excluding Sundays.
-                    </Alert>}
-                </Form.Group>
-                <Form.Group controlId="time">
-                  <Form.Label>Time</Form.Label>
-                  <Form.Control type="time" value={time} onChange={handleTimeChange} />
-                  {isInvalidTime && (
-                    <Alert variant="danger">
-                      Please select a time between 9:00 AM and 5:00 PM.
-                    </Alert>
-                  )}
-                </Form.Group>
-                {pathname !== "/admin" && <Form.Group controlId="service">
+                <Form.Group className='position-relative pe-4' controlId="date">
+              <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
+              <Form.Label>Date</Form.Label>
+              <Form.Control type="date" value={date} onChange={handleDateChange} />
+              {isInvalidDate &&
+                <Alert variant="danger">
+                  Please select a valid date excluding Sundays.
+                </Alert>}
+            </Form.Group>
+            <Form.Group className='position-relative pe-4' controlId="time">
+              <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
+              <Form.Label>Time</Form.Label>
+              <Form.Control type="time" value={time} onChange={handleTimeChange} />
+              {isInvalidTime && (
+                <Alert variant="danger">
+                  Please select a time between 9:00 AM and 5:00 PM.
+                </Alert>
+              )}
+            </Form.Group>
+                {pathname !== "/admin" && <Form.Group className='pe-4' controlId="service">
                   <Form.Label>Service</Form.Label>
                   <Form.Control as="select" value={service} onChange={(e) => setService(e.target.value)}>
                     <option value="">Select a service</option>

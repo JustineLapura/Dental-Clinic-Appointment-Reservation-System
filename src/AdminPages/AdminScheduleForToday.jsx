@@ -6,8 +6,23 @@ import RescheduleModal from '../components/RescheduleModal';
 const AdminScheduleForToday = () => {
   const {
     appointments,
-    setAppointments
+    setAppointments,
+    currentAppointmentId,
+    setCurrentAppointmentId,
+    showReschedModal,
+    setShowReschedModal,
+    handleCloseModal,
+    date,
+    time,
+    errorMessage,
+    handleEditAppointment,
+    handleDateChange,
+    isInvalidDate,
+    handleTimeChange,
+    isInvalidTime,
+    handleReschedule
   } = useContext(AppointmentContext)
+
   const handleCompleted = (id) => {
     setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
       return prevAppointment.id === id
@@ -18,6 +33,16 @@ const AdminScheduleForToday = () => {
         : prevAppointment
     }))
   }
+
+  const handleConfirmAppointment = (id) => {
+    const updatedAppointments = appointments.map((appointment) => {
+      if (appointment.id === id) {
+        return { ...appointment, status: 'Confirmed' };
+      }
+      return appointment;
+    });
+    setAppointments(updatedAppointments);
+  };
 
   const statusBackground = (appointment) => {
     let background
@@ -32,6 +57,24 @@ const AdminScheduleForToday = () => {
     }
 
     return background
+  }
+
+  const actionBtnElements = (status, isComplete, id) => {
+    let btnElements
+    if (status.toLowerCase() === "confirmed" && !isComplete) {
+      btnElements = <Button variant='primary' onClick={() => handleCompleted(id)}>Done</Button>
+    } else if (status.toLowerCase() !== "confirmed" && !isComplete && status.toLowerCase() !== "cancelled") {
+      btnElements =
+        <>
+          <Button className='btn-sm btn-primary'>Reschedule</Button> <Button className='btn-sm btn-success' onClick={() => handleConfirmAppointment(id)} >Confirm</Button>
+        </>
+    } else if (isComplete) {
+      btnElements = <h6 className="text-primary">Completed</h6>
+    } else {
+      btnElements = <h6 className='text-secondary'>Expired</h6>
+    }
+
+    return btnElements
   }
 
   return (
@@ -68,10 +111,7 @@ const AdminScheduleForToday = () => {
                     <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                     <td>{appointment.service}</td>
                     <td className={statusBackground(appointment)}>{appointment.status}</td>
-                    {appointment.status.toLowerCase() === "confirmed" && <td>{appointment.isCompleted ?
-                      <>
-                        <h6 className="text-primary">Completed</h6>
-                      </> : <Button variant='primary' onClick={() => handleCompleted(appointment.id)}>Done</Button>}</td>}
+                    <td>{actionBtnElements(appointment.status, appointment.isCompleted, appointment.id)}</td>
                   </tr>
                 ))}
             </tbody>
@@ -84,3 +124,5 @@ const AdminScheduleForToday = () => {
 };
 
 export default AdminScheduleForToday;
+
+

@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { FaCheck } from "react-icons/fa";
 import ServicesContext from '../ServicesContext';
+import Dentist from ".././images/Dentist.gif"
+import point from ".././images/point.gif"
+
 
 function Home() {
     const { services } = useContext(ServicesContext)
@@ -23,9 +26,10 @@ function Home() {
     return (
         <div className={`pb-5 ${darkMode ? "bg-dark text-light" : null}`}>
             <header>
-                <Container className='d-flex flex-column justify-content-start align-items-end p-3'>
+                <Container className='position-relative d-flex flex-column justify-content-start align-items-end pb-5 pe-4'>
                     {isLoggedin && <Button className="btn-danger" onClick={logout}>Logout</Button>}
                     <Button className="btn-primary fw-bold mt-2" onClick={bookAppointment}>Book an Appointment</Button>
+                    <img className='position-absolute end-0 bottom-0' width={60} src={point} alt="" />
                 </Container>
             </header>
             <main>
@@ -37,7 +41,7 @@ function Home() {
                             <Button className="btn-primary fw-bold" onClick={() => navigate("/about")}>Learn More</Button>
                         </Col>
                         <Col md={6}>
-                            <img className="rounded-circle" width={300} src="https://media.giphy.com/media/gLxFsED6Id9C20MGwN/giphy.gif" alt="Dentist" />
+                            <img className="rounded-circle" width={300} src={Dentist} alt="Dentist" />
                         </Col>
                     </Row>
                 </Container>

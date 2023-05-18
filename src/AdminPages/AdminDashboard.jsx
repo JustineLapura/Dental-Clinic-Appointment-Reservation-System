@@ -96,7 +96,7 @@ const AdminDashboard = () => {
     return background
   }
 
-  const appointmentModalBtns = (selected) => {
+ const appointmentModalBtns = (selected) => {
     let btnElements
     if (selected && selected.status.toLowerCase() === "pending") {
       btnElements =
@@ -193,7 +193,7 @@ const AdminDashboard = () => {
                     <td>{index + 1}</td>
                     <td>{appointment.name}</td>
                     <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
-                    <td> className="btn-sm"</td>
+                    <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                     <td className={statusBackground(appointment)}>{appointment.status}</td>
                     <td>
                       {appointment.isCompleted ? <h6 className='text-primary'>Completed</h6> :

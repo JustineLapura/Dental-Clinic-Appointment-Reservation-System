@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import { Container, Row, Col, Form, Button, Table, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./Appointment.css"
+import "./Appointment.css";
 import { authRequired } from '../authRequired';
 import { useOutletContext, useNavigate } from 'react-router-dom';
-import ServicesContext from ".././ServicesContext"
+import ServicesContext from ".././ServicesContext";
 import AppointmentContext from '../AppointmentContext';
 import TimeScheduleContext from '../TimeScheduleContext';
 import SuccessModal from '../components/SuccessModal';
 import "animate.css";
+import clickMe from ".././images/giphy.gif"
 
 export async function loader() {
   return await authRequired()
@@ -69,7 +70,8 @@ function Appontment() {
               <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {firstName}!..</h5>
               <h3 className='my-3 text-primary animate__animated animate__pulse animate__delay-2s animate__infinite animate__slow'>Book your appointment now.</h3>
               <Form>
-                <Form.Group controlId="date">
+                <Form.Group className='position-relative pe-4' controlId="date">
+                  <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
                   <Form.Label>Date</Form.Label>
                   <Form.Control type="date" value={date} onChange={handleDateChange} />
                   {isInvalidDate &&
@@ -77,7 +79,8 @@ function Appontment() {
                       Please select a valid date excluding Sundays.
                     </Alert>}
                 </Form.Group>
-                <Form.Group controlId="time">
+                <Form.Group className='position-relative pe-4' controlId="time">
+                <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
                   <Form.Label>Time</Form.Label>
                   <Form.Control type="time" value={time} onChange={handleTimeChange} />
                   {isInvalidTime && (
@@ -86,7 +89,7 @@ function Appontment() {
                     </Alert>
                   )}
                 </Form.Group>
-                <Form.Group controlId="service">
+                <Form.Group className='pe-4' controlId="service">
                   <Form.Label>Service</Form.Label>
                   <Form.Control as="select" value={service} onChange={handleServiceChange}>
                     <option value="">Select a service</option>

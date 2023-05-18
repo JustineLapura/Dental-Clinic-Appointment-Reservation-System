@@ -2,6 +2,8 @@ import React from "react";
 import {Row, Col, Image } from "react-bootstrap";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useOutletContext } from "react-router-dom";
+import GoodTooth from ".././images/GoodTooth.gif"
+
 
 const mapContainerStyle = {
   height: "400px",
@@ -20,7 +22,7 @@ const About = () => {
       <h1 className="text-center mb-5">About Us</h1>
       <Row>
         <Col lg={6} className="mb-4">
-          <Image className="rounded" src="https://media.giphy.com/media/MSmufS90NUeOnPLkGm/giphy.gif" fluid />
+          <Image className="rounded" src={GoodTooth} fluid />
         </Col>
         <Col lg={6} className="mb-4">
           <h2 className="text-primary mb-3">Who We Are</h2>

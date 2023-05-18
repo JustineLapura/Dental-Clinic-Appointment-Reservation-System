@@ -6,7 +6,6 @@ import Layout from './components/Layout';
 import AppointmentLayout from './components/AppointmentLayout';
 import Appointment, { loader as appointmentsLoader } from './AppointmentPages/Appointment';
 import AccountPage from './AppointmentPages/AccountPage';
-import DentalRecords from './AppointmentPages/DentalRecords';
 import Profile from './AppointmentPages/Profile';
 import Services from './pages/Services';
 import About from './pages/About';
@@ -26,13 +25,10 @@ import { AppointmentProvider } from './AppointmentContext';
 import AdminTimeSchedule from './AdminPages/AdminTimeSchedule';
 import { TimeScheduleProvider } from './TimeScheduleContext';
 import { UsersProvider } from './UsersContext';
-import DentalRecordsLayout from './components/DentalRecordsLayout';
 import AppointmentManagement from './AdminPages/AppointmentManagement';
-import BillingInvoicing from './DentalRecordsPages/BillingInvoicing';
 import DentalRecordDetails from './AdminPages/DentalRecordDetails';
 import UserDentalRecords from './AppointmentPages/UserDentalRecord';
 import UserRecordDetails from './AppointmentPages/UserRecordDetails';
-localStorage.removeItem("isLoggedin");
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>

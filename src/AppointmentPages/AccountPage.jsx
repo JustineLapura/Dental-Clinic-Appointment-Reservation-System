@@ -7,6 +7,7 @@ import SuccessModal from "../components/SuccessModal";
 import ShowBookAppointmentModal from "../components/ShowBookAppointmentModal";
 import RescheduleModal from "../components/RescheduleModal";
 
+
 const AccountPage = () => {
   const firstName = localStorage.getItem("firstName").toLowerCase()
   const lastName = localStorage.getItem("lastName").toLowerCase()
