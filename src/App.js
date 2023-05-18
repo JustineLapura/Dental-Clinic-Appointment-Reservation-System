@@ -25,6 +25,7 @@ import { ServiceProvider } from './ServicesContext';
 import { AppointmentProvider } from './AppointmentContext';
 import AdminTimeSchedule from './AdminPages/AdminTimeSchedule';
 import { TimeScheduleProvider } from './TimeScheduleContext';
+import { UsersProvider } from './UsersContext';
 localStorage.removeItem("isLoggedin");
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -59,13 +60,15 @@ const router = createBrowserRouter(createRoutesFromElements(
 function App() {
   return (
     <div className="App">
-      <AppointmentProvider>
-        <TimeScheduleProvider>
-          <ServiceProvider>
-            <RouterProvider router={router} />
-          </ServiceProvider>
-        </TimeScheduleProvider>
-      </AppointmentProvider>
+      <UsersProvider>
+        <AppointmentProvider>
+          <TimeScheduleProvider>
+            <ServiceProvider>
+              <RouterProvider router={router} />
+            </ServiceProvider>
+          </TimeScheduleProvider>
+        </AppointmentProvider>
+      </UsersProvider>
     </div>
   );
 }

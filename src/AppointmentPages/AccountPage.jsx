@@ -35,7 +35,8 @@ const AccountPage = () => {
     handleTimeChange,
     isInvalidTime,
     setIsInvalidDate,
-    setIsInvalidTime
+    setIsInvalidTime,
+    handleServiceChange
   } = useContext(AppointmentContext)
 
   const darkMode = useOutletContext();
@@ -133,6 +134,7 @@ const AccountPage = () => {
         handleCloseModal={handleCloseModal}
         handleDateChange={handleDateChange}
         handleTimeChange={handleTimeChange}
+        handleServiceChange={handleServiceChange}
         isInvalidDate={isInvalidDate}
         isInvalidTime={isInvalidTime}
         date={date}
@@ -171,5 +173,3 @@ const AccountPage = () => {
 };
 
 export default AccountPage;
-
-
