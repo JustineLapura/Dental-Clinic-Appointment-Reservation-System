@@ -5,7 +5,7 @@ import AppointmentContext from '../AppointmentContext';
 import { useReactToPrint } from 'react-to-print';
 import { Link } from 'react-router-dom';
 
-const DentalRecordDetails = () => {
+const UserRecordDetails = () => {
     const { appointments } = useContext(AppointmentContext)
 
     const { id } = useParams()
@@ -69,4 +69,4 @@ const DentalRecordDetails = () => {
     );
 };
 
-export default DentalRecordDetails;
+export default UserRecordDetails;

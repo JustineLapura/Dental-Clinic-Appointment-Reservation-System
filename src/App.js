@@ -30,6 +30,8 @@ import DentalRecordsLayout from './components/DentalRecordsLayout';
 import AppointmentManagement from './AdminPages/AppointmentManagement';
 import BillingInvoicing from './DentalRecordsPages/BillingInvoicing';
 import DentalRecordDetails from './AdminPages/DentalRecordDetails';
+import UserDentalRecords from './AppointmentPages/UserDentalRecord';
+import UserRecordDetails from './AppointmentPages/UserRecordDetails';
 localStorage.removeItem("isLoggedin");
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -40,7 +42,8 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route index element={<Appointment />} loader={appointmentsLoader} />
         <Route path='account' element={<AccountPage />} loader={async () => await authRequired()} />
         <Route path='profile' element={<Profile />} loader={async () => await authRequired()} />
-        <Route path='records' element={<DentalRecords />} loader={async () => await authRequired()} />
+        <Route path='records' element={<UserDentalRecords />} loader={async () => await authRequired()} />
+        <Route path='records/:id' element={<UserRecordDetails />} loader={async () => await authRequired()} />
       </Route>
       <Route path="/services" element={<Services />} />
       <Route path="/about" element={<About />} />
