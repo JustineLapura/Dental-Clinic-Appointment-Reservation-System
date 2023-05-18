@@ -1,9 +1,23 @@
-import React, { useContext } from 'react';
-import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import React, { useState, useContext } from 'react';
+import { Container, Row, Col, Table, Button, Modal } from 'react-bootstrap';
 import AppointmentContext from '../AppointmentContext';
+import RescheduleModal from '../components/RescheduleModal';
 
 const AdminScheduleForToday = () => {
-  const { appointments, setAppointments } = useContext(AppointmentContext);
+  const {
+    appointments,
+    setAppointments
+  } = useContext(AppointmentContext)
+  const handleCompleted = (id) => {
+    setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
+      return prevAppointment.id === id
+        ? {
+          ...prevAppointment,
+          isCompleted: !prevAppointment.isCompleted
+        }
+        : prevAppointment
+    }))
+  }
 
   const statusBackground = (appointment) => {
     let background
@@ -18,17 +32,6 @@ const AdminScheduleForToday = () => {
     }
 
     return background
-  }
-
-  const handleCompleted = (id) => {
-    setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
-      return prevAppointment.id === id
-        ? {
-          ...prevAppointment,
-          isCompleted: !prevAppointment.isCompleted
-        }
-        : prevAppointment
-    }))
   }
 
   return (
@@ -75,6 +78,7 @@ const AdminScheduleForToday = () => {
           </Table>
         </Col>
       </Row>
+
     </Container>
   );
 };
