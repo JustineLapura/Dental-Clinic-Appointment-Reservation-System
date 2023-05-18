@@ -63,7 +63,7 @@ const UserRecordDetails = () => {
                     </Col>
                 </Row>
             </Container>
-            <Button className='my-5' variant="success" onClick={handlePrint}>Print Record</Button>
+            <Button className='btn-sm my-5' variant="success" onClick={handlePrint}>Print Record</Button>
         </>
 
     );

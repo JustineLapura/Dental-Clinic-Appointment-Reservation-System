@@ -19,7 +19,7 @@ const Services = () => {
                   <h3 className="text-primary">{service.name}</h3>
                   <h6 className="my-4">{service.description}</h6>
                   <p className="">Price: <span className="fw-normal">P{service.price}</span></p>
-                  <Button variant="primary">Learn More</Button>
+                  <Button className="btn-sm" variant="primary">Learn More</Button>
                 </Card.Body>
               </Card>
             </Col>

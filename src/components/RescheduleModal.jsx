@@ -63,10 +63,10 @@ function RescheduleModal(
             </Modal.Body>
             {errorMessage && <h6 className="text-danger mx-auto mb-2">{errorMessage}</h6>}
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseModal}>
+              <Button className='btn-sm' variant="secondary" onClick={handleCloseModal}>
                 Close
               </Button>
-              <Button variant="primary" onClick={() => handleEditAppointment(currentAppointmentId)}>
+              <Button className='btn-sm' variant="primary" onClick={() => handleEditAppointment(currentAppointmentId)}>
                 Reschedule Appointment
               </Button>
             </Modal.Footer>

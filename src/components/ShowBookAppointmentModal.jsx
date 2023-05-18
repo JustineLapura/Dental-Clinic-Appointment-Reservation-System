@@ -56,10 +56,10 @@ function ShowBookAppointmentModal(
         </Modal.Body>
         {errorMessage && <h6 className="text-danger mx-auto mb-2">{errorMessage}</h6>}
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button className='btn-sm' variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleBookAppointment}>
+          <Button className='btn-sm' variant="primary" onClick={handleBookAppointment}>
             Book Appointment
           </Button>
         </Modal.Footer>

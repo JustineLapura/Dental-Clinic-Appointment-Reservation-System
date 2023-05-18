@@ -41,7 +41,7 @@ const AppointmentManagement = () => {
                                         <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                                         <td>{appointment.service}</td>
                                         <td>P{Math.ceil(Math.random() * 1000)}</td>
-                                        <td><Link to={`/admin/records/${appointment.id}`}><Button>View</Button></Link></td>
+                                        <td><Link to={`/admin/records/${appointment.id}`}><Button className='btn-sm'>View</Button></Link></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -49,7 +49,7 @@ const AppointmentManagement = () => {
                     </Col>
                 </Row>
             </Container>
-            <Button className='mb-4' variant="success" onClick={handlePrint}>Print Record</Button>
+            <Button className='btn btn-sm mb-4' variant="success" onClick={handlePrint}>Print Record</Button>
         </>
     );
 };

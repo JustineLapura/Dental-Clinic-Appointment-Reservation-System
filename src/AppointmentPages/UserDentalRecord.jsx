@@ -43,7 +43,7 @@ const UserDentalRecords = () => {
                                         <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                                         <td>{appointment.service}</td>
                                         <td>P{Math.ceil(Math.random() * 1000)}</td>
-                                        <td><Link to={`/appointments/records/${appointment.id}`}><Button>View</Button></Link></td>
+                                        <td><Link to={`/appointments/records/${appointment.id}`}><Button className='btn-sm'>View</Button></Link></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -51,7 +51,7 @@ const UserDentalRecords = () => {
                     </Col>
                 </Row>
             </Container>
-            {completedAppointments.length > 0 && <Button className='mb-4' variant="success" onClick={handlePrint}>Print Record</Button>}
+            {completedAppointments.length > 0 && <Button className='btn-sm mb-4' variant="success" onClick={handlePrint}>Print Record</Button>}
         </>
     );
 };

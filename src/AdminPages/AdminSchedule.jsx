@@ -23,7 +23,7 @@ const AdminSchedule = () => {
   return (
     <Container fluid>
       <Row className="justify-content-center mt-4">
-        <Col md={10}>
+        <Col md={10} lg={12}>
           <h1 className="text-center mb-4">Admin Schedule</h1>
           <Table striped bordered hover>
             <thead>

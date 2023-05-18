@@ -101,20 +101,20 @@ const AdminDashboard = () => {
     if (selected && selected.status.toLowerCase() === "pending") {
       btnElements =
         <>
-          <Button variant="primary" onClick={handleAdminReschedule}>
+          <Button className="btn-sm" variant="primary" onClick={handleAdminReschedule}>
             Reschedule
           </Button>
-          <Button variant="success" onClick={() => handleConfirmAppointment(selected.id)}>
+          <Button className="btn-sm" variant="success" onClick={() => handleConfirmAppointment(selected.id)}>
             Confirm
           </Button>
         </>
     } else if (selected && (selected.status.toLowerCase() === "confirmed" || selected.status.toLowerCase() === "rescheduled")) {
       btnElements =
         <>
-          <Button variant="primary" onClick={handleAdminReschedule}>
+          <Button className="btn-sm" variant="primary" onClick={handleAdminReschedule}>
             Reschedule
           </Button>
-          <Button variant="secondary" onClick={handleModalClose}>
+          <Button className="btn-sm" variant="secondary" onClick={handleModalClose}>
             Close
           </Button>
         </>
@@ -193,10 +193,11 @@ const AdminDashboard = () => {
                     <td>{index + 1}</td>
                     <td>{appointment.name}</td>
                     <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
-                    <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
+                    <td> className="btn-sm"</td>
                     <td className={statusBackground(appointment)}>{appointment.status}</td>
                     <td>
-                      {appointment.isCompleted ? <h6 className='text-primary'>Completed</h6> : <Button variant="info" onClick={() => handleViewAppointment(appointment.id)}>
+                      {appointment.isCompleted ? <h6 className='text-primary'>Completed</h6> :
+                       <Button className='btn-sm' variant="info" onClick={() => handleViewAppointment(appointment.id)}>
                         View
                       </Button>}
                     </td>

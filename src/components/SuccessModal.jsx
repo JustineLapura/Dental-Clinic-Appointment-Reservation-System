@@ -14,10 +14,10 @@ function SuccessModal({showSuccessModal, handleCloseModal, gotoMyAppointments}) 
           <h5 className="fw-bold text-success text-center my-5">Booked Successfully!</h5>
           <div className='d-flex justify-content-end gap-2'>
             {pathname === "/appointments" && 
-            <Button variant="secondary" onClick={gotoMyAppointments}>
+            <Button className='btn-sm' variant="secondary" onClick={gotoMyAppointments}>
               Go to my Appointments
             </Button>}
-            <Button variant="primary" onClick={handleCloseModal}>
+            <Button className='btn-sm' variant="primary" onClick={handleCloseModal}>
               Done
             </Button>
           </div>

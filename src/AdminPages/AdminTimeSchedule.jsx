@@ -33,7 +33,7 @@ const AdminTimeSchedule = () => {
                   <td>{day}</td>
                   <td>{availability[day]}</td>
                   <td>
-                    <Button variant="primary" onClick={() => handleEditModalOpen(day)}>Edit</Button>
+                    <Button className='btn-sm className="btn-sm"' variant="primary" onClick={() => handleEditModalOpen(day)}>Edit</Button>
                   </td>
                 </tr>
               ))}
@@ -54,8 +54,8 @@ const AdminTimeSchedule = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
-          <Button variant="primary" onClick={handleUpdateSchedule}>Save Changes</Button>
+          <Button className="btn-sm" variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
+          <Button className="btn-sm" variant="primary" onClick={handleUpdateSchedule}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
     </Container>

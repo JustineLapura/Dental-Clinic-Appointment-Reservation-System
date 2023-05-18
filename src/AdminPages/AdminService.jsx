@@ -37,23 +37,23 @@ const AdminService = () => {
 
   return (
     <Container fluid>
-      <Row className="justify-content-center h-100">
-        <Col xs={12} md={10} lg={8}>
-          <div className="d-flex justify-content-between my-3">
+      <Row className="justify-content-center h-100 w-100">
+        <Col xs={12} md={12} lg={12} >
+          <div className="d-flex flex-column justify-content-center align-items-center  my-3">
             <h2 className="text-center">Services</h2>
-            <Button variant="success" onClick={() => setShowAddModal(true)}>
+            <Button className="btn-sm" variant="success" onClick={() => setShowAddModal(true)}>
               Add Service
             </Button>
           </div>
-          <div style={{ height: "350px", overflow: "scroll" }} className="my-2">
+          <div style={{ height: "500px", width: "100%", overflow: "scroll" }} className="my-2 border">
             <Table striped bordered hover>
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Name</th>
+                  <th>Service Name</th>
                   <th>Description</th>
                   <th>Price</th>
-                  <th></th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -65,13 +65,14 @@ const AdminService = () => {
                     <td>${service.price.toFixed(2)}</td>
                     <td className="text-center">
                       <Button
+                        className="btn-sm"
                         variant="primary"
                         onClick={() => handleEditServiceModalOpen(service.id)}
                       >
                         Edit
                       </Button>{" "}
                       <Button
-                        className="mt-1 mx-1"
+                        className="btn-sm mt-1 mx-1"
                         variant="danger"
                         onClick={() => handleDeleteService(service.id)}
                       >
@@ -122,10 +123,10 @@ const AdminService = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+          <Button className="btn-sm" variant="secondary" onClick={() => setShowAddModal(false)}>
             Cancel
           </Button>
-          <Button variant="success" onClick={handleAddService}>
+          <Button className="btn-sm" variant="success" onClick={handleAddService}>
             Add Service
           </Button>
         </Modal.Footer>
@@ -166,10 +167,10 @@ const AdminService = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+          <Button className="btn-sm" variant="secondary" onClick={() => setShowEditModal(false)}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleEditService}>
+          <Button className="btn-sm" variant="primary" onClick={handleEditService}>
             Save Changes
           </Button>
         </Modal.Footer>

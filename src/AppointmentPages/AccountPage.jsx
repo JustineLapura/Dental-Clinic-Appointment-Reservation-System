@@ -72,20 +72,20 @@ const AccountPage = () => {
     } else if (status.toLowerCase() === "rescheduled") {
       return (
         <>
-          <Button className="m-1" variant="danger" onClick={() => handleCancelAppointment(id)}>Cancel</Button>
-          <Button className="m-1" variant="primary" onClick={() => handleReschedule(id)}>Reschedule</Button>
-          <Button className="m-1" variant="success" onClick={() => handleConfirmAppointment(id)}>Confirm</Button>
+          <Button className="btn btn-sm m-1" variant="danger" onClick={() => handleCancelAppointment(id)}>Cancel</Button>
+          <Button className="btn btn-sm m-1" variant="primary" onClick={() => handleReschedule(id)}>Reschedule</Button>
+          <Button className="btn btn-sm m-1" variant="success" onClick={() => handleConfirmAppointment(id)}>Confirm</Button>
         </>
       )
     } else if (status.toLowerCase() === "pending" || status.toLowerCase() === "confirmed") {
       return (
         <>
-          <Button className="m-1" variant="danger" onClick={() => handleCancelAppointment(id)}>Cancel</Button>
-          <Button className="m-1" variant="primary" onClick={() => handleReschedule(id)}>Reschedule</Button>
+          <Button className="btn btn-sm m-1" variant="danger" onClick={() => handleCancelAppointment(id)}>Cancel</Button>
+          <Button className="btn btn-sm m-1" variant="primary" onClick={() => handleReschedule(id)}>Reschedule</Button>
         </>
       )
     } else {
-      return <Button className="m-1" variant="secondary" onClick={() => handleDeleteAppointment(id)}>Remove</Button>
+      return <Button className="btn btn-sm m-1" variant="secondary" onClick={() => handleDeleteAppointment(id)}>Remove</Button>
     }
   }
 
@@ -97,7 +97,7 @@ const AccountPage = () => {
       <h3>My Appointments</h3>
       <Row>
         <Col className="my-2">
-          <Button className="fw-bold" onClick={() => {
+          <Button className="btn-sm fw-bold" onClick={() => {
             setShowModal(true)
             setIsInvalidDate(false)
             setIsInvalidTime(false)

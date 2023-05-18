@@ -97,7 +97,7 @@ function Appontment() {
                 </Form.Group>
                 {errorMessage && <h6 className="text-danger mx-auto mt-2">{errorMessage}</h6>}
                 <div xs={12} className='py-3'>
-                  <Button className='fw-bold' variant="primary" type="submit" onClick={handleBookAppointment}>Submit Appointment</Button>
+                  <Button className='btn-sm fw-bold' variant="primary" type="submit" onClick={handleBookAppointment}>Submit Appointment</Button>
                 </div>
               </Form>
             </Col>

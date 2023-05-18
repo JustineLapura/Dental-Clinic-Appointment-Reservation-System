@@ -38,13 +38,13 @@ const DentalRecordDetails = () => {
                     </Col>
                     <Col>
                         <h4><strong>Date:</strong></h4>
-                        <p className=''>{appointmentRecord[0].date}</p>
+                        <p className=''>{new Date(appointmentRecord[0].date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                     </Col>
                 </Row>
                 <Row className="my-5">
                     <Col>
                         <h4><strong>Time:</strong></h4>
-                        <p className=''>{appointmentRecord[0].time}</p>
+                        <p className=''>{new Date(`2000-01-01T${appointmentRecord[0].time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
                     </Col>
                     <Col>
                         <h4><strong>Service:</strong></h4>
@@ -63,7 +63,7 @@ const DentalRecordDetails = () => {
                     </Col>
                 </Row>
             </Container>
-            <Button className='my-5' variant="success" onClick={handlePrint}>Print Record</Button>
+            <Button className='btn btn-sm my-5' variant="success" onClick={handlePrint}>Print Record</Button>
         </>
 
     );

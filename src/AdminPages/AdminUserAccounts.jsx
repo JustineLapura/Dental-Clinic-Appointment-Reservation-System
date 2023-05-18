@@ -137,10 +137,10 @@ function AdminUserAccounts() {
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>
-                <Button variant="warning" onClick={() => handleEditUserModalOpen(user.id)}>
+                <Button className='btn-sm' variant="warning" onClick={() => handleEditUserModalOpen(user.id)}>
                   Edit
                 </Button>{' '}
-                <Button variant="danger" onClick={() => handleDeleteUser(user.id)}>
+                <Button className='btn-sm' variant="danger" onClick={() => handleDeleteUser(user.id)}>
                   Delete
                 </Button>
               </td>
