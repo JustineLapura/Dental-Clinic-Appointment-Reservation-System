@@ -1,65 +1,68 @@
-import React, { useContext, useState } from 'react';
-import { Container, Row, Col, Table, Button, Modal, Form } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import TimeScheduleContext from '../TimeScheduleContext';
 
-const AdminTimeSchedule = () => {
-  const {
-            availability,
-            handleEditModalOpen,
-            showEditModal,
-            setShowEditModal,
-            dayToEdit,
-            newSchedule,
-            setNewSchedule,
-            handleUpdateSchedule
-        } = useContext(TimeScheduleContext)
+export const AdminTimeSchedule = () => {
+  const { schedule, setSchedule, handleScheduleUpdate, handleDayClosed } = useContext(TimeScheduleContext)
 
   return (
     <Container>
-      <h3 className="text-center my-4">Dental Clinic Schedule</h3>
       <Row>
         <Col>
-          <Table bordered hover>
-            <thead>
-              <tr>
-                <th>Day</th>
-                <th>Schedule</th>
-                <th>Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(availability).map((day) => (
-                <tr key={day}>
-                  <td>{day}</td>
-                  <td>{availability[day]}</td>
-                  <td>
-                    <Button className='btn-sm className="btn-sm"' variant="primary" onClick={() => handleEditModalOpen(day)}>Edit</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+          <Form>
+            <h3>Edit Schedule</h3>
+            {[
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ].map((day, index) => {
+              const daySchedule = schedule.find((item) => item.day === day);
+              const startTime = daySchedule ? daySchedule.startTime : "";
+              const endTime = daySchedule ? daySchedule.endTime : "";
+
+              return (
+                <Form.Group className="my-2" as={Row} key={index}>
+                  <Form.Label column sm={2}>
+                    {day}
+                  </Form.Label>
+                  <Col sm={4}>
+                    <Form.Control
+                      type="time"
+                      value={startTime}
+                      onChange={(e) =>
+                        handleScheduleUpdate(day, e.target.value, endTime)
+                      }
+                    />
+                  </Col>
+                  <Col sm={4}>
+                    <Form.Control
+                      type="time"
+                      value={endTime}
+                      onChange={(e) =>
+                        handleScheduleUpdate(day, startTime, e.target.value)
+                      }
+                    />
+                  </Col>
+                  <Col sm={2}>
+                    <Form.Check
+                      type="checkbox"
+                      label="Closed"
+                      checked={!startTime && !endTime}
+                      onChange={() => handleDayClosed(day)}
+                    />
+                  </Col>
+                </Form.Group>
+              );
+            })}
+          </Form>
         </Col>
       </Row>
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Availability for {dayToEdit}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="schedule">
-              <Form.Label>New Schedule</Form.Label>
-              <Form.Control type="text" value={newSchedule} onChange={(e) => setNewSchedule(e.target.value)} />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button className="btn-sm" variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
-          <Button className="btn-sm" variant="primary" onClick={handleUpdateSchedule}>Save Changes</Button>
-        </Modal.Footer>
-      </Modal>
     </Container>
-  );
+  )
 }
 
-export default AdminTimeSchedule;
+export default AdminTimeSchedule

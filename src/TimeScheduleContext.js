@@ -1,58 +1,51 @@
-import React, { createContext, useState, useEffect } from "react"
+import React, { createContext, useState, useEffect } from 'react';
 
-export const TimeScheduleContext = createContext()
+export const TimeScheduleContext = createContext();
 
 export const TimeScheduleProvider = ({ children }) => {
-  // Define the initial state of the availability schedule
-  const [availability, setAvailability] = useState(() => {
-    // Get services from localStorage or use default values
-    const storedSchedule = localStorage.getItem('availability');
-    return storedSchedule ? JSON.parse(storedSchedule) :
-      {}
+  const [schedule, setSchedule] = useState(() => {
+    // Get schedule from localStorage or use default values
+    const storedSchedule = localStorage.getItem('schedule');
+    return storedSchedule ? JSON.parse(storedSchedule) : [];
   });
 
+  // Save schedule to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("availability", JSON.stringify(availability));
-  }, [availability]);
+    localStorage.setItem('schedule', JSON.stringify(schedule));
+  }, [schedule]);
 
-  // Define the state variables for the edit modal
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [dayToEdit, setDayToEdit] = useState('');
-  const [newSchedule, setNewSchedule] = useState('');
+  // Function to handle schedule updates
+  const handleScheduleUpdate = (day, startTime, endTime) => {
+    const updatedSchedule = [...schedule];
+    const dayIndex = updatedSchedule.findIndex(item => item.day === day);
 
-  // Function to handle opening the edit modal
-  const handleEditModalOpen = (day) => {
-    setDayToEdit(day);
-    setNewSchedule(availability[day]);
-    setShowEditModal(true);
+    if (dayIndex !== -1) {
+      updatedSchedule[dayIndex] = { day, startTime, endTime };
+    } else {
+      updatedSchedule.push({ day, startTime, endTime });
+    }
+
+    setSchedule(updatedSchedule);
   };
 
-  // Function to handle updating the availability schedule
-  const handleUpdateSchedule = () => {
-    setAvailability({
-      ...availability,
-      [dayToEdit]: newSchedule
-    });
-    setShowEditModal(false);
+  // Function to handle setting a specific day as closed
+  const handleDayClosed = (day) => {
+    const updatedSchedule = schedule.filter(item => item.day !== day);
+    setSchedule(updatedSchedule);
   };
-
-  
 
   return (
-    <TimeScheduleContext.Provider value={{
-      availability,
-      setAvailability,
-      showEditModal, setShowEditModal,
-      dayToEdit,
-      setDayToEdit,
-      newSchedule,
-      setNewSchedule,
-      handleEditModalOpen,
-      handleUpdateSchedule
-    }}>
+    <TimeScheduleContext.Provider
+      value={{
+        schedule,
+        setSchedule,
+        handleScheduleUpdate,
+        handleDayClosed
+      }}
+    >
       {children}
     </TimeScheduleContext.Provider>
-  )
-}
+  );
+};
 
-export default TimeScheduleContext
+export default TimeScheduleContext;

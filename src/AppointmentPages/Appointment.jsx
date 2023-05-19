@@ -20,7 +20,7 @@ function Appontment() {
   const firstName = localStorage.getItem("firstName")
   const navigate = useNavigate()
   const darkMode = useOutletContext()
-  const { availability } = useContext(TimeScheduleContext)
+  const { schedule } = useContext(TimeScheduleContext)
   const { services } = useContext(ServicesContext)
   const {
     date,
@@ -49,20 +49,34 @@ function Appontment() {
         <Container fluid>
           <Row className='d-flex justify-content-between align-items-center'>
             <Col xs={12} md={4} lg={3} className='mt-5 pe-5'>
-              <Table bordered hover>
+              <Table bordered>
                 <thead>
                   <tr>
                     <th>Day</th>
-                    <th>Schedule</th>
+                    <th>Time</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.keys(availability).map((day) => (
-                    <tr key={day}>
-                      <td>{day}</td>
-                      <td>{availability[day]}</td>
-                    </tr>
-                  ))}
+                  {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => {
+                    const daySchedule = schedule.find(item => item.day === day);
+                    const startTime = daySchedule ? daySchedule.startTime : '';
+                    const endTime = daySchedule ? daySchedule.endTime : '';
+
+                    if (startTime && endTime) {
+                      return (
+                        <tr key={day}>
+                          <td>{day}</td>
+                          <td>{new Date(`2000-01-01T${startTime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} - {new Date(`2000-01-01T${endTime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
+                        </tr>
+                      );
+                    }
+                    return (
+                      <tr key={day}>
+                        <td>{day}</td>
+                        <td>Closed</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Table>
             </Col>
@@ -80,7 +94,7 @@ function Appontment() {
                     </Alert>}
                 </Form.Group>
                 <Form.Group className='position-relative pe-4' controlId="time">
-                <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
+                  <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
                   <Form.Label>Time</Form.Label>
                   <Form.Control type="time" value={time} onChange={handleTimeChange} />
                   {isInvalidTime && (
@@ -128,7 +142,7 @@ function Appontment() {
         </Container>
 
       </section>
-      <SuccessModal showSuccessModal={showSuccessModal} handleCloseModal={handleCloseModal} gotoMyAppointments={gotoMyAppointments}/>
+      <SuccessModal showSuccessModal={showSuccessModal} handleCloseModal={handleCloseModal} gotoMyAppointments={gotoMyAppointments} />
     </main>
 
   );
