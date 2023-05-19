@@ -119,7 +119,7 @@ function Appontment() {
               </Form>
             </Col>
             <Col xs={12} md={4} lg={3} className='justify-content-end ps-5'>
-              <div style={{ height: '300px', overflow: 'scroll' }} className='mt-4'>
+              <div style={{ height: '500px', overflow: 'scroll' }} className='mt-4'>
                 <Table bordered>
                   <thead>
                     <tr>

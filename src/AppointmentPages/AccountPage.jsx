@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Row, Col, Button, Table, Modal, Form, Alert } from "react-bootstrap";
+import { Row, Col, Button, Table } from "react-bootstrap";
 import { useOutletContext } from 'react-router-dom';
 import AppointmentContext from "../AppointmentContext";
 import ServicesContext from "../ServicesContext";

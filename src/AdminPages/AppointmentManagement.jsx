@@ -2,12 +2,10 @@ import React, { useContext, useRef, useState } from 'react';
 import { Container, Row, Col, Table, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AppointmentContext from '../AppointmentContext';
-import ServicesContext from '../ServicesContext';
 import { useReactToPrint } from 'react-to-print';
 
 const AppointmentManagement = () => {
     const { appointments } = useContext(AppointmentContext);
-    const { service } = useContext(ServicesContext);
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,

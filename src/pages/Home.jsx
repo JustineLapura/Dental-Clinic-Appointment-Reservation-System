@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import { FaCheck } from "react-icons/fa";
 import ServicesContext from '../ServicesContext';
 import Dentist from ".././images/Dentist.gif"
-import point from ".././images/point.gif"
+import pointFinger from ".././images/pointFinger.gif"
 
 
 function Home() {
@@ -29,7 +28,7 @@ function Home() {
                 <Container className='position-relative d-flex flex-column justify-content-start align-items-end pb-5 pe-4'>
                     {isLoggedin && <Button className="btn-danger" onClick={logout}>Logout</Button>}
                     <Button className="btn-primary fw-bold mt-2" onClick={bookAppointment}>Book an Appointment</Button>
-                    <img className='position-absolute end-0 bottom-0' width={60} src={point} alt="" />
+                    <img className='position-absolute end-0 top-45 ' width={60} src={pointFinger} alt="" />
                 </Container>
             </header>
             <main>

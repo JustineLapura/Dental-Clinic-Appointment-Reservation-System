@@ -1,5 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import {Link} from "react-router-dom"
 
 const Footer = () => {
   return (
@@ -25,19 +26,19 @@ const Footer = () => {
             <h2>Follow Us</h2>
             <ul className="list-unstyled list-inline">
               <li className="list-inline-item me-3">
-                <a href="#">
+                <Link to="#">
                   <FaFacebook />
-                </a>
+                </Link>
               </li>
               <li className="list-inline-item me-3">
-                <a href="#">
+                <Link to="#">
                   <FaTwitter />
-                </a>
+                </Link>
               </li>
               <li className="list-inline-item">
-                <a href="#">
+                <Link to="#">
                   <FaInstagram />
-                </a>
+                </Link>
               </li>
             </ul>
           </Col>

@@ -1,4 +1,4 @@
-import React, { useState, useNavigate } from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
 
 const Profile = () => {

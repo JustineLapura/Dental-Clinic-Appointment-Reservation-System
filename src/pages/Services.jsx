@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { FaCheck } from "react-icons/fa";
+import { Row, Col, Card, Button } from "react-bootstrap";
 import { useOutletContext } from "react-router-dom";
 import ServicesContext from "../ServicesContext";
 

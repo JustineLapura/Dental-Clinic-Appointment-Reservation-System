@@ -1,4 +1,4 @@
-import { Container, Row, Col, Table, Button } from 'react-bootstrap'; // Importing necessary components from React Bootstrap
+import { Container, Row, Col, Table } from 'react-bootstrap'; // Importing necessary components from React Bootstrap
 import AppointmentContext from '../AppointmentContext';
 import { useContext } from 'react';
 

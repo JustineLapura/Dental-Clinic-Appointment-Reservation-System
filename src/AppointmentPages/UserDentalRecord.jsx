@@ -2,14 +2,12 @@ import React, { useContext, useRef } from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AppointmentContext from '../AppointmentContext';
-import ServicesContext from '../ServicesContext';
 import { useReactToPrint } from 'react-to-print';
 
 const UserDentalRecords = () => {
     const firstName = localStorage.getItem("firstName")
     const lastName = localStorage.getItem("lastName")
     const { appointments } = useContext(AppointmentContext)
-    const { service } = useContext(ServicesContext)
 
     const componentRef = useRef()
     const handlePrint = useReactToPrint({

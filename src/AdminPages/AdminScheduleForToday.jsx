@@ -1,26 +1,11 @@
-import React, { useState, useContext } from 'react';
-import { Container, Row, Col, Table, Button, Modal } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import AppointmentContext from '../AppointmentContext';
-import RescheduleModal from '../components/RescheduleModal';
 
 const AdminScheduleForToday = () => {
   const {
     appointments,
-    setAppointments,
-    currentAppointmentId,
-    setCurrentAppointmentId,
-    showReschedModal,
-    setShowReschedModal,
-    handleCloseModal,
-    date,
-    time,
-    errorMessage,
-    handleEditAppointment,
-    handleDateChange,
-    isInvalidDate,
-    handleTimeChange,
-    isInvalidTime,
-    handleReschedule
+    setAppointments
   } = useContext(AppointmentContext)
 
   const handleCompleted = (id) => {
