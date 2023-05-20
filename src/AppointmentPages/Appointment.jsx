@@ -124,9 +124,9 @@ function Appontment() {
     <main className={`pb-5 ${darkMode ? "bg-dark text-light" : null}`}>
       <section className="appointment-section">
         <Container fluid>
-          <Row className='d-flex justify-content-between align-items-center'>
-            <Col xs={12} md={4} lg={3} className='mt-5 pe-5'>
-              <Table bordered>
+          <Row className='d-flex justify-content-evenly align-items-center'>
+            <Col xs={12} md={4} lg={3} className='mt-5 '>
+              <Table bordered className='bg-light'> 
                 <thead>
                   <tr>
                     <th>Day</th>
@@ -157,32 +157,30 @@ function Appontment() {
                 </tbody>
               </Table>
             </Col>
-            <Col xs={12} md={4} lg={6} className='text-center px-5'>
+            <Col xs={12} md={4} lg={6} className='text-center'>
               <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {firstName}!..</h5>
               <h3 className='my-3 text-primary animate__animated animate__pulse animate__delay-2s animate__infinite animate__slow'>Book your appointment now.</h3>
-              <Form>
+              <Form className='mx-auto border rounded bg-light'> 
                 <Form.Group className='position-relative pe-4' controlId="date">
-                  <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
                   <Form.Label>Date</Form.Label>
-                  <Form.Control type="date" value={date} onChange={handleDateChange} />
+                  <Form.Control className="text-center w-50 mx-auto mb-1" type="date" value={date} onChange={handleDateChange} />
                   {isInvalidDate &&
-                    <Alert variant="danger">
+                    <Alert className='w-75 mx-auto' variant="danger">
                       Please select a date within the available schedule.
                     </Alert>}
                 </Form.Group>
                 <Form.Group className='position-relative pe-4' controlId="time">
-                  <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
                   <Form.Label>Time</Form.Label>
-                  <Form.Control type="time" value={time} onChange={handleTimeChange} />
+                  <Form.Control className="text-center w-50 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
                   {isInvalidTime && (
-                    <Alert variant="danger">
+                    <Alert className='w-75 mx-auto' variant="danger">
                       Please select a time between 9:00 AM and 5:00 PM.
                     </Alert>
                   )}
                 </Form.Group>
                 <Form.Group className='pe-4' controlId="service">
                   <Form.Label>Service</Form.Label>
-                  <Form.Control as="select" value={service} onChange={handleServiceChange}>
+                  <Form.Control className="text-center w-50 mx-auto" as="select" value={service} onChange={handleServiceChange}>
                     <option value="">Select a service</option>
                     {services.map(service => {
                       return <option key={service.id} value={service.name}>{service.name}</option>
@@ -195,9 +193,9 @@ function Appontment() {
                 </div>
               </Form>
             </Col>
-            <Col xs={12} md={4} lg={3} className='justify-content-end ps-5'>
+            <Col xs={12} md={4} lg={3} className='justify-content-center'>
               <div style={{ height: '500px', overflow: 'scroll' }} className='mt-4'>
-                <Table bordered>
+                <Table bordered className='bg-light'>
                   <thead>
                     <tr>
                       <th>Service</th>

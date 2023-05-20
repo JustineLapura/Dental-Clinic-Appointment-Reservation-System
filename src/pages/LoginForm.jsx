@@ -31,14 +31,14 @@ export default function LoginForm() {
                     controlId="formBasicEmail" 
                     className='d-flex justify-content-center flex-column align-items-center'>
                     <BootstrapForm.Label>Email address</BootstrapForm.Label>
-                    <BootstrapForm.Control name='email' className='rounded-pill w-50' type="email" placeholder="Enter email" />
+                    <BootstrapForm.Control name='email' className='rounded-pill w-25' type="email" placeholder="Enter email" />
                 </BootstrapForm.Group>
 
                 <BootstrapForm.Group 
                     controlId="formBasicPassword" 
                     className='d-flex justify-content-center flex-column align-items-center'>
                     <BootstrapForm.Label>Password</BootstrapForm.Label>
-                    <BootstrapForm.Control name='password' className='rounded-pill w-50' type="password" placeholder="Password"  />
+                    <BootstrapForm.Control name='password' className='rounded-pill w-25' type="password" placeholder="Password"  />
                 </BootstrapForm.Group>
 
                 <Button variant="primary" type="submit" className="mt-2 mb-0 fw-bold">
