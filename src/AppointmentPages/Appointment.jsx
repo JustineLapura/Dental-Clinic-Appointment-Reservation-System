@@ -126,7 +126,7 @@ function Appontment() {
         <Container fluid>
           <Row className='d-flex justify-content-evenly align-items-center'>
             <Col xs={12} md={4} lg={3} className='mt-5 '>
-              <Table bordered className='bg-light'> 
+              <Table bordered className='bg-light fs-5'> 
                 <thead>
                   <tr>
                     <th>Day</th>
@@ -161,26 +161,26 @@ function Appontment() {
               <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {firstName}!..</h5>
               <h3 className='my-3 text-primary animate__animated animate__pulse animate__delay-2s animate__infinite animate__slow'>Book your appointment now.</h3>
               <Form className='mx-auto border rounded bg-light'> 
-                <Form.Group className='position-relative pe-4' controlId="date">
+                <Form.Group className='position-relative ' controlId="date">
                   <Form.Label>Date</Form.Label>
-                  <Form.Control className="text-center w-50 mx-auto mb-1" type="date" value={date} onChange={handleDateChange} />
+                  <Form.Control className="form-control-lg text-center w-50 mx-auto mb-1" type="date" value={date} onChange={handleDateChange} />
                   {isInvalidDate &&
                     <Alert className='w-75 mx-auto' variant="danger">
                       Please select a date within the available schedule.
                     </Alert>}
                 </Form.Group>
-                <Form.Group className='position-relative pe-4' controlId="time">
+                <Form.Group className='position-relative ' controlId="time">
                   <Form.Label>Time</Form.Label>
-                  <Form.Control className="text-center w-50 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
+                  <Form.Control className="form-control-lg text-center w-50 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
                   {isInvalidTime && (
                     <Alert className='w-75 mx-auto' variant="danger">
                       Please select a time between 9:00 AM and 5:00 PM.
                     </Alert>
                   )}
                 </Form.Group>
-                <Form.Group className='pe-4' controlId="service">
+                <Form.Group controlId="service">
                   <Form.Label>Service</Form.Label>
-                  <Form.Control className="text-center w-50 mx-auto" as="select" value={service} onChange={handleServiceChange}>
+                  <Form.Control className="form-control-lg text-center w-50 mx-auto" as="select" value={service} onChange={handleServiceChange}>
                     <option value="">Select a service</option>
                     {services.map(service => {
                       return <option key={service.id} value={service.name}>{service.name}</option>

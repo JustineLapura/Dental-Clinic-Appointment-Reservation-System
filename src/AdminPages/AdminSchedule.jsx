@@ -1,4 +1,4 @@
-import { Container, Row, Col, Table } from 'react-bootstrap'; // Importing necessary components from React Bootstrap
+import { Container, Row, Col, Table, Button } from 'react-bootstrap'; // Importing necessary components from React Bootstrap
 import AppointmentContext from '../AppointmentContext';
 import { useContext } from 'react';
 
@@ -33,10 +33,11 @@ const AdminSchedule = () => {
                 <th>Date</th>
                 <th>Time</th>
                 <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {appointments.filter(appointment => !appointment.isCompleted)
+              {appointments.filter(appointment => !appointment.isCompleted && appointment.status.toLowerCase() === "confirmed")
                 .map(
                   (appointment, index) => (
                     <tr key={appointment.id}>
@@ -45,6 +46,7 @@ const AdminSchedule = () => {
                       <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
                       <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                       <td className={statusBackground(appointment)}>{appointment.status}</td>
+                      <td><Button className='btn-sm btn-danger'>Expire</Button> <Button className='btn-sm btn-primary'>Done</Button></td>
                     </tr>
                   )
                 )}

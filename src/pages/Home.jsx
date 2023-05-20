@@ -51,7 +51,7 @@ function Home() {
                             {services.map(service => {
                                 return (
                                     <Col key={service.id} lg={4} md={6} className="mb-4 w-25">
-                                        <Card className="h-100">
+                                        <Card className="h-100 bg-light">
                                             <Card.Body>
                                                 <h3 className="text-primary">{service.name}</h3>
                                                 <h6 className="my-4">{service.description}</h6>
