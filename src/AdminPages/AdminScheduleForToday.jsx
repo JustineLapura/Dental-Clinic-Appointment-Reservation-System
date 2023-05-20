@@ -47,7 +47,7 @@ const AdminScheduleForToday = () => {
   const actionBtnElements = (status, isComplete, id) => {
     let btnElements
     if (status.toLowerCase() === "confirmed" && !isComplete) {
-      btnElements = <Button variant='primary' onClick={() => handleCompleted(id)}>Done</Button>
+      btnElements = <Button className='btn-sm' variant='primary' onClick={() => handleCompleted(id)}>Done</Button>
     } else if (status.toLowerCase() !== "confirmed" && !isComplete && status.toLowerCase() !== "cancelled") {
       btnElements =
         <>

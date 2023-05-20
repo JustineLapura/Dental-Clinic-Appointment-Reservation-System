@@ -3,7 +3,7 @@ import { Container, Row, Col, Form } from 'react-bootstrap';
 import TimeScheduleContext from '../TimeScheduleContext';
 
 export const AdminTimeSchedule = () => {
-  const { schedule, setSchedule, handleScheduleUpdate, handleDayClosed } = useContext(TimeScheduleContext)
+  const { schedule, handleScheduleUpdate, handleDayClosed } = useContext(TimeScheduleContext)
 
   return (
     <Container>

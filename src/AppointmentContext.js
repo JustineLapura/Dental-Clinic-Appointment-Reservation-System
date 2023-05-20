@@ -105,9 +105,14 @@ export const AppointmentProvider = ({ children }) => {
     return day === 0; // 0 corresponds to Sunday
   };
 
+  const isMonday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 1; // 0 corresponds to Sunday
+  };
+
   const validateDate = (date) => {
     const currentDate = new Date().toISOString().split('T')[0];
-    return date < currentDate || isSunday(date);
+    return date < currentDate || isSunday(date) || isMonday(date); 
   };
 
   const handleDateChange = (e) => {
@@ -174,7 +179,8 @@ export const AppointmentProvider = ({ children }) => {
         isInvalidTime,
         setIsInvalidDate,
         setIsInvalidTime,
-        handleServiceChange
+        handleServiceChange,
+        setDate
       }
     }>
       {children}

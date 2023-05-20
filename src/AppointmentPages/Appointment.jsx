@@ -30,17 +30,94 @@ function Appontment() {
     errorMessage,
     handleCloseModal,
     showSuccessModal,
-    handleDateChange,
     isInvalidDate,
     handleTimeChange,
     isInvalidTime,
-    handleServiceChange
+    handleServiceChange,
+    setIsInvalidDate,
+    setDate
   } = useContext(AppointmentContext)
+
+  
+  const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday");
+  const monday = schedule.find(sched => sched.day.toLowerCase() === "monday");
+  const tuesday = schedule.find(sched => sched.day.toLowerCase() === "tuesday");
+  const wednesday = schedule.find(sched => sched.day.toLowerCase() === "wednesday");
+  const thursday = schedule.find(sched => sched.day.toLowerCase() === "thursday");
+  const friday = schedule.find(sched => sched.day.toLowerCase() === "friday");
+  const saturday = schedule.find(sched => sched.day.toLowerCase() === "saturday");
+
+const isSunday = (date) => {
+  const day = new Date(date).getDay();
+  return day === 0; // 0 corresponds to Sunday
+};
+
+const isMonday = (date) => {
+  const day = new Date(date).getDay();
+  return day === 1; // 1 corresponds to Monday
+};
+
+const isTuesday = (date) => {
+  const day = new Date(date).getDay();
+  return day === 2; // 2 corresponds to Tuesday
+};
+
+const isWednesday = (date) => {
+  const day = new Date(date).getDay();
+  return day === 3; // 3 corresponds to Wednesday
+};
+
+const isThursday = (date) => {
+  const day = new Date(date).getDay();
+  return day === 4; // 4 corresponds to Thursday
+};
+
+const isFriday = (date) => {
+  const day = new Date(date).getDay();
+  return day === 5; // 5 corresponds to Friday
+};
+
+const isSaturday = (date) => {
+  const day = new Date(date).getDay();
+  return day === 6; // 6 corresponds to Saturday
+};
+
+const validateDate = (date) => {
+  const currentDate = new Date().toISOString().split('T')[0];
+  const isSundayValid = !sunday || !sunday.startTime || !sunday.endTime;
+  const isMondayValid = !monday || !monday.startTime || !monday.endTime;
+  const isTuesdayValid = !tuesday || !tuesday.startTime || !tuesday.endTime;
+  const isWednesdayValid = !wednesday || !wednesday.startTime || !wednesday.endTime;
+  const isThursdayValid = !thursday || !thursday.startTime || !thursday.endTime;
+  const isFridayValid = !friday || !friday.startTime || !friday.endTime;
+  const isSaturdayValid = !saturday || !saturday.startTime || !saturday.endTime;
+  return date < currentDate 
+    || (isSunday(date) && isSundayValid) 
+    || (isMonday(date) && isMondayValid) 
+    || (isTuesday(date) && isTuesdayValid)
+    || (isWednesday(date) && isWednesdayValid)
+    || (isThursday(date) && isThursdayValid)
+    || (isFriday(date) && isFridayValid)
+    || (isSaturday(date) && isSaturdayValid)
+    ;
+};
+  
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    if (validateDate(selectedDate)) {
+      // Handle invalid date
+      setIsInvalidDate(true)
+    } else {
+      setDate(selectedDate);
+      setIsInvalidDate(false)
+    }
+  };
 
   const gotoMyAppointments = () => {
     navigate('/appointments/account')
     handleCloseModal()
   }
+
 
 
   return (
@@ -90,7 +167,7 @@ function Appontment() {
                   <Form.Control type="date" value={date} onChange={handleDateChange} />
                   {isInvalidDate &&
                     <Alert variant="danger">
-                      Please select a valid date excluding Sundays.
+                      Please select a date within the available schedule.
                     </Alert>}
                 </Form.Group>
                 <Form.Group className='position-relative pe-4' controlId="time">
