@@ -26,11 +26,12 @@ export const AdminTimeSchedule = () => {
 
               return (
                 <Form.Group className="my-2" as={Row} key={index}>
-                  <Form.Label column sm={2}>
+                  <Form.Label className='fw-bold' column sm={2}>
                     {day}
                   </Form.Label>
                   <Col sm={4}>
                     <Form.Control
+                      className='text-center fs-5'
                       type="time"
                       value={startTime}
                       onChange={(e) =>
@@ -40,6 +41,7 @@ export const AdminTimeSchedule = () => {
                   </Col>
                   <Col sm={4}>
                     <Form.Control
+                      className='text-center fs-5'
                       type="time"
                       value={endTime}
                       onChange={(e) =>

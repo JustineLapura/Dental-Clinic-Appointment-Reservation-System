@@ -62,7 +62,7 @@ const AdminService = () => {
                     <td>{index + 1}</td>
                     <td>{service.name}</td>
                     <td>{service.description}</td>
-                    <td>${service.price.toFixed(2)}</td>
+                    <td>P{service.price.toFixed(2)}</td>
                     <td className="text-center">
                       <Button
                         className="btn-sm"

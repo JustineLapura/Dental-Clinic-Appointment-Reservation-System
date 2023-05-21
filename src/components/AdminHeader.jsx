@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaCalendarAlt, FaClock } from "react-icons/fa";
+import logo from ".././images/adminlogo.gif"
 
 
 const AdminHeader = () => {
@@ -21,7 +22,7 @@ const AdminHeader = () => {
           </div>
         </Col>
         <Col className="text-right">
-          <h1>Dental Clinic Admin</h1>
+          <img src={logo} alt="admin logo" />
         </Col>
       </Row>
     </Container>

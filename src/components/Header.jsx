@@ -3,6 +3,7 @@ import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavLink } from "react-router-dom";
 import { RiMoonClearFill, RiSunFill } from 'react-icons/ri';
+import logo from ".././images/logo.gif"
 
 function Header() {
   const [darkMode, setDarkMode] = React.useState(false)
@@ -18,7 +19,7 @@ function Header() {
             <img
               className="rounded"
               width={150}
-              src="https://media.giphy.com/media/crLRG6Y7KMcFwPvkn5/giphy.gif"
+              src={logo}
               alt="Dental Clinic Logo"
             />
           </Navbar.Brand>
