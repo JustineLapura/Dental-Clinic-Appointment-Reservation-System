@@ -9,6 +9,7 @@ function ShowBookAppointmentModal(
     setTime,
     setService,
     setIsInvalidDate,
+    setIsInvalidTime,
     setShowModal,
     showModal,
     handleCloseModal,
@@ -30,6 +31,7 @@ function ShowBookAppointmentModal(
     navigate("/appointments")
     setShowModal(false)
     setIsInvalidDate(false)
+    setIsInvalidTime(false)
     setDate("")
     setTime("")
     setService("")
@@ -42,7 +44,7 @@ function ShowBookAppointmentModal(
           <Modal.Title>Book Appointment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {isInvalidDate && <div className='d-flex justify-content-center'>
+          {isInvalidDate || isInvalidTime && <div className='d-flex justify-content-center'>
             <Button className='btn-sm btn-primary mx-auto text-white' onClick={viewSchedule}>view schedule</Button>
           </div>}
           <Form>

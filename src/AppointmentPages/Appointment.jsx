@@ -218,7 +218,7 @@ function Appontment() {
               <h3 className='my-3 text-primary animate__animated animate__pulse animate__delay-2s animate__infinite animate__slow'>Book your appointment now.</h3>
               <Form className='mx-auto border rounded bg-light'>
                 <Form.Group className='position-relative' controlId="date">
-                  <Form.Label>Date</Form.Label>
+                  <Form.Label className='fw-bold my-1'>Choose your preferred date:</Form.Label>
                   <Form.Control className="form-control-lg text-center w-50 mx-auto mb-1" type="date" value={date} onChange={handleDateChange} />
                   {isInvalidDate &&
                     <Alert className='w-75 mx-auto' variant="danger">
@@ -226,7 +226,7 @@ function Appontment() {
                     </Alert>}
                 </Form.Group>
                 {date && !isInvalidDate && <Form.Group className='position-relative ' controlId="time">
-                  <Form.Label>Time</Form.Label>
+                  <Form.Label className='fw-bold my-1'>Choose your preferred time:</Form.Label>
                   <Form.Control className="form-control-lg text-center w-50 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
                   {isInvalidTime && (
                     <Alert className='w-75 mx-auto' variant="danger">
@@ -235,7 +235,7 @@ function Appontment() {
                   )}
                 </Form.Group>}
                 <Form.Group controlId="service">
-                  <Form.Label>Service</Form.Label>
+                  <Form.Label className='fw-bold my-1'>Choose your preferred service:</Form.Label>
                   <Form.Control className="form-control-lg text-center w-50 mx-auto" as="select" value={service} onChange={handleServiceChange}>
                     <option value="">Select a service</option>
                     {services.map(service => {

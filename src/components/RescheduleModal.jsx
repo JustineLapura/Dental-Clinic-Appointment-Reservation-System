@@ -49,7 +49,7 @@ function RescheduleModal(
               <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
               {isInvalidTime && (
                 <Alert className="text-center" variant="danger">
-                  Please select a time between 9:00 AM and 5:00 PM.
+                  Please select a time within the available schedule.
                 </Alert>
               )}
             </Form.Group>}

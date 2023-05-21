@@ -273,6 +273,7 @@ const AccountPage = () => {
         setTime={setTime}
         setService={setService}
         setIsInvalidDate={setIsInvalidDate}
+        setIsInvalidTime={setIsInvalidTime}
         setShowModal={setShowModal}
         showModal={showModal}
         handleCloseModal={handleCloseModal}
