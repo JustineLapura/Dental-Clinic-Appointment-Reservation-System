@@ -19,7 +19,6 @@ function Appontment() {
   const firstName = localStorage.getItem("firstName")
   const navigate = useNavigate()
   const darkMode = useOutletContext()
-  const { schedule } = useContext(TimeScheduleContext)
   const { services } = useContext(ServicesContext)
   const {
     date,
@@ -30,14 +29,16 @@ function Appontment() {
     handleCloseModal,
     showSuccessModal,
     isInvalidDate,
-    handleTimeChange,
     isInvalidTime,
     handleServiceChange,
+    setDate,
     setIsInvalidDate,
-    setDate
+    setTime,
+    setIsInvalidTime
   } = useContext(AppointmentContext)
-
-
+  
+  const { schedule } = useContext(TimeScheduleContext)
+  
   const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
   const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
   const tuesday = schedule.find(sched => sched.day.toLowerCase() === "tuesday"); // Find the schedule for Tuesday
@@ -106,11 +107,67 @@ function Appontment() {
     if (validateDate(selectedDate)) {
       // Handle invalid date
       setIsInvalidDate(true)
+      setIsInvalidTime(false)
+      setTime("")
     } else {
       setDate(selectedDate);
       setIsInvalidDate(false)
+      setIsInvalidTime(false)
+      setTime("")
     }
   };
+
+  const handleTimeChange = (e) => {
+    const selectedTime = e.target.value;
+    const isValidTime = validateTime(selectedTime, date);
+    
+    setTime(selectedTime);
+    setIsInvalidTime(!isValidTime);
+  };
+  
+  const validateTime = (timeString, date) => {
+    const selectedTime = new Date(`2000-01-01T${timeString}`);
+    const day = new Date(date).getDay();
+  
+    let scheduleForDay;
+    switch (day) {
+      case 0:
+        scheduleForDay = sunday;
+        break;
+      case 1:
+        scheduleForDay = monday;
+        break;
+      case 2:
+        scheduleForDay = tuesday;
+        break;
+      case 3:
+        scheduleForDay = wednesday;
+        break;
+      case 4:
+        scheduleForDay = thursday;
+        break;
+      case 5:
+        scheduleForDay = friday;
+        break;
+      case 6:
+        scheduleForDay = saturday;
+        break;
+      default:
+        return false;
+    }
+  
+    if (!scheduleForDay || !scheduleForDay.startTime || !scheduleForDay.endTime) {
+      // No schedule available for the selected day
+      return false;
+    }
+  
+    const startTime = new Date(`2000-01-01T${scheduleForDay.startTime}`);
+    const endTime = new Date(`2000-01-01T${scheduleForDay.endTime}`);
+  
+    return selectedTime >= startTime && selectedTime <= endTime;
+  };
+  
+  
 
   const gotoMyAppointments = () => {
     navigate('/appointments/account')
@@ -125,7 +182,7 @@ function Appontment() {
         <Container fluid>
           <Row className='d-flex justify-content-evenly align-items-center'>
             <Col xs={12} md={4} lg={3} className='mt-5 '>
-              <Table bordered className='bg-light fs-5'> 
+              <Table bordered className='bg-light fs-5'>
                 <thead>
                   <tr>
                     <th>Day</th>
@@ -159,8 +216,8 @@ function Appontment() {
             <Col xs={12} md={4} lg={6} className='text-center'>
               <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {firstName}!..</h5>
               <h3 className='my-3 text-primary animate__animated animate__pulse animate__delay-2s animate__infinite animate__slow'>Book your appointment now.</h3>
-              <Form className='mx-auto border rounded bg-light'> 
-                <Form.Group className='position-relative ' controlId="date">
+              <Form className='mx-auto border rounded bg-light'>
+                <Form.Group className='position-relative' controlId="date">
                   <Form.Label>Date</Form.Label>
                   <Form.Control className="form-control-lg text-center w-50 mx-auto mb-1" type="date" value={date} onChange={handleDateChange} />
                   {isInvalidDate &&
@@ -168,15 +225,15 @@ function Appontment() {
                       Please select a date within the available schedule.
                     </Alert>}
                 </Form.Group>
-                <Form.Group className='position-relative ' controlId="time">
+                {date && !isInvalidDate && <Form.Group className='position-relative ' controlId="time">
                   <Form.Label>Time</Form.Label>
                   <Form.Control className="form-control-lg text-center w-50 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
                   {isInvalidTime && (
                     <Alert className='w-75 mx-auto' variant="danger">
-                      Please select a time between 9:00 AM and 5:00 PM.
+                      Please select a time within the available schedule.
                     </Alert>
                   )}
-                </Form.Group>
+                </Form.Group>}
                 <Form.Group controlId="service">
                   <Form.Label>Service</Form.Label>
                   <Form.Control className="form-control-lg text-center w-50 mx-auto" as="select" value={service} onChange={handleServiceChange}>

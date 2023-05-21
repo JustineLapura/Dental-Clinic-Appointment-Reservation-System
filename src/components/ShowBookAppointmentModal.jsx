@@ -1,9 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Modal, Alert, Button, Form } from "react-bootstrap"
 import clickMe from ".././images/giphy.gif";
 
 function ShowBookAppointmentModal(
   {
+    setDate,
+    setTime,
+    setService,
+    setIsInvalidDate,
+    setShowModal,
     showModal,
     handleCloseModal,
     handleDateChange,
@@ -19,7 +25,15 @@ function ShowBookAppointmentModal(
     handleBookAppointment
   }) {
 
-    
+  const navigate = useNavigate()
+  const viewSchedule = () => {
+    navigate("/appointments")
+    setShowModal(false)
+    setIsInvalidDate(false)
+    setDate("")
+    setTime("")
+    setService("")
+    }
 
   return (
     <div>
@@ -28,6 +42,9 @@ function ShowBookAppointmentModal(
           <Modal.Title>Book Appointment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {isInvalidDate && <div className='d-flex justify-content-center'>
+            <Button className='btn-sm btn-primary mx-auto text-white' onClick={viewSchedule}>view schedule</Button>
+          </div>}
           <Form>
             <Form.Group className='position-relative ' controlId="date">
               <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
@@ -38,16 +55,16 @@ function ShowBookAppointmentModal(
                   Please select a date within the available schedule.
                 </Alert>}
             </Form.Group>
-            <Form.Group className='position-relative ' controlId="time">
+            {date && !isInvalidDate && <Form.Group className='position-relative ' controlId="time">
               <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
               <Form.Label>Time</Form.Label>
               <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
               {isInvalidTime && (
                 <Alert className="text-center" variant="danger">
-                  Please select a time between 9:00 AM and 5:00 PM.
+                  Please select a time within the available schedule.
                 </Alert>
               )}
-            </Form.Group>
+            </Form.Group>}
             <Form.Group controlId="service">
               <Form.Label>Service</Form.Label>
               <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" as="select" value={service} onChange={handleServiceChange} required>

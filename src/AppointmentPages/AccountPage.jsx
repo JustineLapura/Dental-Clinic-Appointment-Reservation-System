@@ -18,7 +18,9 @@ const AccountPage = () => {
     setShowModal,
     showReschedModal,
     date,
+    setDate,
     time,
+    setTime,
     service,
     setService,
     appointments,
@@ -33,91 +35,152 @@ const AccountPage = () => {
     showSuccessModal,
     handleDeleteAppointment,
     isInvalidDate,
-    handleTimeChange,
     isInvalidTime,
     setIsInvalidDate,
     setIsInvalidTime,
-    handleServiceChange,
-    setDate
+    handleServiceChange
   } = useContext(AppointmentContext)
 
   const darkMode = useOutletContext();
 
-  const {schedule} = useContext(TimeScheduleContext)
+  const openModal = () => {
+    setShowModal(true)
+    setIsInvalidDate(false)
+    setIsInvalidTime(false)
+    setDate("")
+    setTime("")
+    setService("")
+  }
 
-    const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
-    const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
-    const tuesday = schedule.find(sched => sched.day.toLowerCase() === "tuesday"); // Find the schedule for Tuesday
-    const wednesday = schedule.find(sched => sched.day.toLowerCase() === "wednesday"); // Find the schedule for Wednesday
-    const thursday = schedule.find(sched => sched.day.toLowerCase() === "thursday"); // Find the schedule for Thursday
-    const friday = schedule.find(sched => sched.day.toLowerCase() === "friday"); // Find the schedule for Friday
-    const saturday = schedule.find(sched => sched.day.toLowerCase() === "saturday"); // Find the schedule for Saturday
+  const { schedule } = useContext(TimeScheduleContext)
+
+  const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
+  const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
+  const tuesday = schedule.find(sched => sched.day.toLowerCase() === "tuesday"); // Find the schedule for Tuesday
+  const wednesday = schedule.find(sched => sched.day.toLowerCase() === "wednesday"); // Find the schedule for Wednesday
+  const thursday = schedule.find(sched => sched.day.toLowerCase() === "thursday"); // Find the schedule for Thursday
+  const friday = schedule.find(sched => sched.day.toLowerCase() === "friday"); // Find the schedule for Friday
+  const saturday = schedule.find(sched => sched.day.toLowerCase() === "saturday"); // Find the schedule for Saturday
+
+  const isSunday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 0; // 0 corresponds to Sunday
+  };
+
+  const isMonday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 1; // 1 corresponds to Monday
+  };
+
+  const isTuesday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 2; // 2 corresponds to Tuesday
+  };
+
+  const isWednesday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 3; // 3 corresponds to Wednesday
+  };
+
+  const isThursday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 4; // 4 corresponds to Thursday
+  };
+
+  const isFriday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 5; // 5 corresponds to Friday
+  };
+
+  const isSaturday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 6; // 6 corresponds to Saturday
+  };
+
+  const validateDate = (date) => {
+    const currentDate = new Date().toISOString().split('T')[0]; // Get the current date
+    const isSundayValid = !sunday || !sunday.startTime || !sunday.endTime; // Check if Sunday schedule is valid
+    const isMondayValid = !monday || !monday.startTime || !monday.endTime; // Check if Monday schedule is valid
+    const isTuesdayValid = !tuesday || !tuesday.startTime || !tuesday.endTime; // Check if Tuesday schedule is valid
+    const isWednesdayValid = !wednesday || !wednesday.startTime || !wednesday.endTime; // Check if Wednesday schedule is valid
+    const isThursdayValid = !thursday || !thursday.startTime || !thursday.endTime; // Check if Thursday schedule is valid
+    const isFridayValid = !friday || !friday.startTime || !friday.endTime; // Check if Friday schedule is valid
+    const isSaturdayValid = !saturday || !saturday.startTime || !saturday.endTime; // Check if Saturday schedule is valid
+    return date < currentDate
+      || (isSunday(date) && isSundayValid)
+      || (isMonday(date) && isMondayValid)
+      || (isTuesday(date) && isTuesdayValid)
+      || (isWednesday(date) && isWednesdayValid)
+      || (isThursday(date) && isThursdayValid)
+      || (isFriday(date) && isFridayValid)
+      || (isSaturday(date) && isSaturdayValid)
+      ;
+  };
+
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    if (validateDate(selectedDate)) {
+      // Handle invalid date
+      setIsInvalidDate(true)
+      setIsInvalidTime(false)
+      setTime("")
+    } else {
+      setDate(selectedDate);
+      setIsInvalidDate(false)
+      setIsInvalidTime(false)
+      setTime("")
+    }
+  };
+
+  const handleTimeChange = (e) => {
+    const selectedTime = e.target.value;
+    const isValidTime = validateTime(selectedTime, date);
+    
+    setTime(selectedTime);
+    setIsInvalidTime(!isValidTime);
+  };
   
-    const isSunday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 0; // 0 corresponds to Sunday
-    };
+  const validateTime = (timeString, date) => {
+    const selectedTime = new Date(`2000-01-01T${timeString}`);
+    const day = new Date(date).getDay();
   
-    const isMonday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 1; // 1 corresponds to Monday
-    };
+    let scheduleForDay;
+    switch (day) {
+      case 0:
+        scheduleForDay = sunday;
+        break;
+      case 1:
+        scheduleForDay = monday;
+        break;
+      case 2:
+        scheduleForDay = tuesday;
+        break;
+      case 3:
+        scheduleForDay = wednesday;
+        break;
+      case 4:
+        scheduleForDay = thursday;
+        break;
+      case 5:
+        scheduleForDay = friday;
+        break;
+      case 6:
+        scheduleForDay = saturday;
+        break;
+      default:
+        return false;
+    }
   
-    const isTuesday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 2; // 2 corresponds to Tuesday
-    };
+    if (!scheduleForDay || !scheduleForDay.startTime || !scheduleForDay.endTime) {
+      // No schedule available for the selected day
+      return false;
+    }
   
-    const isWednesday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 3; // 3 corresponds to Wednesday
-    };
+    const startTime = new Date(`2000-01-01T${scheduleForDay.startTime}`);
+    const endTime = new Date(`2000-01-01T${scheduleForDay.endTime}`);
   
-    const isThursday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 4; // 4 corresponds to Thursday
-    };
-  
-    const isFriday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 5; // 5 corresponds to Friday
-    };
-  
-    const isSaturday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 6; // 6 corresponds to Saturday
-    };
-  
-    const validateDate = (date) => {
-      const currentDate = new Date().toISOString().split('T')[0]; // Get the current date
-      const isSundayValid = !sunday || !sunday.startTime || !sunday.endTime; // Check if Sunday schedule is valid
-      const isMondayValid = !monday || !monday.startTime || !monday.endTime; // Check if Monday schedule is valid
-      const isTuesdayValid = !tuesday || !tuesday.startTime || !tuesday.endTime; // Check if Tuesday schedule is valid
-      const isWednesdayValid = !wednesday || !wednesday.startTime || !wednesday.endTime; // Check if Wednesday schedule is valid
-      const isThursdayValid = !thursday || !thursday.startTime || !thursday.endTime; // Check if Thursday schedule is valid
-      const isFridayValid = !friday || !friday.startTime || !friday.endTime; // Check if Friday schedule is valid
-      const isSaturdayValid = !saturday || !saturday.startTime || !saturday.endTime; // Check if Saturday schedule is valid
-      return date < currentDate
-        || (isSunday(date) && isSundayValid)
-        || (isMonday(date) && isMondayValid)
-        || (isTuesday(date) && isTuesdayValid)
-        || (isWednesday(date) && isWednesdayValid)
-        || (isThursday(date) && isThursdayValid)
-        || (isFriday(date) && isFridayValid)
-        || (isSaturday(date) && isSaturdayValid)
-        ;
-    };
-  
-    const handleDateChange = (e) => {
-      const selectedDate = e.target.value;
-      if (validateDate(selectedDate)) {
-        // Handle invalid date
-        setIsInvalidDate(true)
-      } else {
-        setDate(selectedDate);
-        setIsInvalidDate(false)
-      }
-    };
+    return selectedTime >= startTime && selectedTime <= endTime;
+  };
 
   const handleConfirmAppointment = (id) => {
     const updatedAppointments = appointments.map((appointment) => {
@@ -145,7 +208,7 @@ const AccountPage = () => {
   }
 
   const appointmentBtns = (id, status, isCompleted) => {
-    if(isCompleted){
+    if (isCompleted) {
       return <h6 className="text-primary">Completed</h6>
     } else if (status.toLowerCase() === "rescheduled") {
       return (
@@ -175,11 +238,7 @@ const AccountPage = () => {
       <h3>My Appointments</h3>
       <Row>
         <Col className="my-2">
-          <Button className="btn-sm fw-bold" onClick={() => {
-            setShowModal(true)
-            setIsInvalidDate(false)
-            setIsInvalidTime(false)
-          }}>New Appointment</Button>
+          <Button className="btn-sm fw-bold" onClick={openModal}>New Appointment</Button>
         </Col>
       </Row>
       <div style={{ height: "360px", overflow: "scroll" }}>
@@ -210,6 +269,11 @@ const AccountPage = () => {
       </div>
 
       <ShowBookAppointmentModal
+        setDate={setDate}
+        setTime={setTime}
+        setService={setService}
+        setIsInvalidDate={setIsInvalidDate}
+        setShowModal={setShowModal}
         showModal={showModal}
         handleCloseModal={handleCloseModal}
         handleDateChange={handleDateChange}

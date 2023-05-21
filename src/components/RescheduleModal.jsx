@@ -43,7 +43,7 @@ function RescheduleModal(
                   Please select a date within the available schedule.
                 </Alert>}
             </Form.Group>
-            <Form.Group className='position-relative ' controlId="time">
+            {date && !isInvalidDate && <Form.Group className='position-relative ' controlId="time">
               <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
               <Form.Label>Time</Form.Label>
               <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
@@ -52,7 +52,7 @@ function RescheduleModal(
                   Please select a time between 9:00 AM and 5:00 PM.
                 </Alert>
               )}
-            </Form.Group>
+            </Form.Group>}
                 {pathname !== "/admin" && <Form.Group controlId="service">
                   <Form.Label>Service</Form.Label>
                   <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" as="select" value={service} onChange={(e) => setService(e.target.value)}>

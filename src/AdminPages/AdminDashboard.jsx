@@ -19,9 +19,10 @@ const AdminDashboard = () => {
     handleEditAppointment,
     isInvalidDate,
     isInvalidTime,
-    handleTimeChange,
     setDate,
-    setIsInvalidDate
+    setIsInvalidDate,
+    setTime,
+    setIsInvalidTime
   } = useContext(AppointmentContext)
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [dateRange, setDateRange] = useState({ startDate: '', endDate: '' });
@@ -102,10 +103,64 @@ const AdminDashboard = () => {
       if (validateDate(selectedDate)) {
         // Handle invalid date
         setIsInvalidDate(true)
+        setIsInvalidTime(false)
+        setTime("")
       } else {
         setDate(selectedDate);
         setIsInvalidDate(false)
+        setIsInvalidTime(false)
+        setTime("")
       }
+    };
+
+    const handleTimeChange = (e) => {
+      const selectedTime = e.target.value;
+      const isValidTime = validateTime(selectedTime, date);
+      
+      setTime(selectedTime);
+      setIsInvalidTime(!isValidTime);
+    };
+    
+    const validateTime = (timeString, date) => {
+      const selectedTime = new Date(`2000-01-01T${timeString}`);
+      const day = new Date(date).getDay();
+    
+      let scheduleForDay;
+      switch (day) {
+        case 0:
+          scheduleForDay = sunday;
+          break;
+        case 1:
+          scheduleForDay = monday;
+          break;
+        case 2:
+          scheduleForDay = tuesday;
+          break;
+        case 3:
+          scheduleForDay = wednesday;
+          break;
+        case 4:
+          scheduleForDay = thursday;
+          break;
+        case 5:
+          scheduleForDay = friday;
+          break;
+        case 6:
+          scheduleForDay = saturday;
+          break;
+        default:
+          return false;
+      }
+    
+      if (!scheduleForDay || !scheduleForDay.startTime || !scheduleForDay.endTime) {
+        // No schedule available for the selected day
+        return false;
+      }
+    
+      const startTime = new Date(`2000-01-01T${scheduleForDay.startTime}`);
+      const endTime = new Date(`2000-01-01T${scheduleForDay.endTime}`);
+    
+      return selectedTime >= startTime && selectedTime <= endTime;
     };
 
   const handleViewAppointment = (id) => {

@@ -4,11 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import ServicesContext from '../ServicesContext';
 import Dentist from ".././images/Dentist.gif"
+import AppointmentContext from '../AppointmentContext';
 import pointFinger from ".././images/pointFinger.gif"
 
 
 function Home() {
     const { services } = useContext(ServicesContext)
+    const {setDate, setTime, setService} = useContext(AppointmentContext)
     const isLoggedin = localStorage.getItem("isLoggedin")
     const darkMode = useOutletContext()
     const navigate = useNavigate()
@@ -21,7 +23,15 @@ function Home() {
 
     function bookAppointment() {
         return isLoggedin ? navigate("/appointments") : navigate("/login")
+    } 
+
+    function bookServiceAppointment(service) {
+        setDate("")
+        setTime("")
+        setService(service)
+        return isLoggedin ? navigate("/appointments") : navigate("/login")
     }
+
     return (
         <div className={`pb-5 ${darkMode ? "bg-dark text-light" : null}`}>
             <header>
@@ -56,7 +66,7 @@ function Home() {
                                                 <h3 className="text-primary">{service.name}</h3>
                                                 <h6 className="my-4">{service.description}</h6>
                                                 <p className="">Price: <span className="fw-normal">P{service.price}</span></p>
-                                                <Button variant="primary">Learn More</Button>
+                                                <Button variant="primary" onClick={() => bookServiceAppointment(service.name)}>Book this service</Button>
                                             </Card.Body>
                                         </Card>
                                     </Col>

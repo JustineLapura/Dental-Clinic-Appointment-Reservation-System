@@ -76,6 +76,9 @@ export const AppointmentProvider = ({ children }) => {
     setErrorMessage(null)
     setIsInvalidDate(false)
     setIsInvalidTime(false)
+    setDate("");
+    setTime("");
+    setService("");
   }
 
   const handleEditAppointment = (id) => {
@@ -98,6 +101,7 @@ export const AppointmentProvider = ({ children }) => {
       setErrorMessage("Please fill the form!")
     }
   }
+
   const handleTimeChange = (e) => {
     const selectedTime = e.target.value;
     const isValidTime = validateTime(selectedTime);
@@ -108,7 +112,7 @@ export const AppointmentProvider = ({ children }) => {
 
   const validateTime = (timeString) => {
     const selectedTime = new Date(`2000-01-01T${timeString}`);
-    const startTime = new Date(`2000-01-01T09:00`);
+    const startTime = new Date(`2000-01-01T08:00`);
     const endTime = new Date(`2000-01-01T17:00`);
 
     return selectedTime >= startTime && selectedTime <= endTime;
