@@ -39,8 +39,8 @@ function RescheduleModal(
               <Form.Label>Date</Form.Label>
               <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" type="date" value={date} onChange={handleDateChange} />
               {isInvalidDate &&
-                <Alert variant="danger">
-                  Please select a valid date excluding Sundays.
+                <Alert className="text-center" variant="danger">
+                  Please select a date within the available schedule.
                 </Alert>}
             </Form.Group>
             <Form.Group className='position-relative ' controlId="time">
@@ -48,7 +48,7 @@ function RescheduleModal(
               <Form.Label>Time</Form.Label>
               <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
               {isInvalidTime && (
-                <Alert variant="danger">
+                <Alert className="text-center" variant="danger">
                   Please select a time between 9:00 AM and 5:00 PM.
                 </Alert>
               )}

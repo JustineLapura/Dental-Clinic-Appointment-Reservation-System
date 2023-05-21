@@ -98,34 +98,6 @@ export const AppointmentProvider = ({ children }) => {
       setErrorMessage("Please fill the form!")
     }
   }
-
-
-  const isSunday = (date) => {
-    const day = new Date(date).getDay();
-    return day === 0; // 0 corresponds to Sunday
-  };
-
-  const isMonday = (date) => {
-    const day = new Date(date).getDay();
-    return day === 1; // 0 corresponds to Sunday
-  };
-
-  const validateDate = (date) => {
-    const currentDate = new Date().toISOString().split('T')[0];
-    return date < currentDate || isSunday(date) || isMonday(date); 
-  };
-
-  const handleDateChange = (e) => {
-    const selectedDate = e.target.value;
-    if (validateDate(selectedDate)) {
-      // Handle invalid date
-      setIsInvalidDate(true)
-    } else {
-      setDate(selectedDate);
-      setIsInvalidDate(false)
-    }
-  };
-
   const handleTimeChange = (e) => {
     const selectedTime = e.target.value;
     const isValidTime = validateTime(selectedTime);
@@ -173,14 +145,12 @@ export const AppointmentProvider = ({ children }) => {
         showSuccessModal,
         setShowSuccessModal,
         handleDeleteAppointment,
-        handleDateChange,
         isInvalidDate,
         handleTimeChange,
         isInvalidTime,
         setIsInvalidDate,
         setIsInvalidTime,
-        handleServiceChange,
-        setDate
+        handleServiceChange
       }
     }>
       {children}

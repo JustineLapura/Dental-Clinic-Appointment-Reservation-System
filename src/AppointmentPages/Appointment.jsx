@@ -9,7 +9,6 @@ import AppointmentContext from '../AppointmentContext';
 import TimeScheduleContext from '../TimeScheduleContext';
 import SuccessModal from '../components/SuccessModal';
 import "animate.css";
-import clickMe from ".././images/giphy.gif"
 
 export async function loader() {
   return await authRequired()

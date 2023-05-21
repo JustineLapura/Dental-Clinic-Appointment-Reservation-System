@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Table, Button, Form, Row, Col, Modal, Alert } from 'react-bootstrap';
 import AppointmentContext from ".././AppointmentContext"
+import TimeScheduleContext from ".././TimeScheduleContext"
 import RescheduleModal from '../components/RescheduleModal';
 
 const AdminDashboard = () => {
@@ -16,10 +17,11 @@ const AdminDashboard = () => {
     time,
     errorMessage,
     handleEditAppointment,
-    handleDateChange,
     isInvalidDate,
+    isInvalidTime,
     handleTimeChange,
-    isInvalidTime
+    setDate,
+    setIsInvalidDate
   } = useContext(AppointmentContext)
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [dateRange, setDateRange] = useState({ startDate: '', endDate: '' });
@@ -29,6 +31,82 @@ const AdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   const appointmentToReschedule = appointments.filter(appointment => appointment.id === currentAppointmentId)
+
+  const {schedule} = useContext(TimeScheduleContext)
+
+    const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
+    const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
+    const tuesday = schedule.find(sched => sched.day.toLowerCase() === "tuesday"); // Find the schedule for Tuesday
+    const wednesday = schedule.find(sched => sched.day.toLowerCase() === "wednesday"); // Find the schedule for Wednesday
+    const thursday = schedule.find(sched => sched.day.toLowerCase() === "thursday"); // Find the schedule for Thursday
+    const friday = schedule.find(sched => sched.day.toLowerCase() === "friday"); // Find the schedule for Friday
+    const saturday = schedule.find(sched => sched.day.toLowerCase() === "saturday"); // Find the schedule for Saturday
+  
+    const isSunday = (date) => {
+      const day = new Date(date).getDay();
+      return day === 0; // 0 corresponds to Sunday
+    };
+  
+    const isMonday = (date) => {
+      const day = new Date(date).getDay();
+      return day === 1; // 1 corresponds to Monday
+    };
+  
+    const isTuesday = (date) => {
+      const day = new Date(date).getDay();
+      return day === 2; // 2 corresponds to Tuesday
+    };
+  
+    const isWednesday = (date) => {
+      const day = new Date(date).getDay();
+      return day === 3; // 3 corresponds to Wednesday
+    };
+  
+    const isThursday = (date) => {
+      const day = new Date(date).getDay();
+      return day === 4; // 4 corresponds to Thursday
+    };
+  
+    const isFriday = (date) => {
+      const day = new Date(date).getDay();
+      return day === 5; // 5 corresponds to Friday
+    };
+  
+    const isSaturday = (date) => {
+      const day = new Date(date).getDay();
+      return day === 6; // 6 corresponds to Saturday
+    };
+  
+    const validateDate = (date) => {
+      const currentDate = new Date().toISOString().split('T')[0]; // Get the current date
+      const isSundayValid = !sunday || !sunday.startTime || !sunday.endTime; // Check if Sunday schedule is valid
+      const isMondayValid = !monday || !monday.startTime || !monday.endTime; // Check if Monday schedule is valid
+      const isTuesdayValid = !tuesday || !tuesday.startTime || !tuesday.endTime; // Check if Tuesday schedule is valid
+      const isWednesdayValid = !wednesday || !wednesday.startTime || !wednesday.endTime; // Check if Wednesday schedule is valid
+      const isThursdayValid = !thursday || !thursday.startTime || !thursday.endTime; // Check if Thursday schedule is valid
+      const isFridayValid = !friday || !friday.startTime || !friday.endTime; // Check if Friday schedule is valid
+      const isSaturdayValid = !saturday || !saturday.startTime || !saturday.endTime; // Check if Saturday schedule is valid
+      return date < currentDate
+        || (isSunday(date) && isSundayValid)
+        || (isMonday(date) && isMondayValid)
+        || (isTuesday(date) && isTuesdayValid)
+        || (isWednesday(date) && isWednesdayValid)
+        || (isThursday(date) && isThursdayValid)
+        || (isFriday(date) && isFridayValid)
+        || (isSaturday(date) && isSaturdayValid)
+        ;
+    };
+  
+    const handleDateChange = (e) => {
+      const selectedDate = e.target.value;
+      if (validateDate(selectedDate)) {
+        // Handle invalid date
+        setIsInvalidDate(true)
+      } else {
+        setDate(selectedDate);
+        setIsInvalidDate(false)
+      }
+    };
 
   const handleViewAppointment = (id) => {
     const appointment = appointments.find((appointment) => appointment.id === id);
