@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Modal, Alert, Button, Form } from "react-bootstrap"
-import clickMe from ".././images/giphy.gif";
+import attention from ".././images/attention.gif";
 
 function ShowBookAppointmentModal(
   {
@@ -44,32 +44,32 @@ function ShowBookAppointmentModal(
           <Modal.Title>Book Appointment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {isInvalidDate || isInvalidTime && <div className='d-flex justify-content-center'>
+          {(isInvalidDate || isInvalidTime) && <div className='d-flex justify-content-center'>
             <Button className='btn-sm btn-primary mx-auto text-white' onClick={viewSchedule}>view schedule</Button>
           </div>}
           <Form>
-            <Form.Group className='position-relative ' controlId="date">
-              <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
+            <Form.Group className='position-relative px-4' controlId="date">
+              <img className='position-absolute end-0 ' width="50px" src={attention} alt="Click me GIF" />
               <Form.Label>Date</Form.Label>
-              <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" type="date" value={date} onChange={handleDateChange} />
+              <Form.Control className="form-control-lg text-center mx-auto mb-1" type="date" value={date} onChange={handleDateChange} />
               {isInvalidDate &&
                 <Alert className="text-center" variant="danger">
                   Please select a date within the available schedule.
                 </Alert>}
             </Form.Group>
-            {date && !isInvalidDate && <Form.Group className='position-relative ' controlId="time">
-              <img className='position-absolute end-0' width="50px" src={clickMe} alt="Click me GIF" />
+            {(date && !isInvalidDate) && <Form.Group className='position-relative px-4' controlId="time">
+              <img className='position-absolute end-0' width="50px" src={attention} alt="Click me GIF" />
               <Form.Label>Time</Form.Label>
-              <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
+              <Form.Control className="form-control-lg text-center mb-1" type="time" value={time} onChange={handleTimeChange} />
               {isInvalidTime && (
                 <Alert className="text-center" variant="danger">
                   Please select a time within the available schedule.
                 </Alert>
               )}
             </Form.Group>}
-            <Form.Group controlId="service">
+            <Form.Group className='px-4' controlId="service">
               <Form.Label>Service</Form.Label>
-              <Form.Control className="form-control-lg text-center w-75 mx-auto mb-1" as="select" value={service} onChange={handleServiceChange} required>
+              <Form.Control className="form-control-lg text-center mb-1" as="select" value={service} onChange={handleServiceChange} required>
                 <option value="">Select a service</option>
                 {services.map(service => {
                   return <option key={service.id} value={service.name}>{service.name}</option>

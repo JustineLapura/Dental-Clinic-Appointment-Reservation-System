@@ -51,7 +51,7 @@ export const AppointmentProvider = ({ children }) => {
       setErrorMessage(null)
       setShowSuccessModal(true)
     } else {
-      setErrorMessage("Please fill the form!")
+      setErrorMessage("Please fill the form correctly!")
     }
 
   };
@@ -98,7 +98,7 @@ export const AppointmentProvider = ({ children }) => {
       setErrorMessage(null)
       setCurrentAppointmentId("")
     } else {
-      setErrorMessage("Please fill the form!")
+      setErrorMessage("Please fill the form correctly!")
     }
   }
 

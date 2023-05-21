@@ -9,6 +9,7 @@ import AppointmentContext from '../AppointmentContext';
 import TimeScheduleContext from '../TimeScheduleContext';
 import SuccessModal from '../components/SuccessModal';
 import "animate.css";
+import attention from ".././images/attention.gif";
 
 export async function loader() {
   return await authRequired()
@@ -36,9 +37,9 @@ function Appontment() {
     setTime,
     setIsInvalidTime
   } = useContext(AppointmentContext)
-  
+
   const { schedule } = useContext(TimeScheduleContext)
-  
+
   const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
   const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
   const tuesday = schedule.find(sched => sched.day.toLowerCase() === "tuesday"); // Find the schedule for Tuesday
@@ -120,15 +121,15 @@ function Appontment() {
   const handleTimeChange = (e) => {
     const selectedTime = e.target.value;
     const isValidTime = validateTime(selectedTime, date);
-    
+
     setTime(selectedTime);
     setIsInvalidTime(!isValidTime);
   };
-  
+
   const validateTime = (timeString, date) => {
     const selectedTime = new Date(`2000-01-01T${timeString}`);
     const day = new Date(date).getDay();
-  
+
     let scheduleForDay;
     switch (day) {
       case 0:
@@ -155,19 +156,19 @@ function Appontment() {
       default:
         return false;
     }
-  
+
     if (!scheduleForDay || !scheduleForDay.startTime || !scheduleForDay.endTime) {
       // No schedule available for the selected day
       return false;
     }
-  
+
     const startTime = new Date(`2000-01-01T${scheduleForDay.startTime}`);
     const endTime = new Date(`2000-01-01T${scheduleForDay.endTime}`);
-  
+
     return selectedTime >= startTime && selectedTime <= endTime;
   };
-  
-  
+
+
 
   const gotoMyAppointments = () => {
     navigate('/appointments/account')
@@ -217,24 +218,27 @@ function Appontment() {
               <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {firstName}!..</h5>
               <h3 className='my-3 text-primary animate__animated animate__pulse animate__delay-2s animate__infinite animate__slow'>Book your appointment now.</h3>
               <Form className='mx-auto border rounded bg-light'>
-                <Form.Group className='position-relative' controlId="date">
-                  <Form.Label className='fw-bold my-1'>Choose your preferred date:</Form.Label>
-                  <Form.Control className="form-control-lg text-center w-50 mx-auto mb-1" type="date" value={date} onChange={handleDateChange} />
+                <Form.Group className='position-relative w-50 mx-auto px-3' controlId="date">
+                  <img className='position-absolute end-0' width="55px" src={attention} alt="Click me GIF" />
+                  <Form.Label className='fw-bold my-1'>Choose a preferred date:</Form.Label>
+                  <Form.Control className="form-control-lg text-center mb-1" type="date" value={date} onChange={handleDateChange} />
                   {isInvalidDate &&
-                    <Alert className='w-75 mx-auto' variant="danger">
+                    <Alert variant="danger">
                       Please select a date within the available schedule.
                     </Alert>}
                 </Form.Group>
-                {date && !isInvalidDate && <Form.Group className='position-relative ' controlId="time">
-                  <Form.Label className='fw-bold my-1'>Choose your preferred time:</Form.Label>
-                  <Form.Control className="form-control-lg text-center w-50 mx-auto mb-1" type="time" value={time} onChange={handleTimeChange} />
-                  {isInvalidTime && (
-                    <Alert className='w-75 mx-auto' variant="danger">
-                      Please select a time within the available schedule.
-                    </Alert>
-                  )}
-                </Form.Group>}
-                <Form.Group controlId="service">
+                {date && !isInvalidDate &&
+                  <Form.Group className='position-relative position-relative w-50 mx-auto px-3' controlId="time">
+                    <img className='position-absolute end-0' width="55px" src={attention} alt="Click me GIF" />
+                    <Form.Label className='fw-bold my-1'>Choose a preferred time:</Form.Label>
+                    <Form.Control className="form-control-lg text-center mb-1" type="time" value={time} onChange={handleTimeChange} />
+                    {isInvalidTime && (
+                      <Alert variant="danger">
+                        Please select a time within the available schedule.
+                      </Alert>
+                    )}
+                  </Form.Group>}
+                <Form.Group className='px-5' controlId="service">
                   <Form.Label className='fw-bold my-1'>Choose your preferred service:</Form.Label>
                   <Form.Control className="form-control-lg text-center w-50 mx-auto" as="select" value={service} onChange={handleServiceChange}>
                     <option value="">Select a service</option>
