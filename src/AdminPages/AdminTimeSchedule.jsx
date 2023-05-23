@@ -10,7 +10,7 @@ export const AdminTimeSchedule = () => {
       <Row>
         <Col>
           <Form>
-            <h3>Edit Schedule</h3>
+            <h3 className='my-4'>Edit Schedule</h3>
             {[
               "Monday",
               "Tuesday",

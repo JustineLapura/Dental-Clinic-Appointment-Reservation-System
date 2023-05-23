@@ -65,11 +65,7 @@ const AdminScheduleForToday = () => {
   return (
     <Container>
       <Row>
-        <Col>
-          <h2>Admin Schedule for Today</h2>
-        </Col>
-      </Row>
-      <Row>
+      <h1 className="text-center my-4">Today's Schedule</h1>
         <Col style={{ height: "400px", overflow: "scroll" }}>
           <Table striped bordered hover>
             <thead>

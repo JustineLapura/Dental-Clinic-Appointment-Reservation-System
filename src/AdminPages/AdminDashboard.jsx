@@ -199,7 +199,7 @@ const AdminDashboard = () => {
   }
 
   const handleConfirmAppointment = (id, date, time) => {
-    const recipientPhone = localStorage.getItem("phone")
+    const recipientPhone = `+63${localStorage.getItem("phone")}`
     const firstName = localStorage.getItem("firstName") 
     const updatedAppointments = appointments.map((appointment) => {
       if (appointment.id === id) {
@@ -211,9 +211,9 @@ const AdminDashboard = () => {
     handleModalClose();
   
     // Call the Send Message API to send an SMS confirmation to the recipient's phone number
-    const apiKey = '50d3d2389fbdfdf4f9c89ca15f5c75a149ea9c6a';
+    const apiKey = '9986c367f3ff3556c6e46ec6da3310e3efc23459';
     const message = `Hi ${firstName}, Your appointment on ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${selectedAppointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} has been confirmed.`;
-    const device = 421; // ID of the device used for sending
+    const device = 425; // ID of the device used for sending
     const sim = 1; // Sim slot number for sending message
     const priority = 1; // Send the message as priority
     const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
@@ -280,7 +280,7 @@ const AdminDashboard = () => {
   return (
     <>
       <Row className='d-flex align-items-center py-3 px-2 g-3'>
-        <Col md={3}>
+        <Col md={2}>
           <div className="filters">
             <h5>Filters:</h5>
             <Form.Group controlId="formBasicDate">
@@ -322,7 +322,7 @@ const AdminDashboard = () => {
             </Button>
           </div>
         </Col>
-        <Col md={9} style={{ height: "450px", overflow: "scroll" }}>
+        <Col md={10} style={{ height: "450px", overflow: "scroll" }}>
 
           <Table striped bordered hover>
             <thead>

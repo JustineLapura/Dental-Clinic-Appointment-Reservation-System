@@ -42,7 +42,7 @@ body {
 }
 
 .form-control,
-.btn {
+.btn, .card {
   animation: slide-up 0.5s ease-in-out; /* Slide up animation */
 }
 
@@ -87,6 +87,9 @@ body {
   border-color: #f39c12;
 }
 
+a:hover {
+  font-weight: bold;
+}
 
 /* 
 .card:hover {

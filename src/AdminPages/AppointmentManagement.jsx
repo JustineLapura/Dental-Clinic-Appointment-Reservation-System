@@ -36,10 +36,11 @@ const AppointmentManagement = () => {
 
     const completedAppointments = filteredAppointments.length > 0 ? filteredAppointments : appointments;
     const displayedCompletedAppointments = completedAppointments.filter(appointment => appointment.isCompleted)
-
+    
     return (
         <>
-            <Form>
+        <h2 className='my-3 mx-auto'>Dental Records</h2>
+            <Form className='w-50 mx-auto'>
                 <Row className="d-flex flex-column align-items-center">
                     <Row>
                         <Col className='d-flex align-items-center w-25'>
@@ -76,7 +77,6 @@ const AppointmentManagement = () => {
                 </Row>
             </Form>
             <Container className="printable" ref={componentRef} style={{ width: '100%' }}>
-                <h2 className='my-3'>Dental Records</h2>
                 <Row style={{ height: "500px", width: "100%", overflow: "scroll" }}>
 
                     <Table striped bordered>

@@ -4,13 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import ServicesContext from '../ServicesContext';
 import Dentist from ".././images/Dentist.gif"
+import dentalChair from ".././images/dentalChair.gif"
 import AppointmentContext from '../AppointmentContext';
 import pointFinger from ".././images/pointFinger.gif"
 
 
 function Home() {
     const { services } = useContext(ServicesContext)
-    const {setDate, setTime, setService} = useContext(AppointmentContext)
+    const { setDate, setTime, setService } = useContext(AppointmentContext)
     const isLoggedin = localStorage.getItem("isLoggedin")
     const darkMode = useOutletContext()
     const navigate = useNavigate()
@@ -23,7 +24,7 @@ function Home() {
 
     function bookAppointment() {
         return isLoggedin ? navigate("/appointments") : navigate("/login")
-    } 
+    }
 
     function bookServiceAppointment(service) {
         setDate("")
@@ -44,13 +45,15 @@ function Home() {
             <main>
                 <Container className='my-5 py-5'>
                     <Row>
-                        <Col md={6} className='d-flex flex-column justify-content-center align-items-center py-3'>
-                            <h1>Welcome to the Dental Clinic</h1>
-                            <p>We provide high-quality dental care for patients of all ages. Our experienced dentists and staff are committed to making your visit a comfortable and stress-free experience.</p>
+                        <Col md={7} className='d-flex flex-column justify-content-center align-items-center py-3'>
+                            <h1 className="display-4 fw-bold">Welcome to</h1>
+                            <h1 className="display-5 fw-bold">Smile Care Dental Clinic</h1>
+                            <p className='lead my-2'>We provide high-quality dental care for patients of all ages. Our experienced dentists and staff are committed to making your visit a comfortable and stress-free experience.</p>
                             <Button className="btn-primary fw-bold" onClick={() => navigate("/about")}>Learn More</Button>
                         </Col>
-                        <Col md={6}>
-                            <img className="rounded-circle" width={300} src={Dentist} alt="Dentist" />
+                        <Col md={5} className='d-flex justify-content-center align-items-center'>
+                                <img className="rounded-circle" width={250} src={Dentist} alt="Dentist" />
+                                <img className="rounded" width={250} src={dentalChair} alt="Dentist" />
                         </Col>
                     </Row>
                 </Container>

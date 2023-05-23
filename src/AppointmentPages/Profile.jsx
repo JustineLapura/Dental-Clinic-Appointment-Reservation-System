@@ -94,7 +94,7 @@ const Profile = () => {
                     <Col md={6}>
                         <div>
                             <div style={labelStyle}>Phone:</div>
-                            <div style={valueStyle}>{phone}</div>
+                            <div style={valueStyle}>+63{phone}</div>
                         </div>
                     </Col>
                 </Row>

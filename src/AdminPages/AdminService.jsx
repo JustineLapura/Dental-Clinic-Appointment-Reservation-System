@@ -40,12 +40,11 @@ const AdminService = () => {
       <Row className="justify-content-center h-100 w-100">
         <Col xs={12} md={12} lg={12} >
           <div className="d-flex flex-column justify-content-center align-items-center  my-3">
-            <h2 className="text-center">Services</h2>
-            <Button className="btn-sm" variant="success" onClick={() => setShowAddModal(true)}>
+            <Button className="btn-sm" variant="primary" onClick={() => setShowAddModal(true)}>
               Add Service
             </Button>
           </div>
-          <div style={{ height: "500px", width: "100%", overflow: "scroll" }} className="my-2 border">
+          <div style={{ height: "450px", width: "100%", overflow: "scroll" }} className="my-2 border">
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -66,7 +65,7 @@ const AdminService = () => {
                     <td className="text-center">
                       <Button
                         className="btn-sm"
-                        variant="primary"
+                        variant="success"
                         onClick={() => handleEditServiceModalOpen(service.id)}
                       >
                         Edit
