@@ -183,7 +183,7 @@ function Appontment() {
         <Container fluid>
           <Row className='d-flex justify-content-evenly align-items-center'>
             <Col xs={12} md={4} lg={3} className='mt-5 '>
-              <Table bordered className='bg-light fs-5'>
+              <Table bordered className='bg-light fs-5 border-black'>
                 <thead>
                   <tr>
                     <th>Day</th>
@@ -220,7 +220,7 @@ function Appontment() {
               <Form className='mx-auto border rounded bg-light'>
                 <Form.Group className='position-relative w-50 mx-auto px-3' controlId="date">
                   <img className='position-absolute end-0' width="55px" src={attention} alt="Click me GIF" />
-                  <Form.Label className='fw-bold my-1'>Choose a preferred date:</Form.Label>
+                  <Form.Label className='fw-bold my-1 '>Choose a preferred date:</Form.Label>
                   <Form.Control className="form-control-lg text-center mb-1" type="date" value={date} onChange={handleDateChange} />
                   {isInvalidDate &&
                     <Alert variant="danger">
@@ -230,7 +230,7 @@ function Appontment() {
                 {date && !isInvalidDate &&
                   <Form.Group className='position-relative position-relative w-50 mx-auto px-3' controlId="time">
                     <img className='position-absolute end-0' width="55px" src={attention} alt="Click me GIF" />
-                    <Form.Label className='fw-bold my-1'>Choose a preferred time:</Form.Label>
+                    <Form.Label className='fw-bold my-1 '>Choose a preferred time:</Form.Label>
                     <Form.Control className="form-control-lg text-center mb-1" type="time" value={time} onChange={handleTimeChange} />
                     {isInvalidTime && (
                       <Alert variant="danger">
@@ -239,7 +239,7 @@ function Appontment() {
                     )}
                   </Form.Group>}
                 <Form.Group className='px-5' controlId="service">
-                  <Form.Label className='fw-bold my-1'>Choose your preferred service:</Form.Label>
+                  <Form.Label className='fw-bold my-1 '>Choose your preferred service:</Form.Label>
                   <Form.Control className="form-control-lg text-center w-50 mx-auto" as="select" value={service} onChange={handleServiceChange}>
                     <option value="">Select a service</option>
                     {services.map(service => {
@@ -247,9 +247,9 @@ function Appontment() {
                     })}
                   </Form.Control>
                 </Form.Group>
-                {errorMessage && <h6 className="text-danger mx-auto mt-2">{errorMessage}</h6>}
+                {errorMessage && <h6 className="mx-auto mt-2">{errorMessage}</h6>}
                 <div xs={12} className='py-3'>
-                  <Button className='btn-sm fw-bold' variant="primary" type="submit" onClick={handleBookAppointment}>Submit Appointment</Button>
+                  <Button className='btn-sm fw-bold' variant="danger" type="submit" onClick={handleBookAppointment}>Submit Appointment</Button>
                 </div>
               </Form>
             </Col>

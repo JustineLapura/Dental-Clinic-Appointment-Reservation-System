@@ -6,6 +6,7 @@ const { pathname } = window.location;
 export const AppointmentProvider = ({ children }) => {
   const firstName = localStorage.getItem("firstName")
   const lastName = localStorage.getItem("lastName")
+  const recipientPhone = localStorage.getItem("phone")
   const [showModal, setShowModal] = useState(false)
   const [showReschedModal, setShowReschedModal] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -82,7 +83,7 @@ export const AppointmentProvider = ({ children }) => {
   }
 
   const handleEditAppointment = (id) => {
-    if (date && time && (!service || pathname !== "/admin") && !isInvalidDate && !isInvalidTime ) {
+    if (date && time && (!service || pathname !== "/admin") && !isInvalidDate && !isInvalidTime) {
       setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
         return prevAppointment.id === currentAppointmentId
           ? {
@@ -99,6 +100,21 @@ export const AppointmentProvider = ({ children }) => {
       setCurrentAppointmentId("")
     } else {
       setErrorMessage("Please fill the form correctly!")
+    }
+
+    if (pathname === "/admin") {
+      // Call the Send Message API to send an SMS confirmation to the recipient's phone number
+      const apiKey = '50d3d2389fbdfdf4f9c89ca15f5c75a149ea9c6a';
+      const message = `Hi ${firstName}, Your appointment has been rescheduled to ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}.`;
+      const device = 421; // ID of the device used for sending
+      const sim = 1; // Sim slot number for sending message
+      const priority = 1; // Send the message as priority
+      const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
     }
   }
 
