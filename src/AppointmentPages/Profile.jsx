@@ -8,7 +8,7 @@ const Profile = () => {
     const [email, setEmail] = useState(localStorage.getItem('email'))
     const [phone, setPhone] = useState(localStorage.getItem('phone'))
     const [address, setAddress] = useState(localStorage.getItem('address'))
-    const [city, setCity] = useState(localStorage.getItem('city'))
+    const [gender, setGender] = useState(localStorage.getItem('gender'))
     const [province, setProvince] = useState(localStorage.getItem('province'))
 
     const containerStyle = {
@@ -59,7 +59,7 @@ const Profile = () => {
         localStorage.setItem('email', email)
         localStorage.setItem('phone', phone)
         localStorage.setItem('address', address)
-        localStorage.setItem('city', city)
+        localStorage.setItem('gender', gender)
         localStorage.setItem('province', province)
         setShowEditModal(false)
     }
@@ -71,48 +71,30 @@ const Profile = () => {
                 <Button variant='danger' className='mb-2'>Back</Button>
                 <h1 style={headingStyle}>Profile Page</h1>
                 <Row>
-                    <Col md={6}>
+                    <Col md={10} className='mx-auto'>
                         <div>
                             <div style={labelStyle}>First Name:</div>
                             <div style={valueStyle}>{firstName}</div>
                         </div>
-                    </Col>
-                    <Col md={6}>
                         <div>
                             <div style={labelStyle}>Last Name:</div>
                             <div style={valueStyle}>{lastName}</div>
                         </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={6}>
+                        <div>
+                            <div style={labelStyle}>Gender:</div>
+                            <div style={valueStyle}>{gender}</div>
+                        </div>
                         <div>
                             <div style={labelStyle}>Email:</div>
                             <div style={valueStyle}>{email}</div>
                         </div>
-                    </Col>
-                    <Col md={6}>
                         <div>
                             <div style={labelStyle}>Phone:</div>
                             <div style={valueStyle}>+63{phone}</div>
                         </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={6}>
-                        <div style={labelStyle}>Address:</div>
-                        <div style={valueStyle}>{address}</div>
-                    </Col>
-                    <Col md={6}>
                         <div>
-                            <div style={labelStyle}>City:</div>
-                            <div style={valueStyle}>{city}</div>
-                        </div>
-                    </Col>
-                    <Col md={6}>
-                        <div>
-                            <div style={labelStyle}>Province:</div>
-                            <div style={valueStyle}>{province}</div>
+                            <div style={labelStyle}>Address:</div>
+                            <div style={valueStyle}>{address}</div>
                         </div>
                     </Col>
                 </Row>
@@ -145,7 +127,7 @@ const Profile = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="city">City:</label>
-                        <input type="text" className="form-control" id="city" value={city} onChange={(e) => setCity(e.target.value)} />
+                        <input type="text" className="form-control" id="gender" value={gender} onChange={(e) => setGender(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="province">Province:</label>

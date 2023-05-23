@@ -25,10 +25,12 @@ import { AppointmentProvider } from './AppointmentContext';
 import AdminTimeSchedule from './AdminPages/AdminTimeSchedule';
 import { TimeScheduleProvider } from './TimeScheduleContext';
 import { UsersProvider } from './UsersContext';
+import { VerifcationCodeProvider } from './VerifictionCodeContext';
 import AppointmentManagement from './AdminPages/AppointmentManagement';
 import DentalRecordDetails from './AdminPages/DentalRecordDetails';
 import UserDentalRecords from './AppointmentPages/UserDentalRecord';
 import UserRecordDetails from './AppointmentPages/UserRecordDetails';
+import VerificationCodePage from './pages/VerifictaionCodePage';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -46,6 +48,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="/payment" element={<Payment />} />
       <Route path="/login" element={<LoginForm />} action={loginAction} />
       <Route path="/registration" element={<Registration />} action={registrationAction} />
+      <Route path="/verify-code" element={<VerificationCodePage />}/>
     </Route>
     <Route path="/admin" element={<SampleLayout />}>
       <Route index element={<AdminDashboard />} />
@@ -54,7 +57,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="time-schedule" element={<AdminTimeSchedule />} />
       <Route path="service" element={<AdminService />} />
       <Route path="records" element={<AppointmentManagement />} />
-      <Route path='records/:id' element={<DentalRecordDetails />}/>
+      <Route path='records/:id' element={<DentalRecordDetails />} />
       <Route path="user-accounts" element={<AdminUserAccounts />} />
       <Route path="members" element={<AdminMembers />} />
       <Route path="note" element={<Note />} />
@@ -69,7 +72,9 @@ function App() {
         <AppointmentProvider>
           <TimeScheduleProvider>
             <ServiceProvider>
-              <RouterProvider router={router} />
+              <VerifcationCodeProvider>
+                <RouterProvider router={router} />
+              </VerifcationCodeProvider>
             </ServiceProvider>
           </TimeScheduleProvider>
         </AppointmentProvider>
