@@ -211,11 +211,11 @@ const AdminDashboard = () => {
     handleModalClose();
   
     // Call the Send Message API to send an SMS confirmation to the recipient's phone number
-    const apiKey = '9986c367f3ff3556c6e46ec6da3310e3efc23459';
+    const apiKey = '00cefdfff63ae19d0d9ae05987e705e91eecfbf8';
     const message = `Hi ${firstName}, Your appointment on ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${selectedAppointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} has been confirmed.
     
     from: Smile Care Dental Clinic`;
-    const device = 425; // ID of the device used for sending
+    const device = 427; // ID of the device used for sending
     const sim = 1; // Sim slot number for sending message
     const priority = 1; // Send the message as priority
     const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;

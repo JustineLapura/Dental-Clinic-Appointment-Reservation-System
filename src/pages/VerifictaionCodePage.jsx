@@ -18,9 +18,17 @@ function VerificationCodePage() {
         }
     }
 
+    const handleBack = () => {
+        localStorage.removeItem("phone")
+        navigate("/registration")
+    }
+
 
     return (
         <Container className="py-5">
+            <div style={{width: "400px"}} className='d-flex justify-content-start ms-5 ps-5'>
+                <Button className='ms-5' variant={"danger"} onClick={handleBack}>Back</Button>
+            </div>
             <Row className="justify-content-center">
                 <Col md={6}>
                     <div className="text-center mb-4">
@@ -32,7 +40,7 @@ function VerificationCodePage() {
                             <Form.Label>Verification Code</Form.Label>
                             <div className='mx-auto' style={{ width: "100px" }}>
                                 <Form.Control
-                                    
+
                                     type="tel"
                                     maxLength="6"
                                     pattern="[0-9]*"

@@ -30,6 +30,7 @@ function Home() {
 
     function logout() {
         localStorage.removeItem("isLoggedin")
+        localStorage.removeItem("phone")
         navigate("/login")
     }
 

@@ -29,6 +29,14 @@ import { VerifcationCodeProvider } from './VerifictionCodeContext';
 import AppointmentManagement from './AdminPages/AppointmentManagement';
 import DentalRecordDetails from './AdminPages/DentalRecordDetails';
 import VerificationCodePage from './pages/VerifictaionCodePage';
+localStorage.removeItem("appointments")
+localStorage.removeItem("email")
+localStorage.removeItem("password")
+localStorage.removeItem("firstName")
+localStorage.removeItem("lastName")
+localStorage.removeItem("phone")
+localStorage.removeItem("address")
+localStorage.removeItem("gender")
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -44,7 +52,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="/payment" element={<Payment />} />
       <Route path="/login" element={<LoginForm />} action={loginAction} />
       <Route path="/registration" element={<Registration />} action={registrationAction} />
-      <Route path="/verify-code" element={<VerificationCodePage />}/>
+      <Route path="/verify-code" element={<VerificationCodePage />} />
     </Route>
     <Route path="/admin" element={<SampleLayout />}>
       <Route index element={<AdminDashboard />} />
