@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { VerifcationCodeContext } from '../VerifictionCodeContext';
@@ -6,11 +6,11 @@ import { VerifcationCodeContext } from '../VerifictionCodeContext';
 function VerificationCodePage() {
     const navigate = useNavigate()
     const [verifyCode, setVerifyCode] = useState("")
-    const {code} = useContext(VerifcationCodeContext)
+    const { code } = useContext(VerifcationCodeContext)
 
     const handleVerifyCode = (e) => {
         e.preventDefault()
-        if(code == verifyCode) {
+        if (code == verifyCode) {
             localStorage.setItem("isLoggedin", true)
             navigate("/appointments")
         } else {
@@ -30,7 +30,18 @@ function VerificationCodePage() {
                     <Form>
                         <Form.Group controlId="formVerificationCode">
                             <Form.Label>Verification Code</Form.Label>
-                            <Form.Control type="number" placeholder="Enter verification code" value={verifyCode} onChange={(e) => setVerifyCode(e.target.value)} />
+                            <div className='mx-auto' style={{ width: "100px" }}>
+                                <Form.Control
+                                    
+                                    type="tel"
+                                    maxLength="6"
+                                    pattern="[0-9]*"
+                                    inputMode="numeric"
+                                    placeholder="Enter code"
+                                    value={verifyCode}
+                                    onChange={(e) => setVerifyCode(e.target.value)}
+                                />
+                            </div>
                         </Form.Group>
                         <br />
                         <Button variant="success" type="submit" className="btn-block" onClick={handleVerifyCode}>

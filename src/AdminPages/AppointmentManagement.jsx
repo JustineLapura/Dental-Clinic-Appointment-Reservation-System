@@ -36,47 +36,18 @@ const AppointmentManagement = () => {
 
     const completedAppointments = filteredAppointments.length > 0 ? filteredAppointments : appointments;
     const displayedCompletedAppointments = completedAppointments.filter(appointment => appointment.isCompleted)
-    
+
     return (
         <>
-        <h2 className='my-3 mx-auto'>Dental Records</h2>
-            <Form className='w-50 mx-auto'>
-                <Row className="d-flex flex-column align-items-center">
-                    <Row>
-                        <Col className='d-flex align-items-center w-25'>
-                            <p className='me-2'>From:</p>
-                            <Form.Control
-                                className='my-1 border'
-                                type="date"
-                                value={startDate}
-                                onChange={(e) => setStartDate(e.target.value)}
-                            />
-                        </Col>
-                        <Col className='d-flex align-items-center'>
-                            <p className='me-2'>To:</p>
-                            <Form.Control
-                                className='my-1'
-                                type="date"
-                                value={endDate}
-                                onChange={(e) => setEndDate(e.target.value)}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className='d-flex justify-content-center g-1 mb-2'>
-                        <Col xs="auto">
-                            <Button className='btn-sm' variant="primary" onClick={handleFilter}>
-                                Filter
-                            </Button>
-                        </Col>
-                        <Col xs="auto">
-                            <Button className='btn-sm' variant="secondary" onClick={handleClearFilter}>
-                                Clear
-                            </Button>
-                        </Col>
-                    </Row>
+            <Container className="printable" ref={componentRef} style={{ width: '100%', fontFamily: 'Courier New, monospace' }}>
+                <Row>
+                    <Col className='text-center'>
+                        <h2 className='text-primary fw-bold mt-4 className="fw-bold"'>Smile Care Dental Clinic</h2>
+                        <p className="fw-bold">San Bartolome St. Brgy. 4</p>
+                        <p className="fw-bold">Catbalogan City, Samar</p>
+                        <p className="fw-bold">Contact #: 09175025468</p>
+                    </Col>
                 </Row>
-            </Form>
-            <Container className="printable" ref={componentRef} style={{ width: '100%' }}>
                 <Row style={{ height: "500px", width: "100%", overflow: "scroll" }}>
 
                     <Table striped bordered>
@@ -105,7 +76,48 @@ const AppointmentManagement = () => {
                     </Table>
                 </Row>
             </Container >
-            <Button className='btn btn-sm mb-4' variant="success" onClick={handlePrint}>Print Record</Button>
+            <div className='d-flex justify-content-between align-items-center'>
+                <div>
+                    <h6>Filter records:</h6>
+                    <Form>
+                        <Row className="d-flex flex-column align-items-center">
+                            <Row>
+                                <Col className='d-flex align-items-center w-25'>
+                                    <p className='me-2'>From:</p>
+                                    <Form.Control
+                                        className='my-1 border'
+                                        type="date"
+                                        value={startDate}
+                                        onChange={(e) => setStartDate(e.target.value)}
+                                    />
+                                </Col>
+                                <Col className='d-flex align-items-center'>
+                                    <p className='me-2'>To:</p>
+                                    <Form.Control
+                                        className='my-1'
+                                        type="date"
+                                        value={endDate}
+                                        onChange={(e) => setEndDate(e.target.value)}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className='d-flex justify-content-center g-1 mb-2'>
+                                <Col xs="auto">
+                                    <Button className='btn-sm' variant="primary" onClick={handleFilter}>
+                                        Filter
+                                    </Button>
+                                </Col>
+                                <Col xs="auto">
+                                    <Button className='btn-sm' variant="secondary" onClick={handleClearFilter}>
+                                        Clear
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Row>
+                    </Form>
+                </div>
+                <Button className='btn btn-sm me-5' variant="success" onClick={handlePrint}>Print Record</Button>
+            </div>
         </>
     );
 };

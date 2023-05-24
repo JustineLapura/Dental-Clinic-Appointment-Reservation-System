@@ -15,7 +15,6 @@ function AppointmentLayout() {
             <Nav className="ml-auto">
               <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="." end className={`nav-link ${darkMode ? "text-white" : null}`}>Dashboard</NavLink>
               <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="account" className={`nav-link ${darkMode ? "text-white" : null}`}>Account</NavLink>
-              <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="records" className={`nav-link ${darkMode ? "text-white" : null}`}>Records</NavLink>
               <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="profile" className={`nav-link ${darkMode ? "text-white" : null}`}>Profile</NavLink>
             </Nav>
         </Container>

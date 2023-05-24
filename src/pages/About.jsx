@@ -64,9 +64,10 @@ const About = () => {
             </GoogleMap>
           </LoadScript>
           <p className="mt-3">
+            San Bartolome St, Brgy. 4 <br/>
             Catbalogan City <br />
-            Philippines, CA 94111 <br />
-            Phone: (555) 555-5555
+            Philippines <br />
+            Phone: 09175025468
           </p>
         </Col>
       </Row>

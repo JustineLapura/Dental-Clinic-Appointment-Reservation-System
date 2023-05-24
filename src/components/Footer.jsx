@@ -8,19 +8,19 @@ const Footer = () => {
       <Container fluid>
         <Row className='d-flex align-items-center'>
           <Col className='my-3' md={6} lg={3}>
-            <p>&copy; 2023  Private  Dental  Clinic. All Rights Reserved.</p>
+            <p>&copy; 2023  Smile Care Dental  Clinic. All Rights Reserved.</p>
           </Col>
           <Col className='my-3' md={6} lg={3}>
             <h2>Location</h2>
-            <p>123 Main Street</p>
-            <p>Suite 100</p>
-            <p>City, State ZIP</p>
+            <p>San. Bartolome Street</p>
+            <p>Barangay 4</p>
+            <p>Catbalogan City, Samar</p>
           </Col>
           <Col className='my-3' md={6} lg={3}>
             <h2>Contact Us</h2>
-            <p>Phone: (123) 456-7890</p>
-            <p>Email: info@privatedentalclinic.com</p>
-            <p>Hours: Monday - Friday, 8am - 5pm</p>
+            <p>Phone: 09175025468</p>
+            <p>Email: SmileCareDentalClinic@gmail.com</p>
+            <p>Hours: Monday - Saturday, 8am - 5pm</p>
           </Col>
           <Col className='my-3' md={6} lg={3}>
             <h2>Follow Us</h2>

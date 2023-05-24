@@ -2,12 +2,23 @@ import React, { useContext } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import ServicesContext from '../ServicesContext';
 import Dentist from ".././images/Dentist.gif"
 import dentalChair from ".././images/dentalChair.gif"
 import AppointmentContext from '../AppointmentContext';
 import pointFinger from ".././images/pointFinger.gif"
 
+
+const mapContainerStyle = {
+    height: "400px",
+    width: "100%",
+};
+
+const center = {
+    lat: 37.7749,
+    lng: -122.4194,
+};
 
 function Home() {
     const { services } = useContext(ServicesContext)
@@ -52,8 +63,8 @@ function Home() {
                             <Button className="btn-primary fw-bold" onClick={() => navigate("/about")}>Learn More</Button>
                         </Col>
                         <Col md={5} className='d-flex justify-content-center align-items-center'>
-                                <img className="rounded-circle" width={250} src={Dentist} alt="Dentist" />
-                                <img className="rounded" width={250} src={dentalChair} alt="Dentist" />
+                            <img className="rounded-circle" width={250} src={Dentist} alt="Dentist" />
+                            <img className="rounded" width={250} src={dentalChair} alt="Dentist" />
                         </Col>
                     </Row>
                 </Container>
@@ -79,7 +90,32 @@ function Home() {
                     </div>
                 </div>
             </main>
-            <Container>
+            <Row className='mb-5'>
+                <div>
+                    <h2 className="text-primary mb-3">Visit Us</h2>
+                    <p className="lead mb-4">
+                        We are conveniently located in the heart of San Bartolome St., Brgy 4 Catbalogan City. Please
+                        feel free to contact us to schedule an appointment or to ask any
+                        questions you may have.
+                    </p>
+                </div>
+                <Col>
+                    <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+                        <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={14}>
+                            <Marker position={center} />
+                        </GoogleMap>
+                    </LoadScript>
+                </Col>
+                <Col>
+                    <p className="mt-3">
+                        San Bartolome St, Brgy. 4 <br />
+                        Catbalogan City <br />
+                        Philippines <br />
+                        Phone: 09175025468
+                    </p>
+                </Col>
+            </Row>
+            <Container className='mt-5'>
                 <Row className="justify-content-center">
                     <Col md={8}>
                         <h1>Welcome to Our Private Dental Clinic</h1>
@@ -96,6 +132,7 @@ function Home() {
                     </Col>
                 </Row>
             </Container>
+
 
         </div>
     );

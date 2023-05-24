@@ -28,8 +28,6 @@ import { UsersProvider } from './UsersContext';
 import { VerifcationCodeProvider } from './VerifictionCodeContext';
 import AppointmentManagement from './AdminPages/AppointmentManagement';
 import DentalRecordDetails from './AdminPages/DentalRecordDetails';
-import UserDentalRecords from './AppointmentPages/UserDentalRecord';
-import UserRecordDetails from './AppointmentPages/UserRecordDetails';
 import VerificationCodePage from './pages/VerifictaionCodePage';
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -40,8 +38,6 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route index element={<Appointment />} loader={appointmentsLoader} />
         <Route path='account' element={<AccountPage />} loader={async () => await authRequired()} />
         <Route path='profile' element={<Profile />} loader={async () => await authRequired()} />
-        <Route path='records' element={<UserDentalRecords />} loader={async () => await authRequired()} />
-        <Route path='records/:id' element={<UserRecordDetails />} loader={async () => await authRequired()} />
       </Route>
       <Route path="/services" element={<Services />} />
       <Route path="/about" element={<About />} />
