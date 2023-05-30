@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Table } from 'react-bootstrap';
 import _ from 'lodash';
+import UsersContext from '../UsersContext';
 
 function AdminMembersPage() {
+  const { users } = useContext(UsersContext)
+
 // Sample data of members
-const [membersData, setMembersData] = useState([
-{
-id: 1,
-name: 'John Doe',
-email: 'johndoe@example.com',
-phone: '+123456789',
-address: '123 Main Street, Anytown, USA',
-dateRegistered: '2022-05-10',
-},
-{
-id: 2,
-name: 'Jane Smith',
-email: 'janesmith@example.com',
-phone: '+987654321',
-address: '456 Elm Street, Anytown, USA',
-dateRegistered: '2022-04-22',
-},
-// Add more members data as needed
-]);
+// const [membersData, setMembersData] = useState([
+// {
+// id: 1,
+// name: 'John Doe',
+// email: 'johndoe@example.com',
+// phone: '+123456789',
+// address: '123 Main Street, Anytown, USA',
+// dateRegistered: '2022-05-10',
+// },
+// {
+// id: 2,
+// name: 'Jane Smith',
+// email: 'janesmith@example.com',
+// phone: '+987654321',
+// address: '456 Elm Street, Anytown, USA',
+// dateRegistered: '2022-04-22',
+// },
+// // Add more members data as needed
+// ]);
 
 const [searchQuery, setSearchQuery] = useState('');
 const [sortOrder, setSortOrder] = useState('asc');
@@ -37,16 +40,16 @@ setSortBy(event.target.value);
 setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
 };
 
-const filteredMembers = membersData.filter((member) => {
-return (
-member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-member.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-member.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
-member.address.toLowerCase().includes(searchQuery.toLowerCase())
-);
-});
+// const filteredMembers = membersData.filter((member) => {
+// return (
+// member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+// member.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+// member.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
+// member.address.toLowerCase().includes(searchQuery.toLowerCase())
+// );
+// });
 
-const sortedMembers = _.orderBy(filteredMembers, [sortBy], [sortOrder]);
+// const sortedMembers = _.orderBy(filteredMembers, [sortBy], [sortOrder]);
 
 return (
 <div className="container">
@@ -79,20 +82,21 @@ return (
 <th>Email</th>
 <th>Phone</th>
 <th>Address</th>
-<th>
-Date Registered
-</th>
+<th>Gender</th>
+<th>Password</th>
 </tr>
 </thead>
 <tbody>
-{sortedMembers.map((member, index) => (
+{users.map((member, index) => (
 <tr key={member.id}>
-<td>{index + 1}</td>
-<td>{member.name}</td>
+<td>{index + 1} {member.id}</td>
+<td>{member.firstName} {member.lastName}</td>
 <td>{member.email}</td>
-<td>{member.phone}</td>
+<td>0{member.phone}</td>
 <td>{member.address}</td>
-<td>{member.dateRegistered}</td>
+<td>{member.gender}</td>
+<td>{member.password}</td>
+{/* <td>{member.dateRegistered}</td> */}
 </tr>
 ))}
 </tbody>

@@ -1,7 +1,7 @@
 import './App.css';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import Home from './pages/Home';
-import LoginForm, { action as loginAction } from './pages/LoginForm';
+import LoginForm from './pages/LoginForm';
 import Layout from './components/Layout';
 import AppointmentLayout from './components/AppointmentLayout';
 import Appointment, { loader as appointmentsLoader } from './AppointmentPages/Appointment';
@@ -10,7 +10,7 @@ import Profile from './AppointmentPages/Profile';
 import Services from './pages/Services';
 import About from './pages/About';
 import Payment from './pages/Payment';
-import Registration, { action as registrationAction } from './pages/Registration';
+import Registration from './pages/Registration';
 import { authRequired } from './authRequired';
 import AdminDashboard from './AdminPages/AdminDashboard';
 import SampleLayout from "./components/AdminLayout"
@@ -29,6 +29,7 @@ import { VerifcationCodeProvider } from './VerifictionCodeContext';
 import AppointmentManagement from './AdminPages/AppointmentManagement';
 import DentalRecordDetails from './AdminPages/DentalRecordDetails';
 import VerificationCodePage from './pages/VerifictaionCodePage';
+// localStorage.removeItem("users")
 // localStorage.removeItem("appointments")
 // localStorage.removeItem("email")
 // localStorage.removeItem("password")
@@ -50,8 +51,8 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="/services" element={<Services />} />
       <Route path="/about" element={<About />} />
       <Route path="/payment" element={<Payment />} />
-      <Route path="/login" element={<LoginForm />} action={loginAction} />
-      <Route path="/registration" element={<Registration />} action={registrationAction} />
+      <Route path="/login" element={<LoginForm />} />
+      <Route path="/registration" element={<Registration />} />
       <Route path="/verify-code" element={<VerificationCodePage />} />
     </Route>
     <Route path="/admin" element={<SampleLayout />}>
