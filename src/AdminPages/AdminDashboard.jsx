@@ -22,7 +22,8 @@ const AdminDashboard = () => {
     setDate,
     setIsInvalidDate,
     setTime,
-    setIsInvalidTime
+    setIsInvalidTime,
+    handleCancelAppointment
   } = useContext(AppointmentContext)
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [dateRange, setDateRange] = useState({ startDate: '', endDate: '' });
@@ -33,135 +34,135 @@ const AdminDashboard = () => {
 
   const appointmentToReschedule = appointments.filter(appointment => appointment.id === currentAppointmentId)
 
-  const {schedule} = useContext(TimeScheduleContext)
+  const { schedule } = useContext(TimeScheduleContext)
 
-    const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
-    const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
-    const tuesday = schedule.find(sched => sched.day.toLowerCase() === "tuesday"); // Find the schedule for Tuesday
-    const wednesday = schedule.find(sched => sched.day.toLowerCase() === "wednesday"); // Find the schedule for Wednesday
-    const thursday = schedule.find(sched => sched.day.toLowerCase() === "thursday"); // Find the schedule for Thursday
-    const friday = schedule.find(sched => sched.day.toLowerCase() === "friday"); // Find the schedule for Friday
-    const saturday = schedule.find(sched => sched.day.toLowerCase() === "saturday"); // Find the schedule for Saturday
-  
-    const isSunday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 0; // 0 corresponds to Sunday
-    };
-  
-    const isMonday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 1; // 1 corresponds to Monday
-    };
-  
-    const isTuesday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 2; // 2 corresponds to Tuesday
-    };
-  
-    const isWednesday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 3; // 3 corresponds to Wednesday
-    };
-  
-    const isThursday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 4; // 4 corresponds to Thursday
-    };
-  
-    const isFriday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 5; // 5 corresponds to Friday
-    };
-  
-    const isSaturday = (date) => {
-      const day = new Date(date).getDay();
-      return day === 6; // 6 corresponds to Saturday
-    };
-  
-    const validateDate = (date) => {
-      const currentDate = new Date().toISOString().split('T')[0]; // Get the current date
-      const isSundayValid = !sunday || !sunday.startTime || !sunday.endTime; // Check if Sunday schedule is valid
-      const isMondayValid = !monday || !monday.startTime || !monday.endTime; // Check if Monday schedule is valid
-      const isTuesdayValid = !tuesday || !tuesday.startTime || !tuesday.endTime; // Check if Tuesday schedule is valid
-      const isWednesdayValid = !wednesday || !wednesday.startTime || !wednesday.endTime; // Check if Wednesday schedule is valid
-      const isThursdayValid = !thursday || !thursday.startTime || !thursday.endTime; // Check if Thursday schedule is valid
-      const isFridayValid = !friday || !friday.startTime || !friday.endTime; // Check if Friday schedule is valid
-      const isSaturdayValid = !saturday || !saturday.startTime || !saturday.endTime; // Check if Saturday schedule is valid
-      return date < currentDate
-        || (isSunday(date) && isSundayValid)
-        || (isMonday(date) && isMondayValid)
-        || (isTuesday(date) && isTuesdayValid)
-        || (isWednesday(date) && isWednesdayValid)
-        || (isThursday(date) && isThursdayValid)
-        || (isFriday(date) && isFridayValid)
-        || (isSaturday(date) && isSaturdayValid)
-        ;
-    };
-  
-    const handleDateChange = (e) => {
-      const selectedDate = e.target.value;
-      if (validateDate(selectedDate)) {
-        // Handle invalid date
-        setIsInvalidDate(true)
-        setIsInvalidTime(false)
-        setTime("")
-      } else {
-        setDate(selectedDate);
-        setIsInvalidDate(false)
-        setIsInvalidTime(false)
-        setTime("")
-      }
-    };
+  const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
+  const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
+  const tuesday = schedule.find(sched => sched.day.toLowerCase() === "tuesday"); // Find the schedule for Tuesday
+  const wednesday = schedule.find(sched => sched.day.toLowerCase() === "wednesday"); // Find the schedule for Wednesday
+  const thursday = schedule.find(sched => sched.day.toLowerCase() === "thursday"); // Find the schedule for Thursday
+  const friday = schedule.find(sched => sched.day.toLowerCase() === "friday"); // Find the schedule for Friday
+  const saturday = schedule.find(sched => sched.day.toLowerCase() === "saturday"); // Find the schedule for Saturday
 
-    const handleTimeChange = (e) => {
-      const selectedTime = e.target.value;
-      const isValidTime = validateTime(selectedTime, date);
-      
-      setTime(selectedTime);
-      setIsInvalidTime(!isValidTime);
-    };
-    
-    const validateTime = (timeString, date) => {
-      const selectedTime = new Date(`2000-01-01T${timeString}`);
-      const day = new Date(date).getDay();
-    
-      let scheduleForDay;
-      switch (day) {
-        case 0:
-          scheduleForDay = sunday;
-          break;
-        case 1:
-          scheduleForDay = monday;
-          break;
-        case 2:
-          scheduleForDay = tuesday;
-          break;
-        case 3:
-          scheduleForDay = wednesday;
-          break;
-        case 4:
-          scheduleForDay = thursday;
-          break;
-        case 5:
-          scheduleForDay = friday;
-          break;
-        case 6:
-          scheduleForDay = saturday;
-          break;
-        default:
-          return false;
-      }
-    
-      if (!scheduleForDay || !scheduleForDay.startTime || !scheduleForDay.endTime) {
-        // No schedule available for the selected day
+  const isSunday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 0; // 0 corresponds to Sunday
+  };
+
+  const isMonday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 1; // 1 corresponds to Monday
+  };
+
+  const isTuesday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 2; // 2 corresponds to Tuesday
+  };
+
+  const isWednesday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 3; // 3 corresponds to Wednesday
+  };
+
+  const isThursday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 4; // 4 corresponds to Thursday
+  };
+
+  const isFriday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 5; // 5 corresponds to Friday
+  };
+
+  const isSaturday = (date) => {
+    const day = new Date(date).getDay();
+    return day === 6; // 6 corresponds to Saturday
+  };
+
+  const validateDate = (date) => {
+    const currentDate = new Date().toISOString().split('T')[0]; // Get the current date
+    const isSundayValid = !sunday || !sunday.startTime || !sunday.endTime; // Check if Sunday schedule is valid
+    const isMondayValid = !monday || !monday.startTime || !monday.endTime; // Check if Monday schedule is valid
+    const isTuesdayValid = !tuesday || !tuesday.startTime || !tuesday.endTime; // Check if Tuesday schedule is valid
+    const isWednesdayValid = !wednesday || !wednesday.startTime || !wednesday.endTime; // Check if Wednesday schedule is valid
+    const isThursdayValid = !thursday || !thursday.startTime || !thursday.endTime; // Check if Thursday schedule is valid
+    const isFridayValid = !friday || !friday.startTime || !friday.endTime; // Check if Friday schedule is valid
+    const isSaturdayValid = !saturday || !saturday.startTime || !saturday.endTime; // Check if Saturday schedule is valid
+    return date < currentDate
+      || (isSunday(date) && isSundayValid)
+      || (isMonday(date) && isMondayValid)
+      || (isTuesday(date) && isTuesdayValid)
+      || (isWednesday(date) && isWednesdayValid)
+      || (isThursday(date) && isThursdayValid)
+      || (isFriday(date) && isFridayValid)
+      || (isSaturday(date) && isSaturdayValid)
+      ;
+  };
+
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    if (validateDate(selectedDate)) {
+      // Handle invalid date
+      setIsInvalidDate(true)
+      setIsInvalidTime(false)
+      setTime("")
+    } else {
+      setDate(selectedDate);
+      setIsInvalidDate(false)
+      setIsInvalidTime(false)
+      setTime("")
+    }
+  };
+
+  const handleTimeChange = (e) => {
+    const selectedTime = e.target.value;
+    const isValidTime = validateTime(selectedTime, date);
+
+    setTime(selectedTime);
+    setIsInvalidTime(!isValidTime);
+  };
+
+  const validateTime = (timeString, date) => {
+    const selectedTime = new Date(`2000-01-01T${timeString}`);
+    const day = new Date(date).getDay();
+
+    let scheduleForDay;
+    switch (day) {
+      case 0:
+        scheduleForDay = sunday;
+        break;
+      case 1:
+        scheduleForDay = monday;
+        break;
+      case 2:
+        scheduleForDay = tuesday;
+        break;
+      case 3:
+        scheduleForDay = wednesday;
+        break;
+      case 4:
+        scheduleForDay = thursday;
+        break;
+      case 5:
+        scheduleForDay = friday;
+        break;
+      case 6:
+        scheduleForDay = saturday;
+        break;
+      default:
         return false;
-      }
-    
-      const startTime = new Date(`2000-01-01T${scheduleForDay.startTime}`);
-      const endTime = new Date(`2000-01-01T${scheduleForDay.endTime}`);
-    
-      return selectedTime >= startTime && selectedTime <= endTime;
-    };
+    }
+
+    if (!scheduleForDay || !scheduleForDay.startTime || !scheduleForDay.endTime) {
+      // No schedule available for the selected day
+      return false;
+    }
+
+    const startTime = new Date(`2000-01-01T${scheduleForDay.startTime}`);
+    const endTime = new Date(`2000-01-01T${scheduleForDay.endTime}`);
+
+    return selectedTime >= startTime && selectedTime <= endTime;
+  };
 
   const handleViewAppointment = (id) => {
     const appointment = appointments.find((appointment) => appointment.id === id);
@@ -200,7 +201,7 @@ const AdminDashboard = () => {
 
   const handleConfirmAppointment = (id, date, time) => {
     const recipientPhone = `+63${localStorage.getItem("phone")}`
-    const firstName = localStorage.getItem("firstName") 
+    const firstName = localStorage.getItem("firstName")
     const updatedAppointments = appointments.map((appointment) => {
       if (appointment.id === id) {
         return { ...appointment, status: 'Confirmed' };
@@ -209,23 +210,23 @@ const AdminDashboard = () => {
     });
     setAppointments(updatedAppointments);
     handleModalClose();
-  
+
     // Call the Send Message API to send an SMS confirmation to the recipient's phone number
-    const apiKey = '00cefdfff63ae19d0d9ae05987e705e91eecfbf8';
+    const apiKey = '5d0c777c56b50a96a270e2ed009a65aa66327cc5';
     const message = `Hi ${firstName}, Your appointment on ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${selectedAppointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} has been confirmed.
     
     from: Smile Care Dental Clinic`;
-    const device = 427; // ID of the device used for sending
+    const device = 428; // ID of the device used for sending
     const sim = 1; // Sim slot number for sending message
     const priority = 1; // Send the message as priority
     const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
-  
+
     fetch(url)
       .then(response => response.json())
       .then(data => console.log(data))
       .catch(error => console.error(error));
   };
-  
+
 
   const handleModalClose = () => {
     setShowModal(false);
@@ -247,7 +248,7 @@ const AdminDashboard = () => {
     return background
   }
 
- const appointmentModalBtns = (selected) => {
+  const appointmentModalBtns = (selected) => {
     let btnElements
     if (selected && selected.status.toLowerCase() === "pending") {
       btnElements =
@@ -348,9 +349,13 @@ const AdminDashboard = () => {
                     <td className={statusBackground(appointment)}>{appointment.status}</td>
                     <td>
                       {appointment.isCompleted ? <h6 className='text-primary'>Completed</h6> :
-                       <Button className='btn-sm' variant="info" onClick={() => handleViewAppointment(appointment.id)}>
-                        View
-                      </Button>}
+                        <>
+                          <Button className="btn-sm mx-2" variant='danger' onClick={() => handleCancelAppointment(appointment.id)}>Cancel</Button>
+                          <Button className='btn-sm' variant="info" onClick={() => handleViewAppointment(appointment.id)}>
+                            View
+                          </Button>
+                        </>
+                      }
                     </td>
                   </tr>
                 )

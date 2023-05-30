@@ -23,7 +23,7 @@ export async function action({ request }) {
     localStorage.setItem("address", address)
     localStorage.setItem("gender", gender)
     console.log(email, password, passwordConfirm)
-    return redirect("/verify-code")
+    return redirect("/appointments")
   }
   return "Passwords do not match..Please try again"
 }
@@ -112,7 +112,7 @@ const Registration = () => {
             <Button className="mx-1" variant="danger" onClick={() => navigate("/login")} >
               Back
             </Button>
-            <Button className="mx-1" variant="primary" type="submit" onClick={generateCode} >
+            <Button className="mx-1" variant="primary" type="submit" >
               Register
             </Button>
           </RegisterForm>

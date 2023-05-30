@@ -6,7 +6,7 @@ import { VerifcationCodeContext } from '../VerifictionCodeContext';
 function VerificationCodePage() {
     const navigate = useNavigate()
     const [verifyCode, setVerifyCode] = useState("")
-    const { code } = useContext(VerifcationCodeContext)
+    const { code, generateCode } = useContext(VerifcationCodeContext)
 
     const handleVerifyCode = (e) => {
         e.preventDefault()

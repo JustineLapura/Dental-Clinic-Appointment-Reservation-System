@@ -29,14 +29,14 @@ import { VerifcationCodeProvider } from './VerifictionCodeContext';
 import AppointmentManagement from './AdminPages/AppointmentManagement';
 import DentalRecordDetails from './AdminPages/DentalRecordDetails';
 import VerificationCodePage from './pages/VerifictaionCodePage';
-localStorage.removeItem("appointments")
-localStorage.removeItem("email")
-localStorage.removeItem("password")
-localStorage.removeItem("firstName")
-localStorage.removeItem("lastName")
-localStorage.removeItem("phone")
-localStorage.removeItem("address")
-localStorage.removeItem("gender")
+// localStorage.removeItem("appointments")
+// localStorage.removeItem("email")
+// localStorage.removeItem("password")
+// localStorage.removeItem("firstName")
+// localStorage.removeItem("lastName")
+// localStorage.removeItem("phone")
+// localStorage.removeItem("address")
+// localStorage.removeItem("gender")
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>

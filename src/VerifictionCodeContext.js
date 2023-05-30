@@ -6,7 +6,7 @@ export const VerifcationCodeProvider = ({ children }) => {
     const recipientPhone = `+63${localStorage.getItem("phone")}`
     const [code, setCode] = useState(null)
 
-    const generateCode = () => {
+    const generateCode = (e) => {
         const codeGenerated = Math.floor(Math.random() * 999999)
         setCode(codeGenerated)
 
