@@ -43,20 +43,6 @@ export const AppointmentProvider = ({ children }) => {
     setIsInvalidTime(false)
   };
 
-  const handleBookAppointment = (e) => {
-    e.preventDefault()
-    const newAppointment = { id: nanoid(), name: `${firstName} ${lastName}`, date, time, status: 'Pending', service, isCompleted: false };
-    if (date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
-      setAppointments([newAppointment, ...appointments]);
-      handleCloseModal();
-      setErrorMessage(null)
-      setShowSuccessModal(true)
-    } else {
-      setErrorMessage("Please fill the form correctly!")
-    }
-
-  };
-
   const handleDeleteAppointment = (id) => {
     setAppointments(oldAppointments => oldAppointments.filter(appointment => appointment.id !== id))
   }
@@ -172,7 +158,6 @@ export const AppointmentProvider = ({ children }) => {
         currentAppointmentId,
         setCurrentAppointmentId,
         handleCloseModal,
-        handleBookAppointment,
         handleCancelAppointment,
         handleReschedule,
         handleEditAppointment,
@@ -185,7 +170,8 @@ export const AppointmentProvider = ({ children }) => {
         isInvalidTime,
         setIsInvalidDate,
         setIsInvalidTime,
-        handleServiceChange
+        handleServiceChange,
+        setErrorMessage
       }
     }>
       {children}

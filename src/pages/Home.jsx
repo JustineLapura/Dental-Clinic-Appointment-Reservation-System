@@ -31,6 +31,7 @@ function Home() {
     function logout() {
         localStorage.removeItem("isLoggedin")
         localStorage.removeItem("phone")
+        localStorage.removeItem('selectedUser')
         navigate("/login")
     }
 

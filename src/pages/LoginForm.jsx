@@ -7,7 +7,7 @@ import 'animate.css';
 export default function LoginForm() {
     // const formData = useActionData()
     const navigate = useNavigate();
-    const { users } = useContext(UsersContext)
+    const { users, setSelectedUser } = useContext(UsersContext)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("")
@@ -20,6 +20,7 @@ export default function LoginForm() {
 
         if (user) {
             localStorage.setItem("isLoggedin", true);
+            setSelectedUser(user)
             return navigate("/appointments");
         } else {
             setErrorMessage("You have entered wrong account.")

@@ -9,6 +9,11 @@ export const UsersProvider = ({ children }) => {
         return storedUsers ? JSON.parse(storedUsers) : [];
     });
 
+    const [selectedUser, setSelectedUser] = useState(() => {
+        const storedSelectedUser = localStorage.getItem("selectedUser");
+        return storedSelectedUser ? JSON.parse(storedSelectedUser) : null;
+    });
+
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [phone, setPhone] = useState("");
@@ -23,6 +28,11 @@ export const UsersProvider = ({ children }) => {
         localStorage.setItem("users", JSON.stringify(users));
     }, [users]);
 
+
+    useEffect(() => {
+        localStorage.setItem("selectedUser", JSON.stringify(selectedUser));
+    }, [selectedUser]);
+
     const navigateToAppointments = () => {
         // Implement your custom navigation logic here
         // For example:
@@ -31,7 +41,7 @@ export const UsersProvider = ({ children }) => {
 
     const isEmailDuplicate = (email) => {
         return users.some((user) => user.email === email);
-      };
+    };
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -39,7 +49,7 @@ export const UsersProvider = ({ children }) => {
         if (isEmailDuplicate(email)) {
             setErrorMessage("Email already exists. Please choose a different email.");
             return;
-          }
+        }
 
         if (
             firstName &&
@@ -65,14 +75,6 @@ export const UsersProvider = ({ children }) => {
 
             setUsers([...users, newUser]);
             navigateToAppointments();
-
-            localStorage.setItem("email", email);
-            localStorage.setItem("password", password);
-            localStorage.setItem("firstName", firstName);
-            localStorage.setItem("lastName", lastName);
-            localStorage.setItem("phone", phone);
-            localStorage.setItem("address", address);
-            localStorage.setItem("gender", gender);
 
             setErrorMessage("");
         } else if (
@@ -115,6 +117,8 @@ export const UsersProvider = ({ children }) => {
                 errorMessage,
                 setErrorMessage,
                 handleFormSubmit,
+                selectedUser,
+                setSelectedUser
             }}
         >
             {children}

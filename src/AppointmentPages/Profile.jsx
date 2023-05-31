@@ -1,15 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
+import UsersContext from '../UsersContext'
 
 const Profile = () => {
     const [showEditModal, setShowEditModal] = useState(false)
-    const [firstName, setFirstName] = useState(localStorage.getItem('firstName'))
-    const [lastName, setLastName] = useState(localStorage.getItem('lastName'))
-    const [email, setEmail] = useState(localStorage.getItem('email'))
-    const [phone, setPhone] = useState(localStorage.getItem('phone'))
-    const [address, setAddress] = useState(localStorage.getItem('address'))
-    const [gender, setGender] = useState(localStorage.getItem('gender'))
-    const [province, setProvince] = useState(localStorage.getItem('province'))
+    const {selectedUser} = useContext(UsersContext)
 
     const containerStyle = {
         background: 'linear-gradient(to bottom, #1b2735 0%, #090a0f 100%)',
@@ -54,13 +49,7 @@ const Profile = () => {
     }
 
     const handleSave = () => {
-        localStorage.setItem('firstName', firstName)
-        localStorage.setItem('lastName', lastName)
-        localStorage.setItem('email', email)
-        localStorage.setItem('phone', phone)
-        localStorage.setItem('address', address)
-        localStorage.setItem('gender', gender)
-        localStorage.setItem('province', province)
+        // selectedUser.
         setShowEditModal(false)
     }
 
@@ -74,27 +63,27 @@ const Profile = () => {
                     <Col md={10} className='mx-auto'>
                         <div>
                             <div style={labelStyle}>First Name:</div>
-                            <div style={valueStyle}>{firstName}</div>
+                            <div style={valueStyle}>{selectedUser.firstName}</div>
                         </div>
                         <div>
                             <div style={labelStyle}>Last Name:</div>
-                            <div style={valueStyle}>{lastName}</div>
+                            <div style={valueStyle}>{selectedUser.lastName}</div>
                         </div>
                         <div>
                             <div style={labelStyle}>Gender:</div>
-                            <div style={valueStyle}>{gender}</div>
+                            <div style={valueStyle}>{selectedUser.gender}</div>
                         </div>
                         <div>
                             <div style={labelStyle}>Email:</div>
-                            <div style={valueStyle}>{email}</div>
+                            <div style={valueStyle}>{selectedUser.email}</div>
                         </div>
                         <div>
                             <div style={labelStyle}>Phone:</div>
-                            <div style={valueStyle}>+63{phone}</div>
+                            <div style={valueStyle}>+63{selectedUser.phone}</div>
                         </div>
                         <div>
                             <div style={labelStyle}>Address:</div>
-                            <div style={valueStyle}>{address}</div>
+                            <div style={valueStyle}>{selectedUser.address}</div>
                         </div>
                     </Col>
                 </Row>
@@ -107,31 +96,27 @@ const Profile = () => {
                 <Modal.Body>
                     <div className="form-group">
                         <label htmlFor="firstName">First Name:</label>
-                        <input type="text" className="form-control" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                        <input type="text" className="form-control" id="firstName" value={selectedUser.firstName}  />
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastName">Last Name:</label>
-                        <input type="text" className="form-control" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                        <input type="text" className="form-control" id="lastName" value={selectedUser.lastName}  />
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email:</label>
-                        <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="email" className="form-control" id="email" value={selectedUser.email}  />
                     </div>
                     <div className="form-group">
                         <label htmlFor="phone">Phone:</label>
-                        <input type="tel" className="form-control" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                        <input type="tel" className="form-control" id="phone" value={selectedUser.phone}  />
                     </div>
                     <div className="form-group">
                         <label htmlFor="address">Address:</label>
-                        <input type="text" className="form-control" id="address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                        <input type="text" className="form-control" id="address" value={selectedUser.address} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="city">City:</label>
-                        <input type="text" className="form-control" id="gender" value={gender} onChange={(e) => setGender(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="province">Province:</label>
-                        <input type="text" className="form-control" id="province" value={province} onChange={(e) => setProvince(e.target.value)} />
+                        <input type="text" className="form-control" id="gender" value={selectedUser.gender} />
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

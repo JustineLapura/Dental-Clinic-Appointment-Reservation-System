@@ -7,9 +7,11 @@ import { useOutletContext, useNavigate } from 'react-router-dom';
 import ServicesContext from ".././ServicesContext";
 import AppointmentContext from '../AppointmentContext';
 import TimeScheduleContext from '../TimeScheduleContext';
+import UsersContext from '../UsersContext';
 import SuccessModal from '../components/SuccessModal';
 import "animate.css";
 import attention from ".././images/attention.gif";
+import { nanoid } from 'nanoid';
 
 export async function loader() {
   return await authRequired()
@@ -17,7 +19,8 @@ export async function loader() {
 }
 
 function Appontment() {
-  const firstName = localStorage.getItem("firstName")
+  const {selectedUser} = useContext(UsersContext)
+  console.log(selectedUser)
   const navigate = useNavigate()
   const darkMode = useOutletContext()
   const { services } = useContext(ServicesContext)
@@ -25,7 +28,6 @@ function Appontment() {
     date,
     time,
     service,
-    handleBookAppointment,
     errorMessage,
     handleCloseModal,
     showSuccessModal,
@@ -35,10 +37,28 @@ function Appontment() {
     setDate,
     setIsInvalidDate,
     setTime,
-    setIsInvalidTime
+    setIsInvalidTime,
+    setErrorMessage,
+    setShowSuccessModal,
+    appointments,
+    setAppointments
   } = useContext(AppointmentContext)
 
   const { schedule } = useContext(TimeScheduleContext)
+
+  const handleBookAppointment = (e) => {
+    e.preventDefault()
+    const newAppointment = { userId: selectedUser.id, id: nanoid(), name: `${selectedUser.firstName} ${selectedUser.lastName}`, date, time, status: 'Pending', service, isCompleted: false, phone: `+63${selectedUser.phone}` };
+    if (date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
+      setAppointments([newAppointment, ...appointments]);
+      handleCloseModal();
+      setErrorMessage(null)
+      setShowSuccessModal(true)
+    } else {
+      setErrorMessage("Please fill the form correctly!")
+    }
+
+  };
 
   const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
   const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
@@ -215,7 +235,7 @@ function Appontment() {
               </Table>
             </Col>
             <Col xs={12} md={4} lg={6} className='text-center'>
-              <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {firstName}!..</h5>
+              {selectedUser && <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {selectedUser.firstName} {selectedUser.password} !..</h5>}
               <h3 className='my-3 text-primary animate__animated animate__pulse animate__delay-2s animate__infinite animate__slow'>Book your appointment now.</h3>
               <Form className='mx-auto border rounded bg-light'>
                 <Form.Group className='position-relative w-50 mx-auto px-3' controlId="date">
@@ -247,7 +267,7 @@ function Appontment() {
                     })}
                   </Form.Control>
                 </Form.Group>
-                {errorMessage && <h6 className="mx-auto mt-2">{errorMessage}</h6>}
+                {errorMessage && <h6 className="mx-auto mt-2 text-danger">{errorMessage}</h6>}
                 <div xs={12} className='py-3'>
                   <Button className='btn-sm fw-bold' variant="danger" type="submit" onClick={handleBookAppointment}>Submit Appointment</Button>
                 </div>

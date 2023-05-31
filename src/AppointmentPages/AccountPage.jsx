@@ -7,11 +7,15 @@ import SuccessModal from "../components/SuccessModal";
 import ShowBookAppointmentModal from "../components/ShowBookAppointmentModal";
 import RescheduleModal from "../components/RescheduleModal";
 import TimeScheduleContext from "../TimeScheduleContext"
+import UsersContext from "../UsersContext";
 
 
 const AccountPage = () => {
-  const firstName = localStorage.getItem("firstName").toLowerCase()
-  const lastName = localStorage.getItem("lastName").toLowerCase()
+  // const firstName = localStorage.getItem("firstName").toLowerCase()
+  // const lastName = localStorage.getItem("lastName").toLowerCase()
+  const { selectedUser } = useContext(UsersContext)
+  const firstName = selectedUser ? selectedUser.firstName : "";
+  const lastName = selectedUser ? selectedUser.lastName : "";
   const { services } = useContext(ServicesContext)
   const {
     showModal,
@@ -27,7 +31,6 @@ const AccountPage = () => {
     setAppointments,
     currentAppointmentId,
     handleCloseModal,
-    handleBookAppointment,
     handleCancelAppointment,
     handleReschedule,
     handleEditAppointment,
@@ -38,7 +41,9 @@ const AccountPage = () => {
     isInvalidTime,
     setIsInvalidDate,
     setIsInvalidTime,
-    handleServiceChange
+    handleServiceChange,
+    setErrorMessage,
+    setShowSuccessModal
   } = useContext(AppointmentContext)
 
   const darkMode = useOutletContext();
@@ -53,6 +58,20 @@ const AccountPage = () => {
   }
 
   const { schedule } = useContext(TimeScheduleContext)
+
+  const handleBookAppointment = (e) => {
+    e.preventDefault()
+    const newAppointment = { userId: selectedUser.id, id: selectedUser.id, name: `${selectedUser.firstName} ${selectedUser.lastName}`, date, time, status: 'Pending', service, isCompleted: false, phone: `+63${selectedUser.phone}` };
+    if (date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
+      setAppointments([newAppointment, ...appointments]);
+      handleCloseModal();
+      setErrorMessage(null)
+      setShowSuccessModal(true)
+    } else {
+      setErrorMessage("Please fill the form correctly!")
+    }
+
+  };
 
   const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
   const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
@@ -229,8 +248,8 @@ const AccountPage = () => {
       return <Button className="btn btn-sm m-1" variant="secondary" onClick={() => handleDeleteAppointment(id)}>Remove</Button>
     }
   }
-
-  const displayedUserAppointments = appointments.filter(appointment => appointment.name.toLowerCase() === `${firstName} ${lastName}`)
+  
+  const displayedUserAppointments = appointments.filter(appointment => appointment.userId === selectedUser.id)
   const appointmentToReschedule = appointments.filter(appointment => appointment.id === currentAppointmentId)
 
   return (

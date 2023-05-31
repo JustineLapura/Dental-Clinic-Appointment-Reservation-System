@@ -2,9 +2,11 @@ import React, { useState, useContext } from 'react';
 import { Table, Button, Form, Row, Col, Modal, Alert } from 'react-bootstrap';
 import AppointmentContext from ".././AppointmentContext"
 import TimeScheduleContext from ".././TimeScheduleContext"
+import UsersContext from '../UsersContext';
 import RescheduleModal from '../components/RescheduleModal';
 
 const AdminDashboard = () => {
+  const {selectedUser} = useContext(UsersContext)
   const {
     appointments,
     setAppointments,
@@ -335,6 +337,7 @@ const AdminDashboard = () => {
                 <th>Date</th>
                 <th>Time</th>
                 <th>Status</th>
+                <th>Phone</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -347,6 +350,7 @@ const AdminDashboard = () => {
                     <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
                     <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                     <td className={statusBackground(appointment)}>{appointment.status}</td>
+                    <td>{appointment.phone}</td>
                     <td>
                       {appointment.isCompleted ? <h6 className='text-primary'>Completed</h6> :
                         <>
