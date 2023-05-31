@@ -78,7 +78,7 @@ function ShowBookAppointmentModal(
             </Form.Group>
           </Form>
         </Modal.Body>
-        {errorMessage && <h6 className="text-danger mx-auto mb-2">{errorMessage}</h6>}
+        {errorMessage && <h6 className="text-danger mx-auto mb-2 px-3 text-center">{errorMessage}</h6>}
         <Modal.Footer>
           <Button className='btn-sm' variant="secondary" onClick={handleCloseModal}>
             Close

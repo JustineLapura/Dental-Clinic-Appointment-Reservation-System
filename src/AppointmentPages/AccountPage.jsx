@@ -8,14 +8,11 @@ import ShowBookAppointmentModal from "../components/ShowBookAppointmentModal";
 import RescheduleModal from "../components/RescheduleModal";
 import TimeScheduleContext from "../TimeScheduleContext"
 import UsersContext from "../UsersContext";
+import { nanoid } from "nanoid";
 
 
 const AccountPage = () => {
-  // const firstName = localStorage.getItem("firstName").toLowerCase()
-  // const lastName = localStorage.getItem("lastName").toLowerCase()
   const { selectedUser } = useContext(UsersContext)
-  const firstName = selectedUser ? selectedUser.firstName : "";
-  const lastName = selectedUser ? selectedUser.lastName : "";
   const { services } = useContext(ServicesContext)
   const {
     showModal,
@@ -55,23 +52,40 @@ const AccountPage = () => {
     setDate("")
     setTime("")
     setService("")
+    setErrorMessage("")
   }
 
   const { schedule } = useContext(TimeScheduleContext)
 
   const handleBookAppointment = (e) => {
-    e.preventDefault()
-    const newAppointment = { userId: selectedUser.id, id: selectedUser.id, name: `${selectedUser.firstName} ${selectedUser.lastName}`, date, time, status: 'Pending', service, isCompleted: false, phone: `+63${selectedUser.phone}` };
-    if (date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
+    e.preventDefault();
+  
+    // Check if the selected date and time already exist in the appointments array
+    const isDuplicate = appointments.some((appointment) => appointment.date === date && appointment.time === time);
+  
+    if (isDuplicate) {
+      setErrorMessage("This appointment date and time is already taken. Please choose a different date and time.");
+    } else if (date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
+      const newAppointment = {
+        userId: selectedUser.id,
+        id: nanoid(),
+        name: `${selectedUser.firstName} ${selectedUser.lastName}`,
+        date,
+        time,
+        status: "Pending",
+        service,
+        isCompleted: false,
+        phone: `+63${selectedUser.phone}`,
+      };
       setAppointments([newAppointment, ...appointments]);
       handleCloseModal();
-      setErrorMessage(null)
-      setShowSuccessModal(true)
+      setErrorMessage(null);
+      setShowSuccessModal(true);
     } else {
-      setErrorMessage("Please fill the form correctly!")
+      setErrorMessage("Please fill the form correctly!");
     }
-
   };
+  
 
   const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
   const monday = schedule.find(sched => sched.day.toLowerCase() === "monday"); // Find the schedule for Monday
