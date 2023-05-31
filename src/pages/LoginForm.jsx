@@ -2,15 +2,17 @@ import React, { useState, useContext } from 'react';
 import { Container, Button, Form as BootstrapForm } from 'react-bootstrap';
 import { useNavigate, Form, useActionData, redirect } from "react-router-dom";
 import UsersContext from '../UsersContext';
+import AppointmentContext from '../AppointmentContext';
 import 'animate.css';
 
 export default function LoginForm() {
     // const formData = useActionData()
+    const { setDate, setTime, setService, setErrorMessage } = useContext(AppointmentContext)
     const navigate = useNavigate();
     const { users, setSelectedUser } = useContext(UsersContext)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("")
+    const [errorPrompt, setErrorPrompt] = useState("")
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -21,9 +23,13 @@ export default function LoginForm() {
         if (user) {
             localStorage.setItem("isLoggedin", true);
             setSelectedUser(user)
+            setDate("")
+            setTime("")
+            setService("")
+            setErrorMessage("")
             return navigate("/appointments");
         } else {
-            setErrorMessage("You have entered wrong account.")
+            setErrorPrompt("You have entered wrong account.")
         }
     };
 
@@ -31,7 +37,7 @@ export default function LoginForm() {
         <Container className="my-5">
             <h1 className="text-center">Dental Login</h1>
             <h6 className='text-danger'>You must log in.</h6>
-            {errorMessage && <p className='text-danger'>{errorMessage}</p>}
+            {errorPrompt && <p className='text-danger'>{errorPrompt}</p>}
             <form style={{ width: "300px" }} className="my-4 mx-auto" onSubmit={handleFormSubmit}>
                 <BootstrapForm.Group
                     controlId="formBasicEmail"

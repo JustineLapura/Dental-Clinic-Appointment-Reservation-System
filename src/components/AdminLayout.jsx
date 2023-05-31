@@ -10,7 +10,7 @@ function AdminLayout() {
     <div>
       <AdminHeader/>
       <div className='row'>
-        <div className="col-md-2">
+        <div className="col-md-2 h-100">
           <Sidebar />
         </div >
         <div className='col-md-10'>

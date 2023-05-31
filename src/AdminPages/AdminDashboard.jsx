@@ -318,6 +318,7 @@ const AdminDashboard = () => {
               >
                 <option value="All">All</option>
                 <option value="Confirmed">Confirmed</option>
+                <option value="Rescheduled">Rescheduled</option>
                 <option value="Cancelled">Cancelled</option>
                 <option value="Pending">Pending</option>
               </Form.Select>

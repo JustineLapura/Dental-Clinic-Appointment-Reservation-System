@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react'
+import { Link } from "react-router-dom"
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
 import UsersContext from '../UsersContext'
 
 const Profile = () => {
     const [showEditModal, setShowEditModal] = useState(false)
-    const {selectedUser} = useContext(UsersContext)
+    const { selectedUser } = useContext(UsersContext)
 
     const containerStyle = {
         background: 'linear-gradient(to bottom, #1b2735 0%, #090a0f 100%)',
@@ -57,10 +58,12 @@ const Profile = () => {
         <Container fluid style={containerStyle}>
             <div style={overlayStyle}></div>
             <div>
-                <Button variant='danger' className='mb-2'>Back</Button>
+                <Link to=".." relative="path">
+                    <Button variant='danger' className='mb-2'>Back</Button>
+                </Link>
                 <h1 style={headingStyle}>Profile Page</h1>
-                <Row>
-                    <Col md={10} className='mx-auto'>
+                <Row className='d-flex px-5 justify-content-between align-items-center'>
+                    <Col md={6} className='mx-auto'>
                         <div>
                             <div style={labelStyle}>First Name:</div>
                             <div style={valueStyle}>{selectedUser.firstName}</div>
@@ -73,6 +76,8 @@ const Profile = () => {
                             <div style={labelStyle}>Gender:</div>
                             <div style={valueStyle}>{selectedUser.gender}</div>
                         </div>
+                    </Col>
+                    <Col md={6}>
                         <div>
                             <div style={labelStyle}>Email:</div>
                             <div style={valueStyle}>{selectedUser.email}</div>
@@ -96,19 +101,19 @@ const Profile = () => {
                 <Modal.Body>
                     <div className="form-group">
                         <label htmlFor="firstName">First Name:</label>
-                        <input type="text" className="form-control" id="firstName" value={selectedUser.firstName}  />
+                        <input type="text" className="form-control" id="firstName" value={selectedUser.firstName} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastName">Last Name:</label>
-                        <input type="text" className="form-control" id="lastName" value={selectedUser.lastName}  />
+                        <input type="text" className="form-control" id="lastName" value={selectedUser.lastName} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email:</label>
-                        <input type="email" className="form-control" id="email" value={selectedUser.email}  />
+                        <input type="email" className="form-control" id="email" value={selectedUser.email} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="phone">Phone:</label>
-                        <input type="tel" className="form-control" id="phone" value={selectedUser.phone}  />
+                        <input type="tel" className="form-control" id="phone" value={selectedUser.phone} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="address">Address:</label>

@@ -89,7 +89,7 @@ return (
 <tbody>
 {users.map((member, index) => (
 <tr key={member.id}>
-<td>{index + 1} {member.id}</td>
+<td>{index + 1}</td>
 <td>{member.firstName} {member.lastName}</td>
 <td>{member.email}</td>
 <td>0{member.phone}</td>
