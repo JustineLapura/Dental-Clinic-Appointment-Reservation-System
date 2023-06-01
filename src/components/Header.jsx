@@ -2,8 +2,6 @@ import React from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavLink } from "react-router-dom";
-import { RiMoonClearFill, RiSunFill } from 'react-icons/ri';
-import logo from ".././images/logo.gif"
 
 function Header() {
   const [darkMode, setDarkMode] = React.useState(false)
@@ -37,15 +35,10 @@ function Header() {
                 to="/about"
                 className={`nav-link ${darkMode ? "text-light" : null}`}
               >About Us</NavLink>
-              <NavLink
-                style={({ isActive }) => isActive ? activeStyle : null}
-                to="/payment"
-                className={`nav-link ${darkMode ? "text-light" : null}`}
-              >Payment</NavLink>
             </Nav>
           </Navbar.Collapse>
+          <Button className='btn-danger'>Logout</Button>
         </Container>
-        <Button className='btn-danger'>Logout</Button>
       </Navbar>
 
     </>

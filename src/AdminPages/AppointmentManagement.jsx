@@ -83,7 +83,7 @@ const AppointmentManagement = () => {
                 </Row>
                 <Row style={{ height: "500px", width: "100%", overflow: "scroll" }}>
 
-                    <Table striped bordered>
+                    <Table bordered>
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -119,7 +119,7 @@ const AppointmentManagement = () => {
                                     <Col className='d-flex align-items-center w-25'>
                                         <p className='me-2'>From:</p>
                                         <Form.Control
-                                            className='my-1 border'
+                                            className='my-1 bg-light border'
                                             type="date"
                                             value={startDate}
                                             onChange={(e) => setStartDate(e.target.value)}
@@ -128,7 +128,7 @@ const AppointmentManagement = () => {
                                     <Col className='d-flex align-items-center'>
                                         <p className='me-2'>To:</p>
                                         <Form.Control
-                                            className='my-1'
+                                            className='my-1 bg-light'
                                             type="date"
                                             value={endDate}
                                             onChange={(e) => setEndDate(e.target.value)}
@@ -142,7 +142,7 @@ const AppointmentManagement = () => {
                         <Form.Group controlId="formBasicservice">
                             <Form.Label>Service:</Form.Label>
                             <Form.Select
-                                className='text-center w-75 mx-auto'
+                                className='text-center w-75 mx-auto bg-light'
                                 value={service}
                                 onChange={(e) => setService(e.target.value)}
                             >

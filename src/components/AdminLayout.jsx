@@ -1,26 +1,27 @@
-import React from 'react'
-import { Outlet } from "react-router-dom"
-import AdminHeader from './AdminHeader'
-import Footer from './Footer'
-import Sidebar from './AdminSideBar'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import AdminHeader from './AdminHeader';
+import Footer from './Footer';
+import Sidebar from './AdminSideBar';
 
 function AdminLayout() {
-
   return (
-    <div>
-      <AdminHeader/>
-      <div className='row'>
-        <div className="col-md-2 h-100">
+    <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
+      <div className='position-fixed h-100 w-100 mb-5'>
+        <AdminHeader />
+      </div>
+      <div className="flex-grow-1 d-flex py-3">
+        <div className="col-md-2 position-fixed h-100 my-5 py-3">
           <Sidebar />
-        </div >
-        <div className='col-md-10'>
+        </div>
+        <div className="col-md-10 offset-md-2 overflow-auto my-5 py-5">
           <Outlet />
         </div>
       </div>
-      <Footer/>
     </div>
-  )
+  );
 }
 
-export default AdminLayout
+export default AdminLayout;
+
 

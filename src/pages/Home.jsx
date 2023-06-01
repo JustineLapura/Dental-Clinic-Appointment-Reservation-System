@@ -47,7 +47,7 @@ function Home() {
     }
 
     return (
-        <div className={`pb-5 ${darkMode ? "bg-dark text-light" : null}`}>
+        <div className="py-5">
             <header>
                 <Container className='position-relative d-flex flex-column justify-content-start align-items-end pb-5 pe-4'>
                     {isLoggedin && <Button className="btn-danger" onClick={logout}>Logout</Button>}
@@ -109,7 +109,7 @@ function Home() {
                     </LoadScript>
                 </Col>
                 <Col>
-                    <p className="mt-3">
+                    <p className="mt-3 lead display-6">
                         San Bartolome St, Brgy. 4 <br />
                         Catbalogan City <br />
                         Philippines <br />
@@ -130,7 +130,6 @@ function Home() {
                         <p>
                             If you have any questions or would like to schedule an appointment, please do not hesitate to contact us. We look forward to hearing from you soon!
                         </p>
-                        <Button className='fw-bold' onClick={() => navigate("/admin")}>Contact Us</Button>
                     </Col>
                 </Row>
             </Container>

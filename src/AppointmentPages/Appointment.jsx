@@ -222,8 +222,8 @@ function Appontment() {
       <section className="appointment-section">
         <Container fluid>
           <Row className='d-flex justify-content-evenly align-items-center'>
-            <Col xs={12} md={4} lg={3} className='mt-5 '>
-              <Table bordered className='bg-light fs-5 border-black'>
+            <Col xs={12} md={4} lg={3} className='mt-5'>
+              <Table bordered className='bg-light fs-5 border-black border-2'>
                 <thead>
                   <tr>
                     <th>Day</th>

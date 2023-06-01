@@ -45,11 +45,6 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li className="nav-item my-2">
-              <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="user-accounts" className="nav-link">
-                <BsFillPersonFill size={20} /> User Accounts
-              </NavLink>
-            </li>
-            <li className="nav-item my-2">
               <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="members" className="nav-link">
                 <BsFillPersonFill size={20} /> Members
               </NavLink>

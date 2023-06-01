@@ -10,7 +10,7 @@ function AppointmentLayout() {
       }
   return (
     <div>
-      <Navbar bg={darkMode ? "dark" : "light"} >
+      <Navbar bg={"light"} className='border-bottom shadow' >
         <Container>
             <Nav className="ml-auto">
               <NavLink style={({ isActive }) => isActive ? activeStyle : null} to="." end className={`nav-link ${darkMode ? "text-white" : null}`}>Dashboard</NavLink>

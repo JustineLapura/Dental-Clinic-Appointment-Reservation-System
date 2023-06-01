@@ -35,7 +35,7 @@ export default function LoginForm() {
 
     return (
         <Container className="my-5">
-            <h1 className="text-center">Dental Login</h1>
+            <h1 className="text-center text-primary fw-bold">Dental User Login</h1>
             <h6 className='text-danger'>You must log in.</h6>
             {errorPrompt && <p className='text-danger'>{errorPrompt}</p>}
             <form style={{ width: "300px" }} className="my-4 mx-auto" onSubmit={handleFormSubmit}>

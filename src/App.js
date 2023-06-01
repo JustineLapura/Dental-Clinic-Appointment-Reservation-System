@@ -12,6 +12,8 @@ import About from './pages/About';
 import Payment from './pages/Payment';
 import Registration from './pages/Registration';
 import { authRequired } from './authRequired';
+import { AdminAuthRequired } from './AdminAuthRequired';
+import AdminLogin from "./AdminPages/AdminLogin"
 import AdminDashboard from './AdminPages/AdminDashboard';
 import SampleLayout from "./components/AdminLayout"
 import AdminSchedule from './AdminPages/AdminSchedule';
@@ -38,6 +40,7 @@ import VerificationCodePage from './pages/VerifictaionCodePage';
 // localStorage.removeItem("phone")
 // localStorage.removeItem("address")
 // localStorage.removeItem("gender")
+// localStorage.removeItem("isAdminLoggedin")
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -67,6 +70,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="members" element={<AdminMembers />} />
       <Route path="note" element={<Note />} />
     </Route>
+    <Route path='admin-login' element={<AdminLogin />}/>
   </Route>
 ))
 
