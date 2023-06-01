@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid';
 function VerificationCodePage() {
     const navigate = useNavigate()
     const [verifyCode, setVerifyCode] = useState("")
+    const [errorPrompt, setErrorPrompt] = useState(false)
     const { code, generateCode } = useContext(VerifcationCodeContext)
     const { users, setUsers, gender, email, password, firstName, lastName, phone, address, setErrorMessage } = useContext(UsersContext)
 
@@ -31,9 +32,10 @@ function VerificationCodePage() {
 
             setUsers([...users, newUser]);
             setErrorMessage("");
+            setErrorPrompt(true)
             navigate("/appointments")
         } else {
-            alert("Wrong verification code.")
+            setErrorPrompt(true)
         }
     }
 
@@ -70,6 +72,7 @@ function VerificationCodePage() {
                                 />
                             </div>
                         </Form.Group>
+                        {errorPrompt && <h6 className='text-danger mt-3'>wrong verification code..</h6>}
                         <br />
                         <Button variant="success" type="submit" className="btn-block" onClick={handleVerifyCode}>
                             Verify
