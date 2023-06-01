@@ -5,7 +5,6 @@ export const AppointmentContext = createContext()
 const { pathname } = window.location;
 export const AppointmentProvider = ({ children }) => {
   const firstName = localStorage.getItem("firstName")
-  const lastName = localStorage.getItem("lastName")
   const recipientPhone = `+63${localStorage.getItem("phone")}`
   const [showModal, setShowModal] = useState(false)
   const [showReschedModal, setShowReschedModal] = useState(false)
@@ -83,7 +82,7 @@ export const AppointmentProvider = ({ children }) => {
     setService("");
   }
 
-  const handleEditAppointment = (id) => {
+  const handleEditAppointment = (id, phone, name) => {
     if (date && time && (!service || pathname !== "/admin") && !isInvalidDate && !isInvalidTime) {
       setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
         return prevAppointment.id === currentAppointmentId
@@ -105,12 +104,12 @@ export const AppointmentProvider = ({ children }) => {
 
     if (pathname === "/admin") {
       // Call the Send Message API to send an SMS confirmation to the recipient's phone number
-      const apiKey = '5d0c777c56b50a96a270e2ed009a65aa66327cc5';
-      const message = `Hi ${firstName}, Your appointment has been rescheduled to ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}.`;
-      const device = 428; // ID of the device used for sending
+      const apiKey = 'a00ee88e9f2f8cb84f4f00a626659600ae8bfead';
+      const message = `Hi ${name}, Your appointment has been rescheduled to ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}.`;
+      const device = 446; // ID of the device used for sending
       const sim = 1; // Sim slot number for sending message
       const priority = 1; // Send the message as priority
-      const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
+      const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${phone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
 
       fetch(url)
         .then(response => response.json())

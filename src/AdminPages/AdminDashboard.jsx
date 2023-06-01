@@ -1,12 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Table, Button, Form, Row, Col, Modal, Alert } from 'react-bootstrap';
+import { Navigation, useNavigation } from 'react-router-dom';
 import AppointmentContext from ".././AppointmentContext"
 import TimeScheduleContext from ".././TimeScheduleContext"
-import UsersContext from '../UsersContext';
 import RescheduleModal from '../components/RescheduleModal';
 
 const AdminDashboard = () => {
-  const {selectedUser} = useContext(UsersContext)
   const {
     appointments,
     setAppointments,
@@ -196,14 +195,15 @@ const AdminDashboard = () => {
     setFilteredAppointments(filtered);
   };
 
-  const handleAdminReschedule = () => {
+  const handleAdminReschedule = (selectedAppointment) => {
     handleModalClose()
     setShowReschedModal(true)
+    setSelectedAppointment(selectedAppointment)
   }
 
-  const handleConfirmAppointment = (id, date, time) => {
-    const recipientPhone = `+63${localStorage.getItem("phone")}`
-    const firstName = localStorage.getItem("firstName")
+  const handleConfirmAppointment = (id, date, time, phone, name) => {
+    const recipientPhone = phone
+    const recipientName = name
     const updatedAppointments = appointments.map((appointment) => {
       if (appointment.id === id) {
         return { ...appointment, status: 'Confirmed' };
@@ -214,11 +214,11 @@ const AdminDashboard = () => {
     handleModalClose();
 
     // Call the Send Message API to send an SMS confirmation to the recipient's phone number
-    const apiKey = '5d0c777c56b50a96a270e2ed009a65aa66327cc5';
-    const message = `Hi ${firstName}, Your appointment on ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${selectedAppointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} has been confirmed.
+    const apiKey = 'a00ee88e9f2f8cb84f4f00a626659600ae8bfead';
+    const message = `Hi ${recipientName}, Your appointment on ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} has been confirmed.
     
     from: Smile Care Dental Clinic`;
-    const device = 428; // ID of the device used for sending
+    const device = 446; // ID of the device used for sending
     const sim = 1; // Sim slot number for sending message
     const priority = 1; // Send the message as priority
     const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
@@ -258,7 +258,7 @@ const AdminDashboard = () => {
           <Button className="btn-sm" variant="primary" onClick={handleAdminReschedule}>
             Reschedule
           </Button>
-          <Button className="btn-sm" variant="success" onClick={() => handleConfirmAppointment(selected.id, selected.date, selected.time)}>
+          <Button className="btn-sm" variant="success" onClick={() => handleConfirmAppointment(selected.id, selected.date, selected.time, selected.phone, selected.name)}>
             Confirm
           </Button>
         </>

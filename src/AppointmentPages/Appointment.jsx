@@ -66,7 +66,11 @@ function Appontment() {
         isCompleted: false,
         phone: `+63${selectedUser.phone}`,
       };
-      setAppointments([newAppointment, ...appointments]);
+  
+      // Update only the new appointment status to "Pending" and keep the existing appointments' statuses intact
+      const updatedAppointments = [newAppointment, ...appointments];
+  
+      setAppointments(updatedAppointments);
       handleCloseModal();
       setErrorMessage(null);
       setShowSuccessModal(true);
@@ -74,6 +78,7 @@ function Appontment() {
       setErrorMessage("Please fill the form correctly!");
     }
   };
+  
   
 
   const sunday = schedule.find(sched => sched.day.toLowerCase() === "sunday"); // Find the schedule for Sunday
