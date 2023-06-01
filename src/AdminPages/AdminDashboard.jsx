@@ -206,7 +206,7 @@ const AdminDashboard = () => {
     const recipientName = name
     const updatedAppointments = appointments.map((appointment) => {
       if (appointment.id === id) {
-        return { ...appointment, status: 'Confirmed' };
+        return { ...selectedAppointment, status: 'Confirmed' };
       }
       return appointment;
     });
@@ -252,7 +252,7 @@ const AdminDashboard = () => {
 
   const appointmentModalBtns = (selected) => {
     let btnElements
-    if (selected && selected.status.toLowerCase() === "pending") {
+    if (selected && selected.status && selected.status.toLowerCase() === "pending") {
       btnElements =
         <>
           <Button className="btn-sm" variant="primary" onClick={handleAdminReschedule}>
@@ -262,7 +262,7 @@ const AdminDashboard = () => {
             Confirm
           </Button>
         </>
-    } else if (selected && (selected.status.toLowerCase() === "confirmed" || selected.status.toLowerCase() === "rescheduled")) {
+    } else if (selected && selected.status && (selected.status.toLowerCase() === "confirmed" || selected.status.toLowerCase() === "rescheduled")) {
       btnElements =
         <>
           <Button className="btn-sm" variant="primary" onClick={handleAdminReschedule}>

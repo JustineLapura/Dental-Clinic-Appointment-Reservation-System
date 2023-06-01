@@ -56,7 +56,7 @@ export const AppointmentProvider = ({ children }) => {
         const sim = 1; // Sim slot number for sending message
         const priority = 1; // Send the message as priority
         const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
-  
+
         fetch(url)
           .then(response => response.json())
           .then(data => console.log(data))
@@ -82,8 +82,16 @@ export const AppointmentProvider = ({ children }) => {
     setService("");
   }
 
-  const handleEditAppointment = (id, phone, name) => {
+  const handleEditAppointment = (id, name) => {
+    // Check if the appointment is valid and all necessary fields are filled
     if (date && time && (!service || pathname !== "/admin") && !isInvalidDate && !isInvalidTime) {
+      // Check for duplicate appointments
+      const isDuplicate = appointments.some(appointment => appointment.id !== currentAppointmentId && appointment.date === date && appointment.time === time);
+      if (isDuplicate) {
+        setErrorMessage("Another appointment already exists at the selected date and time. Please choose a different date or time.");
+        return; // Stop execution if there is a duplicate appointment
+      }
+
       setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
         return prevAppointment.id === currentAppointmentId
           ? {
@@ -105,11 +113,11 @@ export const AppointmentProvider = ({ children }) => {
     if (pathname === "/admin") {
       // Call the Send Message API to send an SMS confirmation to the recipient's phone number
       const apiKey = 'a00ee88e9f2f8cb84f4f00a626659600ae8bfead';
-      const message = `Hi ${name}, Your appointment has been rescheduled to ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}.`;
+      const message = `Hi ${firstName}, Your appointment has been rescheduled to ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}.`;
       const device = 446; // ID of the device used for sending
       const sim = 1; // Sim slot number for sending message
       const priority = 1; // Send the message as priority
-      const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${phone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
+      const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
 
       fetch(url)
         .then(response => response.json())
