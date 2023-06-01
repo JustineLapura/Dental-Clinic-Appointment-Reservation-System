@@ -56,7 +56,6 @@ function Appontment() {
       setErrorMessage("This appointment date and time is already taken. Please choose a different date and time.");
     } else if (date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
       const newAppointment = {
-        userId: selectedUser.id,
         id: nanoid(),
         name: `${selectedUser.firstName} ${selectedUser.lastName}`,
         date,

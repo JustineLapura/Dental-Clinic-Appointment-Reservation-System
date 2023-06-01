@@ -13,6 +13,7 @@ import { nanoid } from "nanoid";
 
 const AccountPage = () => {
   const { selectedUser } = useContext(UsersContext)
+  console.log(selectedUser)
   const { services } = useContext(ServicesContext)
   const {
     showModal,
@@ -67,7 +68,6 @@ const AccountPage = () => {
       setErrorMessage("This appointment date and time is already taken. Please choose a different date and time.");
     } else if (date !== "" && time !== "" && service !== "" && !isInvalidDate && !isInvalidTime) {
       const newAppointment = {
-        userId: selectedUser.id,
         id: nanoid(),
         name: `${selectedUser.firstName} ${selectedUser.lastName}`,
         date,
@@ -267,7 +267,7 @@ const AccountPage = () => {
     }
   }
   
-  const displayedUserAppointments = appointments.filter(appointment => appointment.userId === selectedUser.id)
+  const displayedUserAppointments = appointments.filter(appointment => appointment.userId === selectedUser.id || appointment.name.toLowerCase() === `${selectedUser.firstName.toLowerCase()} ${selectedUser.lastName.toLowerCase()}`)
   const appointmentToReschedule = appointments.filter(appointment => appointment.id === currentAppointmentId)
 
   return (
