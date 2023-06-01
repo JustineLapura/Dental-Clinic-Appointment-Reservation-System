@@ -25,7 +25,7 @@ export const VerifcationCodeProvider = ({ children }) => {
     }
 
     return (
-        <VerifcationCodeContext.Provider value={{ code, generateCode }}>
+        <VerifcationCodeContext.Provider value={{ code, setCode, generateCode }}>
             {children}
         </VerifcationCodeContext.Provider>
     )

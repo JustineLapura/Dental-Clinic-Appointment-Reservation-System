@@ -3,12 +3,13 @@ import { Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { VerifcationCodeContext } from "../VerifictionCodeContext";
 import UsersContext from "../UsersContext";
+import { nanoid } from "nanoid";
 
 const Registration = () => {
-  const { code, generateCode } = useContext(VerifcationCodeContext);
+  const { code, setCode } = useContext(VerifcationCodeContext);
   const navigate = useNavigate()
   const { users,
-    setUsers,
+    setSelectedUser,
     firstName,
     setFirstName,
     lastName,
@@ -26,9 +27,85 @@ const Registration = () => {
     passwordConfirm,
     setPasswordConfirm,
     errorMessage,
-    setErrorMessage,
-    handleFormSubmit } = useContext(UsersContext)
-  console.log(code);
+    setErrorMessage
+   } = useContext(UsersContext)
+  
+
+  
+
+  const generateCode = (e) => {
+    const recipientPhone = `+63${phone}`
+    const codeGenerated = Math.floor(Math.random() * 999999)
+    setCode(codeGenerated)
+
+    // Call the Send Message API to send an SMS confirmation to the recipient's phone number
+    const apiKey = 'a00ee88e9f2f8cb84f4f00a626659600ae8bfead';
+    const message = `${codeGenerated} is your Smile Care Dental Clinic verification code.`;
+    const device = 446; // ID of the device used for sending
+    const sim = 1; // Sim slot number for sending message
+    const priority = 1; // Send the message as priority
+    const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+}
+
+const isEmailDuplicate = (email) => {
+  return users.some((user) => user.email === email);
+};
+
+const handleFormSubmit = (event) => {
+  event.preventDefault();
+
+  if (isEmailDuplicate(email)) {
+      setErrorMessage("Email already exists. Please choose a different email.");
+      return;
+  }
+
+  if (
+      firstName &&
+      lastName &&
+      phone &&
+      address &&
+      gender &&
+      email &&
+      password &&
+      passwordConfirm &&
+      password === passwordConfirm
+  ) {
+    const newUser = {
+      id: nanoid(),
+      firstName,
+      lastName,
+      phone,
+      address,
+      gender,
+      email,
+      password,
+  };
+
+      setSelectedUser(newUser);
+      generateCode()
+      navigate("/verify-code")
+      setErrorMessage("");
+      console.log(code);
+  } else if (
+      !firstName ||
+      !lastName ||
+      !phone ||
+      !address ||
+      !gender ||
+      !email ||
+      !password ||
+      !passwordConfirm
+  ) {
+      setErrorMessage("Please complete the form!");
+  } else {
+      setErrorMessage("Passwords do not match. Please try again.");
+  }
+};
 
   return (
     <div className="py-5">

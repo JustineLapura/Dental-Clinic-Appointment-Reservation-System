@@ -2,16 +2,35 @@ import React, { useContext, useState } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { VerifcationCodeContext } from '../VerifictionCodeContext';
+import UsersContext from '../UsersContext';
+import { nanoid } from 'nanoid';
 
 function VerificationCodePage() {
     const navigate = useNavigate()
     const [verifyCode, setVerifyCode] = useState("")
     const { code, generateCode } = useContext(VerifcationCodeContext)
+    const { users, setUsers, gender, email, password, firstName, lastName, phone, address, setErrorMessage } = useContext(UsersContext)
+
+    console.log(code)
 
     const handleVerifyCode = (e) => {
         e.preventDefault()
         if (code == verifyCode) {
             localStorage.setItem("isLoggedin", true)
+
+            const newUser = {
+                id: nanoid(),
+                firstName,
+                lastName,
+                phone,
+                address,
+                gender,
+                email,
+                password,
+            };
+
+            setUsers([...users, newUser]);
+            setErrorMessage("");
             navigate("/appointments")
         } else {
             alert("Wrong verification code.")
