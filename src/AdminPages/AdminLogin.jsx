@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Container, Button, Form as BootstrapForm } from 'react-bootstrap';
-import { useNavigate, Form, useActionData, redirect } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import 'animate.css';
 
 export default function LoginForm() {
@@ -24,7 +24,7 @@ export default function LoginForm() {
 
     return (
         <Container fluid className="bg-secondary border d-flex justify-content-center align-items-center vh-100">
-            <div className='border bg-light rounded p-5'>
+            <div className='border bg-light rounded p-5 animate__animated animate__backInDown'>
                 <h1 className="text-center text-primary fw-bold">Dental Admin Login</h1>
                 {errorPrompt && <p className='text-danger'>{errorPrompt}</p>}
                 <form style={{ width: "300px" }} className="my-4 mx-auto" onSubmit={handleFormSubmit}>
@@ -56,9 +56,14 @@ export default function LoginForm() {
                         />
                     </BootstrapForm.Group>
 
-                    <Button variant="primary" type="submit" className="mt-2 mb-0 fw-bold">
-                        Login
-                    </Button>
+                    <div className='d-flex justify-content-center align-items-center mt-3'>
+                        <Link to=".." relative="path" className='mt-2 me-3'>
+                            <Button variant='danger'>Back</Button>
+                        </Link>
+                        <Button variant="primary" type="submit" className="mt-2 mb-0 fw-bold">
+                            Login
+                        </Button>
+                    </div>
                 </form>
             </div>
         </Container>

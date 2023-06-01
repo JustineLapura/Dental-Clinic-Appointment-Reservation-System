@@ -21,7 +21,7 @@ const Services = () => {
 
   return (
     <div className={`p-5 ${darkMode ? "bg-dark text-light" : null}`}>
-      <h1 className="text-center mb-5">Our Dental Services</h1>
+      <h1 className="text-center mb-5 fw-bold ">Our Dental Services</h1>
       <Row className="text-dark">
         {services.map(service => {
           return (

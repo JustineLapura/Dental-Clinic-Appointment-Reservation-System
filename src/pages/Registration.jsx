@@ -110,7 +110,7 @@ const handleFormSubmit = (event) => {
   return (
     <div className="py-5">
       <Row className="justify-content-md-center ">
-        <h2 className="mb-5">Dental Registration</h2>
+        <h2 className="mb-5 fw-bold text-primary">Dental Registration</h2>
         <Col xs={8} md={6} className="mx-auto">
           <form onSubmit={handleFormSubmit}>
             <Row>

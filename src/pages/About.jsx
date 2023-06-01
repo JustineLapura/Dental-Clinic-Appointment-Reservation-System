@@ -3,6 +3,7 @@ import {Row, Col, Image } from "react-bootstrap";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useOutletContext } from "react-router-dom";
 import GoodTooth from ".././images/GoodTooth.gif"
+import "animate.css";
 
 
 const mapContainerStyle = {
@@ -19,10 +20,10 @@ const About = () => {
   const darkMode = useOutletContext()
   return (
     <div className={`p-5 ${darkMode ? "bg-dark text-light" : null }`}>
-      <h1 className="text-center mb-5">About Us</h1>
+      <h1 className="text-center mb-5 fw-bold">About Us</h1>
       <Row>
         <Col lg={6} className="mb-4">
-          <Image className="rounded" src={GoodTooth} fluid />
+          <Image className="rounded animate__animated animate__backInLeft" src={GoodTooth} fluid />
         </Col>
         <Col lg={6} className="mb-4">
           <h2 className="text-primary mb-3">Who We Are</h2>

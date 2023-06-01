@@ -8,6 +8,7 @@ import Dentist from ".././images/Dentist.gif"
 import dentalChair from ".././images/dentalChair.gif"
 import AppointmentContext from '../AppointmentContext';
 import pointFinger from ".././images/pointFinger.gif"
+import 'animate.css';
 
 
 const mapContainerStyle = {
@@ -51,7 +52,7 @@ function Home() {
             <header>
                 <Container className='position-relative d-flex flex-column justify-content-start align-items-end pb-5 pe-4'>
                     {isLoggedin && <Button className="btn-danger" onClick={logout}>Logout</Button>}
-                    <Button className="btn-primary fw-bold mt-2" onClick={bookAppointment}>Book an Appointment</Button>
+                    <Button className="btn-primary fw-bold mt-2 animate__animated animate__pulse animate__infinite" onClick={bookAppointment}>Book an Appointment</Button>
                     <img className='position-absolute end-0 top-45 ' width={60} src={pointFinger} alt="" />
                 </Container>
             </header>
@@ -65,8 +66,8 @@ function Home() {
                             <Button className="btn-primary fw-bold" onClick={() => navigate("/about")}>Learn More</Button>
                         </Col>
                         <Col md={5} className='d-flex justify-content-center align-items-center'>
-                            <img className="rounded-circle" width={250} src={Dentist} alt="Dentist" />
-                            <img className="rounded" width={250} src={dentalChair} alt="Dentist" />
+                            <img className="rounded-circle animate__animated animate__backInLeft" width={250} src={Dentist} alt="Dentist" />
+                            <img className="rounded animate__animated animate__backInRight" width={250} src={dentalChair} alt="Dentist" />
                         </Col>
                     </Row>
                 </Container>
