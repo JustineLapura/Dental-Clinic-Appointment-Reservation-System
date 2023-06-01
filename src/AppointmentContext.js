@@ -48,21 +48,6 @@ export const AppointmentProvider = ({ children }) => {
 
   const handleCancelAppointment = (id) => {
     const updatedAppointments = appointments.map((appointment) => {
-      if (pathname === "/admin") {
-        // Call the Send Message API to send an SMS confirmation to the recipient's phone number
-        const apiKey = '5d0c777c56b50a96a270e2ed009a65aa66327cc5';
-        const message = `Hi ${firstName}, Your appointment has been cancelled.`;
-        const device = 428; // ID of the device used for sending
-        const sim = 1; // Sim slot number for sending message
-        const priority = 1; // Send the message as priority
-        const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
-
-        fetch(url)
-          .then(response => response.json())
-          .then(data => console.log(data))
-          .catch(error => console.error(error));
-      }
-
       if (appointment.id === id) {
         return { ...appointment, status: 'Cancelled' };
       }

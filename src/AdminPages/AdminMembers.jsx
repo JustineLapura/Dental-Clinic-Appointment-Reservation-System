@@ -83,7 +83,6 @@ return (
 <th>Phone</th>
 <th>Address</th>
 <th>Gender</th>
-<th>Password</th>
 </tr>
 </thead>
 <tbody>
@@ -95,7 +94,6 @@ return (
 <td>0{member.phone}</td>
 <td>{member.address}</td>
 <td>{member.gender}</td>
-<td>{member.password}</td>
 {/* <td>{member.dateRegistered}</td> */}
 </tr>
 ))}

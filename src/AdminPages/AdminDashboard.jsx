@@ -23,8 +23,7 @@ const AdminDashboard = () => {
     setDate,
     setIsInvalidDate,
     setTime,
-    setIsInvalidTime,
-    handleCancelAppointment
+    setIsInvalidTime
   } = useContext(AppointmentContext)
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [dateRange, setDateRange] = useState({ startDate: '', endDate: '' });
@@ -214,11 +213,11 @@ const AdminDashboard = () => {
     handleModalClose();
 
     // Call the Send Message API to send an SMS confirmation to the recipient's phone number
-    const apiKey = 'a00ee88e9f2f8cb84f4f00a626659600ae8bfead';
+    const apiKey = '1de43b88cf3465b8e7b7714f31c61aa2b7757266';
     const message = `Hi ${recipientName}, Your appointment on ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} has been confirmed.
     
-    from: Smile Care Dental Clinic`;
-    const device = 446; // ID of the device used for sending
+          - Smile Care Dental Clinic`;
+    const device = 447; // ID of the device used for sending
     const sim = 1; // Sim slot number for sending message
     const priority = 1; // Send the message as priority
     const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
@@ -355,7 +354,6 @@ const AdminDashboard = () => {
                     <td>
                       {appointment.isCompleted ? <h6 className='text-primary'>Completed</h6> :
                         <>
-                          <Button className="btn-sm mx-2" variant='danger' onClick={() => handleCancelAppointment(appointment.id)}>Cancel</Button>
                           <Button className='btn-sm' variant="info" onClick={() => handleViewAppointment(appointment.id)}>
                             View
                           </Button>

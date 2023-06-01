@@ -255,7 +255,7 @@ function Appontment() {
               </Table>
             </Col>
             <Col xs={12} md={4} lg={6} className='text-center'>
-              {selectedUser && <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {selectedUser.firstName} {selectedUser.password} !..</h5>}
+              {selectedUser && <h5 className='my-3 animate_animated animate__fadeIn'>Hi, {selectedUser.firstName} !..</h5>}
               <h3 className='my-3 text-primary animate__animated animate__pulse animate__delay-2s animate__infinite animate__slow'>Book your appointment now.</h3>
               <Form className='mx-auto border rounded bg-light'>
                 <Form.Group className='position-relative w-50 mx-auto px-3' controlId="date">

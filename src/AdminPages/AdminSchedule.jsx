@@ -1,9 +1,71 @@
+import { useContext } from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap'; // Importing necessary components from React Bootstrap
 import AppointmentContext from '../AppointmentContext';
-import { useContext } from 'react';
+import UsersContext from '../UsersContext';
+
 
 const AdminSchedule = () => {
-  const { appointments } = useContext(AppointmentContext)
+  const { appointments, setAppointments} = useContext(AppointmentContext)
+  const {selectedUser} = useContext(UsersContext)
+
+  const handleCompleted = (id) => {
+    setAppointments(prevAppointments => prevAppointments.map(prevAppointment => {
+      return prevAppointment.id === id
+        ? {
+          ...prevAppointment,
+          isCompleted: !prevAppointment.isCompleted
+        }
+        : prevAppointment
+    }))
+  }
+
+  const handleCancelAppointment = (id, appointmentToCancel) => {
+    const updatedAppointments = appointments.map((appointment) => {
+      if (appointment.id === id) {
+        // Call the Send Message API to send an SMS confirmation to the recipient's phone number
+        const apiKey = '1de43b88cf3465b8e7b7714f31c61aa2b7757266';
+        const message = `Hi ${appointmentToCancel.name}, Your appointment has been cancelled.
+        - Smile Care Dental Clinic`;
+        const device = 447; // ID of the device used for sending
+        const sim = 1; // Sim slot number for sending message
+        const priority = 1; // Send the message as priority
+        const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${appointmentToCancel.phone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
+  
+        fetch(url)
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
+  
+        return { ...appointment, status: 'Cancelled' };
+      }
+      return appointment;
+    });
+    setAppointments(updatedAppointments);
+  };
+  
+
+  // const handleCancelAppointment = (id, appointment) => {
+  //   const updatedAppointments = appointments.map((appointment) => {
+  //       // Call the Send Message API to send an SMS confirmation to the recipient's phone number
+  //       const apiKey = '5d0c777c56b50a96a270e2ed009a65aa66327cc5';
+  //       const message = `Hi ${appointment.name}, Your appointment has been cancelled.`;
+  //       const device = 446; // ID of the device used for sending
+  //       const sim = 1; // Sim slot number for sending message
+  //       const priority = 1; // Send the message as priority
+  //       const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=+63${appointment.phone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
+
+  //       fetch(url)
+  //         .then(response => response.json())
+  //         .then(data => console.log(data))
+  //         .catch(error => console.error(error));
+
+  //     if (appointment.id === id) {
+  //       return { ...appointment, status: 'Cancelled' };
+  //     }
+  //     return appointment;
+  //   });
+  //   setAppointments(updatedAppointments);
+  // };
 
   const statusBackground = (appointment) => {
     let background
@@ -33,23 +95,34 @@ const AdminSchedule = () => {
                 <th>Date</th>
                 <th>Time</th>
                 <th>Status</th>
+                <th>Phone</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {appointments.filter(appointment => !appointment.isCompleted && appointment.status.toLowerCase() === "confirmed")
-                .map(
-                  (appointment, index) => (
-                    <tr key={appointment.id}>
-                      <td>{index + 1}</td>
-                      <td>{appointment.name}</td>
-                      <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
-                      <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
-                      <td className={statusBackground(appointment)}>{appointment.status}</td>
-                      <td><Button className='btn-sm btn-danger'>Expire</Button> <Button className='btn-sm btn-primary'>Done</Button></td>
-                    </tr>
-                  )
-                )}
+              {appointments
+                .filter(appointment => !appointment.isCompleted && (appointment.status.toLowerCase() === "confirmed" || appointment.status.toLowerCase() === "cancelled"))
+                .map((appointment, index) => (
+                  <tr key={appointment.id}>
+                    <td>{index + 1}</td>
+                    <td>{appointment.name}</td>
+                    <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                    <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
+                    <td className={statusBackground(appointment)}>{appointment.status}</td>
+                    <td>{appointment.phone}</td>
+                    <td>
+                      {appointment.status.toLowerCase() !== "cancelled" ? (
+                        <>
+                          <Button className="btn-sm mx-2" variant='danger' onClick={() => handleCancelAppointment(appointment.id, appointment)}>Cancel</Button>
+                          <Button className='btn-sm btn-primary' onClick={() => handleCompleted(appointment.id)}>Done</Button>
+                        </>
+                      ) : (
+                        <h6>Expired</h6>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+
             </tbody>
           </Table>
         </Col>
