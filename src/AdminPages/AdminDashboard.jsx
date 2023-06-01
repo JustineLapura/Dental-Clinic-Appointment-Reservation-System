@@ -213,11 +213,11 @@ const AdminDashboard = () => {
     handleModalClose();
 
     // Call the Send Message API to send an SMS confirmation to the recipient's phone number
-    const apiKey = '1de43b88cf3465b8e7b7714f31c61aa2b7757266';
+    const apiKey = '344486aa522ca2bc4013ee2fdd24389606100a76';
     const message = `Hi ${recipientName}, Your appointment on ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, ${new Date(`2000-01-01T${time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} has been confirmed.
     
           - Smile Care Dental Clinic`;
-    const device = 447; // ID of the device used for sending
+    const device = 448; // ID of the device used for sending
     const sim = 1; // Sim slot number for sending message
     const priority = 1; // Send the message as priority
     const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
@@ -337,7 +337,6 @@ const AdminDashboard = () => {
                 <th>Date</th>
                 <th>Time</th>
                 <th>Status</th>
-                <th>Phone</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -350,7 +349,6 @@ const AdminDashboard = () => {
                     <td>{new Date(appointment.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
                     <td>{new Date(`2000-01-01T${appointment.time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</td>
                     <td className={statusBackground(appointment)}>{appointment.status}</td>
-                    <td>{appointment.phone}</td>
                     <td>
                       {appointment.isCompleted ? <h6 className='text-primary'>Completed</h6> :
                         <>

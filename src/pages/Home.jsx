@@ -51,7 +51,7 @@ function Home() {
         <div className="py-5">
             <header>
                 <Container className='position-relative d-flex flex-column justify-content-start align-items-end pb-5 pe-4'>
-                    {isLoggedin && <Button className="btn-danger" onClick={logout}>Logout</Button>}
+                    
                     <Button className="btn-primary fw-bold mt-2 animate__animated animate__pulse animate__infinite" onClick={bookAppointment}>Book an Appointment</Button>
                     <img className='position-absolute end-0 top-45 ' width={60} src={pointFinger} alt="" />
                 </Container>

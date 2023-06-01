@@ -39,9 +39,9 @@ const Registration = () => {
     setCode(codeGenerated)
 
     // Call the Send Message API to send an SMS confirmation to the recipient's phone number
-    const apiKey = 'a00ee88e9f2f8cb84f4f00a626659600ae8bfead';
+    const apiKey = '344486aa522ca2bc4013ee2fdd24389606100a76';
     const message = `${codeGenerated} is your Smile Care Dental Clinic verification code.`;
-    const device = 446; // ID of the device used for sending
+    const device = 448; // ID of the device used for sending
     const sim = 1; // Sim slot number for sending message
     const priority = 1; // Send the message as priority
     const url = `https://sms.teamssprogram.com/api/send?key=${apiKey}&phone=${recipientPhone}&message=${message}&device=${device}&sim=${sim}&priority=${priority}`;
