@@ -57,7 +57,7 @@ function Layout() {
           </Link>
             </Nav>
           </Navbar.Collapse>
-          <Link to="admin-login">
+          <Link style={{ textDecoration: 'none' }} to="admin-login">
             <Button variant="dark" className="btn-sm fw-bold d-none d-lg-flex">
               Log in as Admin
             </Button>
