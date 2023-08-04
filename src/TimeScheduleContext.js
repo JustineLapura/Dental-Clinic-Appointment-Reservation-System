@@ -4,14 +4,30 @@ export const TimeScheduleContext = createContext();
 
 export const TimeScheduleProvider = ({ children }) => {
   const [schedule, setSchedule] = useState(() => {
-    // Get schedule from localStorage or use default values
-    const storedSchedule = localStorage.getItem('schedule');
-    return storedSchedule ? JSON.parse(storedSchedule) : [];
+    let storedSchedule = null;
+
+    if (typeof window !== "undefined") {
+      storedSchedule = localStorage.getItem("schedule");
+    }
+
+    return storedSchedule
+      ? JSON.parse(storedSchedule)
+      : [
+          { day: "Monday", startTime: "09:00", endTime: "17:00" },
+          { day: "Tuesday", startTime: "09:00", endTime: "17:00" },
+          { day: "Wednesday", startTime: "09:00", endTime: "17:00" },
+          { day: "Thursday", startTime: "09:00", endTime: "17:00" },
+          { day: "Friday", startTime: "09:00", endTime: "17:00" },
+          { day: "Saturday", startTime: "09:00", endTime: "22:00" }
+        ];
   });
+
 
   // Save schedule to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('schedule', JSON.stringify(schedule));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("schedule", JSON.stringify(schedule));
+    }
   }, [schedule]);
 
   // Function to handle schedule updates

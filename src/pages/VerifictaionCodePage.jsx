@@ -47,8 +47,9 @@ function VerificationCodePage() {
 
     return (
         <Container className="py-5">
-            <div style={{width: "400px"}} className='d-flex justify-content-start ms-5 ps-5'>
-                <Button className='ms-5' variant={"danger"} onClick={handleBack}>Back</Button>
+            <div className='d-flex justify-content-between pb-5'>
+                <Button className='ms-2' variant={"danger"} onClick={handleBack}>Back</Button>
+                <p>Your SmileCare Code is: <span className='fw-bold text-success'>{code}</span></p>
             </div>
             <Row className="justify-content-center">
                 <Col md={6}>

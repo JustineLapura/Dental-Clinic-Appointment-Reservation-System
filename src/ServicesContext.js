@@ -19,15 +19,85 @@ export const ServiceProvider = ({ children }) => {
 
   // Define state for existing services
   const [services, setServices] = useState(() => {
-    // Get services from localStorage or use default values
-    const storedServices = localStorage.getItem("services");
-    return storedServices ? JSON.parse(storedServices) : [];
+    let storedServices = null;
+
+    if (typeof window !== 'undefined') {
+      storedServices = localStorage.getItem('services');
+    }
+
+    return storedServices
+      ? JSON.parse(storedServices)
+      : [
+        // Default services data...
+        {
+          id: "first",
+          name: "Tooth Extraction",
+          description: "The removal of teeth from the dental alveolus (socket) in the alveolar bone.",
+          price: 99
+        },
+        {
+          id: "second",
+          name: "Tooth Cleaning",
+          description: "Involves the removal of dental plaque from teeth with the intention of preventing cavities (dental caries), gingivitis, and periodontal disease.",
+          price: 150
+        },
+        {
+          id: "third",
+          name: "Dental Filling",
+          description: "A restorative material used to artificially restore the function, integrity, and morphology of missing tooth structure.",
+          price: 120
+        },
+        {
+          id: "fourth",
+          name: "Teeth Whitening",
+          description: "A cosmetic dental procedure to lighten the shade of teeth and remove stains and discoloration.",
+          price: 200
+        },
+        {
+          id: "fifth",
+          name: "Dental Crown",
+          description: "A dental restoration that completely caps or encircles a tooth, protecting it and restoring its shape, size, strength, and appearance.",
+          price: 350
+        },
+        {
+          id: "sixth",
+          name: "Root Canal Treatment",
+          description: "A procedure to save an infected or damaged tooth by removing the pulp and cleaning and sealing the inside of the tooth.",
+          price: 400
+        },
+        {
+          id: "seventh",
+          name: "Dental Implant",
+          description: "An artificial tooth root placed into your jaw to hold a replacement tooth or bridge.",
+          price: 900
+        },
+        {
+          id: "eighth",
+          name: "Orthodontic Treatment",
+          description: "The use of braces, aligners, or other devices to correct the alignment of teeth and bite.",
+          price: 2500
+        },
+        {
+          id: "ninth",
+          name: "Dental Bridge",
+          description: "A fixed dental restoration used to replace one or more missing teeth by joining artificial teeth to adjacent natural teeth.",
+          price: 600
+        },
+      ];
+      
   });
   
   // Save services to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("services", JSON.stringify(services));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('services', JSON.stringify(services));
+    }
   }, [services]);
+  
+  // Save services to localStorage whenever it changes
+  // useEffect(() => {
+  //   localStorage.setItem("services", JSON.stringify(services));
+  // }, [services]);
 
   // Define function to add a new service
   const handleAddService = () => {
