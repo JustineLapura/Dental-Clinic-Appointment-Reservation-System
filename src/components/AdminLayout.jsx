@@ -9,8 +9,8 @@ function AdminLayout() {
   return (
     <div>
       <AdminHeader/>
-      <div className='row'>
-        <div className="col-md-2 h-100">
+      <div className='row h-100'>
+        <div className="col-md-2">
           <Sidebar />
         </div >
         <div className='col-md-10'>
